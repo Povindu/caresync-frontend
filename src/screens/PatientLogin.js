@@ -13,7 +13,7 @@ const PatientLogin = ({ navigation }) => {
     });
 
     // This is for after successful go to PatientDashboard screen
-    // navigation.navigate('PatientDashboard');
+    navigation.navigate('PatientDashboard');
   };
 
   return (

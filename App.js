@@ -6,6 +6,8 @@ import ContactUs from "./src/screens/ContactUs";
 import DoctorRegister from "./src/screens/DoctorRegister";
 import PatientRegister from "./src/screens/PatientRegister";
 import PatientLogin from "./src/screens/PatientLogin";
+import PatientDashboard from "./src/screens/PatientDashboard";
+import MedicalHistory from "./src/screens/MedicalHistory";
 
 
 const navigator = createStackNavigator(
@@ -17,6 +19,8 @@ const navigator = createStackNavigator(
     DoctorRegister: DoctorRegister,
     PatientRegister: PatientRegister,
     PatientLogin: PatientLogin,
+    PatientDashboard: PatientDashboard,
+    MedicalHistory: MedicalHistory,
     
   },
   {

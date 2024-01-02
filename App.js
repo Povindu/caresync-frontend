@@ -1,20 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import HomeScreen from "./src/screens/HomeScreen";
+import DoctorLogin from "./src/screens/DoctorLoginScreen";
+import ContactUs from "./src/screens/ContactUs";
+import DoctorRegister from "./src/screens/DoctorRegister";
+import PatientRegister from "./src/screens/PatientRegister";
+import PatientLogin from "./src/screens/PatientLogin";
+import PatientDashboard from "./src/screens/PatientDashboard";
+import MedicalHistory from "./src/screens/MedicalHistory";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const navigator = createStackNavigator(
+  {
+    
+    Home: HomeScreen,
+    DoctorLogin: DoctorLogin,
+    ContactUs: ContactUs,
+    DoctorRegister: DoctorRegister,
+    PatientRegister: PatientRegister,
+    PatientLogin: PatientLogin,
+    PatientDashboard: PatientDashboard,
+    MedicalHistory: MedicalHistory,
+    
   },
-});
+  {
+    initialRouteName: "Home",
+    defaultNavigationOptions: {
+      title: "CareSync",
+    },
+  }
+);
+
+export default createAppContainer(navigator);

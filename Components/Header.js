@@ -1,7 +1,9 @@
+import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
 import { Appbar } from "react-native-paper";
 
 const TestHeader = ({ name }) => {
+  const navigation = useNavigation();
   return (
     <Appbar.Header
       style={{
@@ -10,11 +12,10 @@ const TestHeader = ({ name }) => {
         borderBottomRightRadius: 20,
       }}
     >
-      <Appbar.BackAction onPress={() => {}} color="white" size={28} />
+      <Appbar.BackAction onPress={() => navigation.goBack()} color="white" size={28} />
       <Appbar.Content
         title={name}
-        titleStyle={{ fontWeight: "bold", fontSize: 24 }}
-        style={{ alignItems: "center" }}
+        titleStyle={{ fontWeight: "bold", fontSize: 24, marginLeft:90}}
         color="white"
       />
     </Appbar.Header>

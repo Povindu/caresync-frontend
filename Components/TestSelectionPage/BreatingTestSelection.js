@@ -1,10 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { TouchableOpacity, Image, Text, View, StyleSheet } from "react-native";
 
-const BreatingTestButton = ({ onPress }) => {
+const BreatingTestButton = () => {
+  const navigation= useNavigation();
   return (
     <View style={styles.view}>
-      <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate("BreathingHome")}>
         <View style={styles.imageview}>
         <Image source={require("./../../assets/res.png")} style={styles.image} />
         </View>

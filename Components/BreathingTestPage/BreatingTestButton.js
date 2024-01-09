@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, StyleSheet , Alert } from 'react-native';
 
 const HoldButton = () => {
   const [isPressing, setIsPressing] = useState(false);
@@ -13,7 +13,26 @@ const HoldButton = () => {
     if (isPressing) {
       setIsPressing(false);
       console.log('Button released after being pressed and held!');
+      showDecisionBox();
     }
+  };
+
+  const showDecisionBox = () => {
+    Alert.alert(
+      'Save Details',
+      'Do you want to save your test result?',
+      [
+        {
+          text: 'Cancel',
+        },
+        {
+          text: 'Save',
+          onPress: () => {
+            
+          },
+        },
+      ],
+    );
   };
 
   return (
@@ -31,7 +50,7 @@ const HoldButton = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop:20,
+    paddingTop:200,
     justifyContent: 'center',
     alignItems: 'center',
   },

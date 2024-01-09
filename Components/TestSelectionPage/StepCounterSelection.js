@@ -1,10 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { TouchableOpacity, Image, Text, View, StyleSheet } from "react-native";
 
-const StepCounterButton = ({ onPress }) => {
+const StepCounterButton = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.view}>
-      <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+      <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('StepCounterHome')}>
         <Image source={require("./../../assets/foot.png")} style={styles.image} />
         <Text style={styles.text}>Step Counter</Text>
       </TouchableOpacity>

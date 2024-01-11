@@ -34,7 +34,7 @@ const PatientDashboard = ({navigation}) => {
           <Text style={styles.dashboardButtonText}>View Medical History</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.dashboardButton}>
+        <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('TestSelection')}}>
           <Image
             source={require("../../assets/DocImage.png")}
             style={styles.dashboardImage}

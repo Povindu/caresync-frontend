@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: 200,
-    marginTop: 120,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",

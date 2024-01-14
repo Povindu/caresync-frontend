@@ -1,20 +1,54 @@
-import React, { useState } from "react";
+import React, { useState , useRef } from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
+import DisplayTime from "./../Stopwatch"
+import StepCount from "./StepCount";
 
 const StepCountButton = () => {
   const [isStarted, setIsStarted] = useState(false);
 
+  const [time, setTime] = useState({ s: 0, m: 0, h: 0 });
+
+  const intervalRef = useRef(null);
+
+  var
+    updatedS = time.s,
+    updatedM = time.m,
+    updatedH = time.h;
+
   const handleButtonClick = () => {
     if (isStarted) {
+      clearInterval(intervalRef.current);
+      resetTime();
         console.log("Stoped");
     } else {
+      intervalRef.current=setInterval(run, 1000);
         console.log("Started");
     }
     setIsStarted(!isStarted);
   };
+  
+  const run = () => {
+    if (updatedS === 60) {
+      updatedS = 0;
+      updatedM++;
+    }
+    if (updatedM === 60) {
+      updatedH++;
+      updatedM = 0;
+    }
+    updatedS++;
+
+    return setTime({s: updatedS, m: updatedM, h: updatedH });
+  };
+
+  const resetTime = () => {
+    setTime({s: 0, m: 0, h: 0 });
+  };
 
   return (
     <View style={styles.container}>
+      <DisplayTime time={time}/>
+      <StepCount/>
       <TouchableOpacity
         style={[styles.button, isStarted && styles.buttonClicked]}
         onPress={handleButtonClick}
@@ -27,7 +61,6 @@ const StepCountButton = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 5,
     justifyContent: "center",
     alignItems: "center",
   },

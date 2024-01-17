@@ -2,24 +2,28 @@ import {FlatList,View} from 'react-native';
 import { LIST} from '../Data/dummy-data';
 import PatientGridTile from '../Components/PatientGridTile';
 import Search from '../Components/Search';
+import CustomHeader from '../Components/CustomHeader';
 
 
 function PatientsScreen({navigation}){
+   
     function renderCategoryItem(itemData){
         function presshandler(){
-            navigation.navigate('PatientProfile',{patientId:itemData.item.id,});
+            navigation.navigate('PatientProfileScreen',{patientId:itemData.item.id,});
 
         }
     
         return(
-        
+        <View>
+           
          
-            <PatientGridTile title={itemData.item.title} color={itemData.item.color} age={itemData.item.age} gender={itemData.item.gender} imageUrl={itemData.item.imageUrl} onPress={presshandler}/>
-         
+            <PatientGridTile id={itemData.item.id} title={itemData.item.title} color={itemData.item.color} age={itemData.item.age} gender={itemData.item.gender} imageUrl={itemData.item.imageUrl} onPress={presshandler}/>
+            </View>
         );
     }
     return(
         <View>
+         
           
         <FlatList data={LIST}
         keyExtractor={(item)=>item.id}

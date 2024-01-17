@@ -1,6 +1,6 @@
 import {Pressable,View,Text,StyleSheet,Image} from 'react-native';
 
-function PatientGridTile({title,imageUrl,gender,age,color,onPress}){
+function PatientGridTile({id,title,imageUrl,gender,age,color,blood,onPress}){
    
     return(
         <View style={[styles.gridItem ,{backgroundColor:color}]}>
@@ -24,8 +24,12 @@ function PatientGridTile({title,imageUrl,gender,age,color,onPress}){
                          <Text style={styles.age}>
                         {age}
                     </Text>
+                     
                   
                     </View>
+                    <Text style={styles.id}>
+                        {id}
+                    </Text>
                   
                 </View>
             </Pressable>
@@ -62,7 +66,7 @@ const styles= StyleSheet.create({
 
     },
     title:{
-        paddingLeft:100,
+        paddingLeft:80,
         fontWeight:'bold',
         fontSize:18,
         marginTop: -52,
@@ -73,20 +77,26 @@ const styles= StyleSheet.create({
     },
     gender:{
         marginTop:8,
-        paddingLeft:100,
+        paddingLeft:80,
         fontSize:15,
 
     },
     age:{
         marginTop:-22,
-        paddingLeft:210,
+        paddingLeft:180,
         fontSize:15,
 
     },
     image:{
-        marginTop:4,
+        marginTop:2,
         width:50,
         height:50,
+
+    },
+    id:{
+        paddingLeft:300,
+        fontSize:15,
+        marginTop:-22,
 
     }
     }

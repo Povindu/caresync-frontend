@@ -1,20 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Image } from 'react-native';
+import DatePicker from 'react-native-modern-datepicker';
+import Header from './Components/Header';
+import MedicalIncidentScreen from './Screens/MedicalIncidentScreen';
 
 export default function App() {
+  
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View>
+   
+    <Header></Header>
+    <MedicalIncidentScreen></MedicalIncidentScreen>
+    
     </View>
-  );
-}
+
+         
+     
+)}
+
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+  
+ 
+  }
+);
+
+ 
+
+
+    

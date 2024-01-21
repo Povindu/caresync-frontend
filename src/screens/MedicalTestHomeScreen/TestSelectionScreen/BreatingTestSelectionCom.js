@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: 200,
-    marginTop: 120,
+    marginTop: 100,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",

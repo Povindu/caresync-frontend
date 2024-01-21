@@ -1,5 +1,5 @@
 // import DatePicker from "react-native-datepicker";
-import { View, StyleSheet ,Text,TouchableOpacity,} from "react-native";
+import { View, StyleSheet ,Text,TouchableOpacity,SafeAreaView} from "react-native";
 import DatePicker from 'react-native-modern-datepicker';
 import React, { useState } from 'react';
 
@@ -18,6 +18,7 @@ function DatePicker(){
   
 
     return(
+      <SafeAreaView>
          <View>
         <Text style={styles.text2}>Date</Text>
         <TouchableOpacity onPress={toggleDatePicker} style={styles.calendarIcon}>
@@ -26,14 +27,13 @@ function DatePicker(){
         {showDatePicker && (
           
           <DatePicker
-            mode={'date'}
+            mode="date"
             style={styles.datePicker}
             onSelectedChange={handleDateChange}
             selected={selectedDate}
-            minimumDate={new Date()}
-            darkMode
-              primaryColor="#fff" // Customize the color as needed
-              secondaryColor="#ccc" // Customize the color as needed
+            minimumDate={new Date()
+            }
+           
           />
          
         )}
@@ -43,6 +43,7 @@ function DatePicker(){
           </Text>
         )}
         </View>
+        </SafeAreaView>
 
     )
 

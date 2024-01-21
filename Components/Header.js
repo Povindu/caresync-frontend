@@ -1,11 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, } from 'react-native';
-function Header(){
+import { StyleSheet, Text, View,SafeAreaView } from 'react-native';
+const Header = ({ text }) => {
+ 
     return(
+      <SafeAreaView>
+     
         <View style={styles.headercontainer}>
-        <Text style={styles.text}>Add Medical Incident</Text>
+        <Text style={styles.text}>{text}</Text>
         <StatusBar style="auto" />
       </View>
+      </SafeAreaView>
     )
 
 }
@@ -18,7 +22,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       borderBottomLeftRadius: 15,
       borderBottomRightRadius: 15,
-      height: 95,
+      height: 115,
       width: '100%',
   
     },

@@ -1,9 +1,19 @@
-import { View, StyleSheet ,Text,TextInput} from "react-native";
+import { View, StyleSheet ,Text,TextInput, Button, Pressable,SafeAreaView} from "react-native";
 import DatePicker from 'react-native-modern-datepicker';
+import Header from "../Components/Header";
 
 
-function MedicalIncidentScreen(){
+function MedicalIncidentScreen({navigation}){
+  function OnPressHandler(){
+    navigation.navigate('MedicalIncidentDetailScreen')
+
+  }
+  
     return(
+      <SafeAreaView>
+      <View>
+   
+   <Header text="Add Medical Incident" />
         <View style={styles.background}>
         <View style={styles.container}>
           <Text style={styles.text1}>Incident Name</Text>
@@ -19,8 +29,13 @@ function MedicalIncidentScreen(){
             placeholderTextColor="#8e8e8e"
           />
           <DatePicker></DatePicker>
+          <Pressable style={styles.btn}  onPress={OnPressHandler}>
+            <Text style={styles.txtbtn}>Next</Text></Pressable>
           </View>
           </View>
+          </View>
+          </SafeAreaView>
+
     )
 
 
@@ -93,6 +108,24 @@ const styles = StyleSheet.create({
       fontSize:16,
       
     },
+    txtbtn:{
+      color:'#FFF',
+      padding:8,
+      fontSize:16,
+      
+    },
+    btn:{
+      backgroundColor:'#00567D',
+      marginTop:20,
+      
+      alignItems: 'center',
+      borderBottomLeftRadius: 10,
+      borderBottomRightRadius: 10,
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
+
+    }
+
    
     }
   );

@@ -7,7 +7,7 @@ const StepCounterButton = () => {
   return (
     <View style={styles.view}>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('StepCounterHome')}>
-        <Image source={require("./../Images/foot.png")} style={styles.image} />
+        <Image source={require("../Images/foot.png")} style={styles.image} />
         <Text style={styles.text}>Step Counter</Text>
       </TouchableOpacity>
     </View>

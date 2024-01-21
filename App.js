@@ -1,9 +1,9 @@
-import { StatusBar } from "expo-status-bar";
+
 import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import TestSelection from "./Components/TestSelectionPage/TestSelection";
-import StepCounterHome from "./Components/StepCounterPage/StepCounterHome";
-import BreathingHome from "./Components/BreathingTestPage/BreathingHome";
+import TestSelection from "./CareSyncMedicalTest/TestSelectionPage/TestSelection"
+import StepCounterHome from "./CareSyncMedicalTest/StepCounterPage/StepCounterHome";
+import BreathingHome from "./CareSyncMedicalTest/BreathingTestPage/BreathingHome";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 

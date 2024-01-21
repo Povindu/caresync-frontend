@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import TestHeader from "../Header";
-import HoldButton from "../BreathingTestPage/BreatingTestButton";
+import HoldButton from "./BreatingTestButton";
 
 const BreathingHome=()=>{
 

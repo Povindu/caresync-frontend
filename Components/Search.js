@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity,FlatList } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { LIST } from '../Data/dummy-data';
 import SearchFilter from './SearchFilter';

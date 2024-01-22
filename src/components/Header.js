@@ -2,7 +2,7 @@ import * as React from "react";
 import { Appbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
-const TestHeader = ({ name }) => {
+const Header = ({ name }) => {
   const navigation = useNavigation();
 
   return (
@@ -22,4 +22,4 @@ const TestHeader = ({ name }) => {
     </Appbar.Header>
   );
 };
-export default TestHeader;
+export default Header;

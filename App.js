@@ -1,5 +1,4 @@
 import * as React from "react";
-import { StyleSheet, View, Text } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import HomeScreen from "./src/screens/HomeScreen";
 import DoctorLogin from "./src/screens/DoctorLoginScreen";
@@ -19,12 +18,11 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="HomeScreen"
-            screenOptions={{ headerStyle: { backgroundColor: "#FBDABB" } }}
+             initialRouteName="HomeScreen"
+             screenOptions={{ headerStyle: { backgroundColor: "#FBDABB" } }}
           >
             <Stack.Screen
               name="HomeScreen"
@@ -47,15 +45,5 @@ export default function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
-    </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+};

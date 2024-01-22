@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     container:{
         alignItems:'center',
         justifyContent:"center",
-        paddingTop:20,
+        paddingTop:0,
         display:"flex",
         flexDirection:"row",
     },

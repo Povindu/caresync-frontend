@@ -1,7 +1,7 @@
 import { View } from "react-native";
-import TestHeader from "../../components/Header";
-import StepCounterSelection from "./StepCounterSelection";
-import BreatingTestSelection from "./BreatingTestSelection";
+import TestHeader from "../../../components/Header";
+import StepCounterSelection from "./StepCounterSelectionCom";
+import BreatingTestSelection from "./BreatingTestSelectionCom";
 
 
 const TestSelection =({navigation})=>{

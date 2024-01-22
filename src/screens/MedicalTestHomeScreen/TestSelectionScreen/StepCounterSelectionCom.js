@@ -5,7 +5,7 @@ const StepCounterSelection = ({navigation}) => {
   return (
     <View style={styles.view}>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('StepCounterHome')}>
-        <Image source={require("../../../assets/foot.png")} style={styles.image} />
+        <Image source={require("./Images/foot.png")} style={styles.image} />
         <Text style={styles.text}>Step Counter</Text>
       </TouchableOpacity>
     </View>
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: 200,
-    marginTop: 120,
+    marginTop: 40,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",

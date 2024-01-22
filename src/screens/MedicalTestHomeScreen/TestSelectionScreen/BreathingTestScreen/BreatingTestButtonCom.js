@@ -38,7 +38,7 @@ const HoldButton = () => {
   const showDecisionBox = () => {
     Alert.alert("Save Details", "Do you want to save your test result?", [
       {
-        text: "Reset",
+        text: "Cancel",
         onPress: () => {
           resetTime();
         },
@@ -117,10 +117,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     paddingTop: 10,
+    color:"#F23939",
   },
   advice2: {
     fontSize: 16,
     paddingTop: 5,
+    color:"#B53939",
   },
 });
 

@@ -13,11 +13,15 @@ import StepCounterHome from "./src/screens/MedicalTestHomeScreen/TestSelectionSc
 import BreathingHome from "./src/screens/MedicalTestHomeScreen/TestSelectionScreen/BreathingTestScreen/BreathingHomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import MedicalIncidentHomeScreen from "./src/screens/AddMedicalIncidentScreen/MedicalIncidentHomeScreen";
+import MedicalIncidentDetailScreen from "./src/screens/AddMedicalIncidentScreen/MedicalIncidentDetailScreen";
 import PatientsScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientsScreen";
 import PatientProfileScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientprofileScreen";
 import PatientHistoryScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientsHistoryScreen";
 import DoctorDashboard from "./src/screens/DoctorDashboard";
 import CustomHeader from "./src/screens/ViewPatientSummaryHome Screen/Components/CustomHeader";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -33,6 +37,7 @@ export default function App() {
               component={HomeScreen}
               options={{ title: "Home" }}
             />
+
             <Stack.Screen name="DoctorLogin" component={DoctorLogin} />
             <Stack.Screen name="ContactUs" component={ContactUs} />
             <Stack.Screen name="DoctorRegister" component={DoctorRegister} />
@@ -42,10 +47,17 @@ export default function App() {
               name="PatientDashboard"
               component={PatientDashboard}
             />
+                
             <Stack.Screen name="MedicalHistory" component={MedicalHistory} />
             <Stack.Screen name="TestSelection" component={TestSelection} />
             <Stack.Screen name="StepCounterHome" component={StepCounterHome} />
             <Stack.Screen name="BreathingHome" component={BreathingHome} />
+
+            <Stack.Screen name="MedicalIncidentHomeScreen" component={MedicalIncidentHomeScreen} options={{ headerShown:false}}/>
+            <Stack.Screen name="MedicalIncidentDetailScreen" component={MedicalIncidentDetailScreen} options={{ headerShown:false}}/>
+
+       
+
             <Stack.Screen
             name="PatientsScreen"
             component={PatientsScreen}
@@ -58,9 +70,6 @@ export default function App() {
             component={PatientProfileScreen}
             options={{
               headerShown: false ,
-         
-            
-           
             }}
           />
                 <Stack.Screen
@@ -68,20 +77,12 @@ export default function App() {
             component={PatientHistoryScreen}
             options={{
               headerShown: false ,
-         
-            
-           
             }}
           />
            <Stack.Screen
               name="DoctorDashboard"
               component={DoctorDashboard}
             />
-
-
-
-
-
 
 
 

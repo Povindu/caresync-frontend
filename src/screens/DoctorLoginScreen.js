@@ -14,6 +14,7 @@ const DoctorLogin = ({ navigation }) => {
 
     // This is for after successful go to DoctorDashboard screen
     // navigation.navigate('DoctorDashboard');
+    navigation.navigate('DoctorDashboard');
   };
 
   return (

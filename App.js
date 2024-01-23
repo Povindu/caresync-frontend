@@ -13,6 +13,8 @@ import StepCounterHome from "./src/screens/MedicalTestHomeScreen/TestSelectionSc
 import BreathingHome from "./src/screens/MedicalTestHomeScreen/TestSelectionScreen/BreathingTestScreen/BreathingHomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import MedicalIncidentHomeScreen from "./src/screens/AddMedicalIncidentScreen/MedicalIncidentHomeScreen";
+import MedicalIncidentDetailScreen from "./src/screens/AddMedicalIncidentScreen/MedicalIncidentDetailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +44,11 @@ export default function App() {
             <Stack.Screen name="TestSelection" component={TestSelection} />
             <Stack.Screen name="StepCounterHome" component={StepCounterHome} />
             <Stack.Screen name="BreathingHome" component={BreathingHome} />
+            <Stack.Screen name="MedicalIncidentHomeScreen" component={MedicalIncidentHomeScreen} options={{ headerShown:false}}/>
+            <Stack.Screen name="MedicalIncidentDetailScreen" component={MedicalIncidentDetailScreen} options={{ headerShown:false}}/>
+
+        
+       
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

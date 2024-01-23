@@ -54,7 +54,16 @@ const PatientDashboard = ({navigation}) => {
       <TouchableOpacity style={styles.roundedPlusButton}>
         <Text style={styles.plusButtonText}>+</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('MedicalIncidentHomeScreen')}}>
+          <Image
+            source={require("../../assets/DocImage.png")}
+            style={styles.dashboardImage}
+          />
+          <Text style={styles.dashboardButtonText}>Add Medical Incident</Text>
+        </TouchableOpacity>
     </View>
+
   );
 };
 

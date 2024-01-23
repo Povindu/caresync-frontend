@@ -71,6 +71,12 @@ const HoldButton = () => {
   return (
     <View style={styles.container}>
       <DisplayTime time={time} />
+      <Text style={styles.advice1}>
+        {isPressing ? "" : "Take a Deep Breath"}
+      </Text>
+      <Text style={styles.advice2}>
+        {isPressing ? "" : "Press the Button while holding the breath"}
+      </Text>
       <TouchableWithoutFeedback
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
@@ -81,12 +87,7 @@ const HoldButton = () => {
           </Text>
         </View>
       </TouchableWithoutFeedback>
-      <Text style={styles.advice1}>
-        {isPressing ? "" : "Take a Deep Breath"}
-      </Text>
-      <Text style={styles.advice2}>
-        {isPressing ? "" : "Press the Button while holding the breath"}
-      </Text>
+      
     </View>
   );
 };
@@ -116,13 +117,13 @@ const styles = StyleSheet.create({
   advice1: {
     fontSize: 18,
     fontWeight: "bold",
-    paddingTop: 10,
     color:"#F23939",
   },
   advice2: {
     fontSize: 16,
     paddingTop: 5,
-    color:"#B53939",
+    paddingBottom:10,
+    color:"black",
   },
 });
 

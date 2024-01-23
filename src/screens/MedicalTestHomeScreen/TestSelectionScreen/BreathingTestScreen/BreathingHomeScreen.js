@@ -1,13 +1,14 @@
 import { View } from "react-native";
-import TestHeader from "../../../../components/Header";
+import Header from "../../../../components/Header";
 import HoldButton from "./BreatingTestButtonCom";
-import DisplayTime from "../../../../components/StopwatchDisplay";
+import BreathingTestDataStore from "./BreathingTestDataStore";
 
 const BreathingHome=()=>{
     return(
         <View>
-            <TestHeader name="Breathing Test"/>
+            <Header name="Breathing Test"/>
             <HoldButton/>
+            <BreathingTestDataStore/>
         </View>
 
     );

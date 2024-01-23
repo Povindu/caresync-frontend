@@ -13,9 +13,9 @@ const styles = StyleSheet.create({
     container:{
         alignItems:'center',
         justifyContent:"center",
-        paddingTop:0,
         display:"flex",
         flexDirection:"row",
+        paddingBottom:10,
     },
     texts:{
         fontSize:26,

@@ -1,16 +1,12 @@
 import * as React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text , ScrollView } from "react-native";
 import { DataTable } from "react-native-paper";
+import { displayTime } from "./Util";
 
-const BreathingTestDataStore = () => {
-  const sampleData = [
-    { date: "12/04/2023", time: "00:01:00" },
-    { date: "12/04/2023", time: "00:01:00" },
-    { date: "12/04/2023", time: "00:01:00" },
-  ];
-
+const BreathingTestDataStore = ({results}) => {
+  const sDate = new Date().toDateString();
   return (
-    <View>
+    <ScrollView>
       <View style={styles.container}>
         <Text style={styles.headtext}>Past Results</Text>
         <DataTable>
@@ -23,13 +19,13 @@ const BreathingTestDataStore = () => {
             </DataTable.Title>
           </DataTable.Header>
 
-          {sampleData.map((data, index) => (
+          {results.map((data, index) => (
             <DataTable.Row key={index}>
               <DataTable.Cell style={{ justifyContent: "center" }}>
-                {data.date}
+                {sDate}
               </DataTable.Cell>
               <DataTable.Cell style={{ justifyContent: "center" }}>
-                {data.time}
+                {displayTime(data)}
               </DataTable.Cell>
             </DataTable.Row>
           ))}
@@ -38,7 +34,7 @@ const BreathingTestDataStore = () => {
       <View style={styles.resetTable}>
         <Text style={{ color: "#990000" }}>Reset</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

@@ -2,13 +2,8 @@ import * as React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { DataTable } from "react-native-paper";
 
-const BreathingTestDataStore = () => {
-  const sampleData = [
-    { date: "12/04/2023", time: "00:01:00" },
-    { date: "12/04/2023", time: "00:01:00" },
-    { date: "12/04/2023", time: "00:01:00" },
-  ];
-
+const BreathingTestDataStore = ({sampleData}) => {
+  const sDate = new Date().toDateString();
   return (
     <View>
       <View style={styles.container}>
@@ -26,7 +21,7 @@ const BreathingTestDataStore = () => {
           {sampleData.map((data, index) => (
             <DataTable.Row key={index}>
               <DataTable.Cell style={{ justifyContent: "center" }}>
-                {data.date}
+                {sDate}
               </DataTable.Cell>
               <DataTable.Cell style={{ justifyContent: "center" }}>
                 {data.time}

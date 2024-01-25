@@ -8,7 +8,6 @@ const BreathingHome=()=>{
         <View>
             <Header name="Breathing Test"/>
             <HoldButton/>
-            <BreathingTestDataStore/>
         </View>
 
     );

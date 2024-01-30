@@ -2,13 +2,10 @@ import * as React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { DataTable } from "react-native-paper";
 
-const StepCountDataStore = () => {
-    const sampleData = [
-        { date: "12/04/2023", time: "00:01:00", steps:2500 },
-        { date: "12/04/2023", time: "00:01:00", steps:200 },
-        { date: "12/04/2023", time: "00:01:00", steps:2500 },
-        { date: "12/04/2023", time: "00:01:00", steps:200 },
-      ];
+const StepCountDataStore = ({sampleData}) => {
+  if(!sampleData){
+    return null;
+  }
   return (
     <View>
     <View style={styles.container}>

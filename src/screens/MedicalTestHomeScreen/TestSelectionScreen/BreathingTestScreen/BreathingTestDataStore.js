@@ -3,7 +3,6 @@ import { View, StyleSheet, Text } from "react-native";
 import { DataTable } from "react-native-paper";
 
 const BreathingTestDataStore = ({sampleData}) => {
-  const sDate = new Date().toDateString();
   if(!sampleData){
     return null;
   }
@@ -23,7 +22,7 @@ const BreathingTestDataStore = ({sampleData}) => {
           {sampleData.map((data, index) => (
             <DataTable.Row key={index}>
               <DataTable.Cell style={{ justifyContent: "center" }}>
-                {sDate}
+                {data.date}
               </DataTable.Cell>
               <DataTable.Cell style={{ justifyContent: "center" }}>
                 {data.time}

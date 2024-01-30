@@ -11,6 +11,8 @@ import DisplayTime from "../../../../components/StopwatchDisplay";
 import BreathingTestDataStore from "./BreathingTestDataStore";
 
 const HoldButton = () => {
+  const sDate = new Date().toDateString();
+
   const [isPressing, setIsPressing] = useState(false);
 
   const [result, setResult] = useState([]);
@@ -42,7 +44,8 @@ const HoldButton = () => {
 
   const saveData = () => {
     console.log(updatedH,updatedM,updatedS);
-    setResult((prevResult) => [...prevResult, { time: `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}` }]);
+    console.log(sDate);
+    setResult((prevResult) => [...prevResult, {date: sDate, time: `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}` }]);
     resetTime();
   };
 

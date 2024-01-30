@@ -11,8 +11,6 @@ import DisplayTime from "../../../../components/StopwatchDisplay";
 import BreathingTestDataStore from "./BreathingTestDataStore";
 
 const HoldButton = () => {
-  const date = new Date().toDateString();
-
   const [isPressing, setIsPressing] = useState(false);
 
   const [result, setResult] = useState([]);
@@ -40,8 +38,11 @@ const HoldButton = () => {
     }
   };
 
+  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
+
   const saveData = () => {
-    setResult((prevResult) => [...prevResult, {date}]);
+    console.log(updatedH,updatedM,updatedS);
+    setResult((prevResult) => [...prevResult, { time: `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}` }]);
     resetTime();
   };
 
@@ -103,6 +104,9 @@ const HoldButton = () => {
         <View style={styles.table}>
           <BreathingTestDataStore sampleData={result} />
         </View>
+        <View style={styles.resetTable}>
+          <Text style={{ color: "#990000" }}>Reset</Text>
+        </View>
       </View>
     </ScrollView>
   );
@@ -144,6 +148,10 @@ const styles = StyleSheet.create({
   },
   table: {
     width: "100%",
+  },
+  resetTable: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

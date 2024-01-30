@@ -3,11 +3,11 @@ import { View, StyleSheet, Text } from "react-native";
 import { DataTable } from "react-native-paper";
 
 const BreathingTestDataStore = ({sampleData}) => {
+  const sDate = new Date().toDateString();
   if(!sampleData){
     return null;
   }
   return (
-    <View>
       <View style={styles.container}>
         <Text style={styles.headtext}>Past Results</Text>
         <DataTable>
@@ -23,7 +23,7 @@ const BreathingTestDataStore = ({sampleData}) => {
           {sampleData.map((data, index) => (
             <DataTable.Row key={index}>
               <DataTable.Cell style={{ justifyContent: "center" }}>
-                {date}
+                {sDate}
               </DataTable.Cell>
               <DataTable.Cell style={{ justifyContent: "center" }}>
                 {data.time}
@@ -32,10 +32,6 @@ const BreathingTestDataStore = ({sampleData}) => {
           ))}
         </DataTable>
       </View>
-      <View style={styles.resetTable}>
-        <Text style={{ color: "#990000" }}>Reset</Text>
-      </View>
-    </View>
   );
 };
 
@@ -52,10 +48,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     padding: 10,
     paddingBottom: 0,
-  },
-  resetTable: {
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 

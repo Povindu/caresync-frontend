@@ -5,17 +5,17 @@ function PatientSummary({id,title,imageUrl,gender,age,weight,height,blood}){
            
           <View>
        
-                <View >
+                <View style={styles.first}>
                       <View><Image source={{uri: imageUrl}} style={styles.image}/></View>
                     
                          <View style={styles.tid}>
-                    <Text style={styles.title}>
-                        {title}
-                    </Text>
-                    <Text style={styles.id}>
-                        {id}
-                    </Text>
-                    </View>
+                                <Text style={styles.title}>
+                                    {title}
+                                 </Text>
+                                <Text style={styles.id}>
+                                     {id}
+                                </Text>
+                        </View>
                   
            
 
@@ -114,10 +114,25 @@ const styles= StyleSheet.create({
       
        
     },
+    first:{
+        justifyContent:'center',
+        alignItems:'center'
+
+    },
     tid:{
+     
         justifyContent:'center',
         alignItems:'center'
     },
+    image: {
+          
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: -20,
+    
+        width: 50,
+        height: 50,
+      },
 
     content:{
         flexDirection:'row'
@@ -138,18 +153,13 @@ const styles= StyleSheet.create({
         fontWeight:'bold'
 
     },
-    image:{
-        marginTop:-20,
-        marginLeft: 160,
-        width:50,
-        height:50,
-
-    },
+    
+      
     id:{
        
         fontSize:15,
         marginTop:10,
-
+     
     },
     blood:{
         

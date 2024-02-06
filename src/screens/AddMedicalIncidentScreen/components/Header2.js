@@ -17,7 +17,7 @@ export default Header2;
 const styles = StyleSheet.create({
 
     headercontainer: {
-  
+      // flex:1,
       backgroundColor: '#00567D',
       alignItems: 'center',
       borderBottomLeftRadius: 15,

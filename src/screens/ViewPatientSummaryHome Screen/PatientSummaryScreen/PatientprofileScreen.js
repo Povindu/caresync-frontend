@@ -38,7 +38,7 @@ function PatientProfileScreen({route,navigation}){
                   
                         <View style={styles.tile1} >
                             <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
-                            {/* <Image style={styles.img} source={require('assets/ImagesDid/medication.png')} /> */}
+                             <Image style={styles.img} source={require('../ImagesDid/history.png')} /> 
                                 <Text style={styles.text} >Patient History</Text>
                             </TouchableOpacity>
 
@@ -47,7 +47,7 @@ function PatientProfileScreen({route,navigation}){
 
                 <View style={styles.tile1}>
                             <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
-                            {/* <Image style={styles.img} source={require('../assets/ImagesDid/medication.png')} /> */}
+                             <Image style={styles.img} source={require('../ImagesDid/medication.png')} /> 
                                 <Text style={styles.text} >Medications</Text>
                             </TouchableOpacity>
 
@@ -58,14 +58,14 @@ function PatientProfileScreen({route,navigation}){
             <View style={styles.row1}>
                 <View style={styles.tile1}>
                             <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
-                            {/* <Image style={styles.img} source={require('../assets/ImagesDid/appointement.png')} /> */}
+                            <Image style={styles.img} source={require('../ImagesDid/appointement.png')} />
                                 <Text style={styles.text} >Past Appointments </Text>
                             </TouchableOpacity>
 
                 </View>
                 <View style={styles.tile1}>
                             <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
-                            {/* <Image style={styles.img} source={require('../assets/ImagesDid/results.png')} /> */}
+                            <Image style={styles.img} source={require('../ImagesDid/results.png')} />
                                 <Text style={styles.text} >Test Results</Text>
                             </TouchableOpacity>
 
@@ -75,7 +75,7 @@ function PatientProfileScreen({route,navigation}){
             <View style={styles.row1}>
                 <View style={styles.tile1}>
                             <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20, }} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
-                            {/* <Image style={styles.img} source={require('../assets/ImagesDid/appointement.png')} /> */}
+                            <Image style={styles.img} source={require('../ImagesDid/appointement.png')} />
                                 <Text style={styles.text} >Contact Patient</Text>
                             </TouchableOpacity>
 

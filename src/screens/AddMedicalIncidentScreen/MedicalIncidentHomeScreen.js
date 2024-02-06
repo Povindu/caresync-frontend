@@ -1,9 +1,9 @@
-import { View, StyleSheet ,Text,TextInput, Pressable,SafeAreaView,Dimensions} from "react-native";
+import { View, StyleSheet ,Text,TextInput, Pressable,SafeAreaView,} from "react-native";
 
 import Header2 from "../AddMedicalIncidentScreen/components/Header2";
 import Calendar from "../AddMedicalIncidentScreen/components/Calendar";
 import Inputbar from "../AddMedicalIncidentScreen/components/Inputbar";
-const { width, height } = Dimensions.get('window');
+
 
 
 
@@ -15,7 +15,7 @@ function MedicalIncidentHomeScreen({navigation}){
   
   return (
     <SafeAreaView >
-      {/* <View style={styles.page}> */}
+     
         <Header2 text="Add Medical Incident"/>
         <View style={styles.background}>
           <View style={styles.container}>
@@ -30,7 +30,7 @@ function MedicalIncidentHomeScreen({navigation}){
           </Pressable>
           </View>
         </View>
-      {/* </View> */}
+     
       </SafeAreaView>
     
   );
@@ -38,11 +38,6 @@ function MedicalIncidentHomeScreen({navigation}){
 export default MedicalIncidentHomeScreen;
 
 const styles = StyleSheet.create({
-    // page:{
-    //   flex: 1,
-    //   justifyContent: 'center',
-      
-    // },
 
     
     text2:{
@@ -58,8 +53,6 @@ const styles = StyleSheet.create({
       width: '100%',
       height:'76%',
       backgroundColor: '#FFFF',
-      // flex: 1,
-      // justifyContent:'center',
       
   
     },

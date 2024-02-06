@@ -30,7 +30,7 @@ function Calendar() {
     setOpenStartDatePicker(!openStartDatePicker);
   };
 
-
+  
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
@@ -41,23 +41,30 @@ function Calendar() {
           backgroundColor: "#fff",
         }}
       >
-        
-              <Text style={{ fontSize: 20, color: '#1e1e1e',marginLeft:20,marginTop:-25   }}>Date</Text>
+        <View style={{ flex: 1, alignItems: "center" }}>
+         
+
+          <View style={{ width: "100%", paddingHorizontal: 22,marginTop:-45}}>
+            <View>
+              <Text style={{ fontSize: 20, color:'#1e1e1e',}}>Date</Text>
               <TouchableOpacity
                 style={styles.inputBtn}
                 onPress={handleOnPressStartDate}
               >
                 <Text>{selectedStartDate}</Text>
               </TouchableOpacity>
+            </View>
+
            
+          </View>
 
-
+          
           <Modal
             animationType="slide"
             transparent={true}
             visible={openStartDatePicker}
           >
-          
+            <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <DatePicker
                   mode="calendar"
@@ -80,9 +87,9 @@ function Calendar() {
                   <Text style={{ color: "white" }}>Close</Text>
                 </TouchableOpacity>
               </View>
-            
+            </View>
           </Modal>
-     
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -90,22 +97,31 @@ function Calendar() {
 export default Calendar;
 
 const styles = StyleSheet.create({
- 
-  inputBtn: {
-
-    justifyContent: "center",
-    borderColor: '#8e8e8e',
-    borderWidth: 1,
-    padding: 10,
-    width: '88%',
-    height: 38,
-    marginTop: 10,
-    marginLeft:20,
-    borderRadius: 10,
-    fontSize: 16,
+  textHeader: {
+    fontSize: 36,
+    marginVertical: 60,
+    color: "#111",
   },
-
-  
+  textSubHeader: {
+    fontSize: 25,
+    color: "#111",
+  },
+  inputBtn: {
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: "#8e8e8e",
+    height: 50,
+    paddingLeft: 8,
+    fontSize: 18,
+    justifyContent: "center",
+    marginTop: 14,
+  },
+ 
+  centeredView: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   modalView: {
     margin: 20,
     backgroundColor: "#080516",

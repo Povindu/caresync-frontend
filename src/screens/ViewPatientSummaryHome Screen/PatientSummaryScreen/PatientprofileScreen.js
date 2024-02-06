@@ -1,135 +1,139 @@
 import PatientSummary from "../Components/PatientSummary";
-import {FlatList,View,StyleSheet, Button, TouchableOpacity,Text,Image} from 'react-native';
-import { LIST} from '../Data/dummy-data';
+import { FlatList, View, StyleSheet, Button, TouchableOpacity, Text, Image } from 'react-native';
+import { LIST } from '../Data/dummy-data';
 import ProfileHeader from "../Components/ProfileHeader";
 
-function PatientProfileScreen({route,navigation}){
-    const pId=route.params.patientId;
-    const dispalyedpatient=LIST.filter((patient) =>{
-        return patient.id.indexOf(pId)>=0;
+function PatientProfileScreen({ route, navigation }) {
+    const pId = route.params.patientId;
+    const dispalyedpatient = LIST.filter((patient) => {
+        return patient.id.indexOf(pId) >= 0;
     });
-    
-    function renderCategoryItem(itemData){
-        
-    
-   
-        return(
+
+    function renderCategoryItem(itemData) {
+
+
+
+        return (
             <View>
-            <View >
-           <View style={styles.subcon}>
-               
-               </View>
-               
-               
-          <View style={styles.grid}>
+                <View >
+                    <View style={styles.subcon}>
 
-             
-            <PatientSummary id={itemData.item.id} title={itemData.item.title} age={itemData.item.age} gender={itemData.item.gender} imageUrl={itemData.item.imageUrl} weight={itemData.item.weight} height={itemData.item.height} blood={itemData.item.blood}  />
-            </View>
-           
+                    </View>
 
 
+                    <View style={styles.grid}>
 
-                
 
-            </View>
-         
-            <View style={styles.row1}>
-                  
-                        <View style={styles.tile1} >
-                            <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
+                        <PatientSummary id={itemData.item.id} title={itemData.item.title} age={itemData.item.age} gender={itemData.item.gender} imageUrl={itemData.item.imageUrl} weight={itemData.item.weight} height={itemData.item.height} blood={itemData.item.blood} />
+                    </View>
+
+
+
+
+
+
+                </View>
+
+                <View style={styles.row1}>
+
+                    <View style={styles.tile1} >
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
                             {/* <Image style={styles.img} source={require('assets/ImagesDid/medication.png')} /> */}
-                                <Text style={styles.text} >Patient History</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.text} >Patient History</Text>
+                        </TouchableOpacity>
 
-                        </View>
-                    
+                    </View>
 
-                <View style={styles.tile1}>
-                            <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
+
+                    <View style={styles.tile1}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
                             {/* <Image style={styles.img} source={require('../assets/ImagesDid/medication.png')} /> */}
-                                <Text style={styles.text} >Medications</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.text} >Medications</Text>
+                        </TouchableOpacity>
 
-               
 
+
+                    </View>
                 </View>
-            </View>
-            <View style={styles.row1}>
-                <View style={styles.tile1}>
-                            <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
+                <View style={styles.row1}>
+                    <View style={styles.tile1}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
                             {/* <Image style={styles.img} source={require('../assets/ImagesDid/appointement.png')} /> */}
-                                <Text style={styles.text} >Past Appointments </Text>
-                            </TouchableOpacity>
+                            <Text style={styles.text} >Past Appointments </Text>
+                        </TouchableOpacity>
 
-                </View>
-                <View style={styles.tile1}>
-                            <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
+                    </View>
+                    <View style={styles.tile1}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
                             {/* <Image style={styles.img} source={require('../assets/ImagesDid/results.png')} /> */}
-                                <Text style={styles.text} >Test Results</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.text} >Test Results</Text>
+                        </TouchableOpacity>
+
+                    </View>
 
                 </View>
-               
-            </View>
-            <View style={styles.row1}>
-                <View style={styles.tile1}>
-                            <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20, }} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
+                <View style={styles.row1}>
+                    <View style={styles.tile1}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
                             {/* <Image style={styles.img} source={require('../assets/ImagesDid/appointement.png')} /> */}
-                                <Text style={styles.text} >Contact Patient</Text>
-                            </TouchableOpacity>
+                            <Text style={styles.text} >Contact Patient</Text>
+                        </TouchableOpacity>
 
-                </View>
-                <View style={styles.tile1}>
-                             {/* <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
+                    </View>
+                    <View style={styles.tile1}>
+                        {/* <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
                                 <Text style={styles.text} >Patient History</Text>
                             </TouchableOpacity> */}
 
+                    </View>
+
                 </View>
-               
-            </View>
 
             </View>
-        
+
         );
     }
-    return(
+    return (
         <View style={styles.con}>
-             
 
-       
-             
-          
-        <FlatList data={dispalyedpatient}
-        keyExtractor={(item)=>item.id}
-        renderItem={renderCategoryItem}>
 
-        </FlatList>
-        
+
+
+
+            <FlatList data={dispalyedpatient}
+                keyExtractor={(item) => item.id}
+                renderItem={renderCategoryItem}>
+
+            </FlatList>
+
         </View>
     );
 }
 export default PatientProfileScreen;
 const styles = StyleSheet.create({
-    con:{
-        flex:1,
-       backgroundColor:'#D0F1FF'
-    }, 
-    subcon:{
-        width:'100%',
-        height:300,
-        backgroundColor:'#00567D',
-        marginTop: -50,
-      
-    },grid:{
-        width:'90%',
-        height:300,
-        marginLeft:20,
-        backgroundColor:'white',
-        marginTop: -160,
-        borderRadius:15
-      
+    con: {
+        flex: 1,
+        backgroundColor: '#D0F1FF'
     },
+    subcon: {
+        width: '100%',
+        height: 300,
+        backgroundColor: '#00567D',
+        marginTop: -50,
+
+    }, grid: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        marginTop: -160,
+        borderRadius: 15,
+        marginLeft: '5%', // 5% of the parent container's width
+        marginRight: '5%', 
+       paddingBottom:'5%'
+
+      },
+      
     // tile1:{
     //     width:'40%',
     //     height:120,
@@ -138,29 +142,31 @@ const styles = StyleSheet.create({
     //     marginTop: 20,
     //     borderRadius:15
     //    },
-       row1:{
-        flexDirection:'row',
-        marginLeft: 15
-     
-       },
+    row1: {
+        flexDirection: 'row',
+        marginLeft: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
 
-       text:{
-        color:'black',
-        fontSize:15,
-        textAlign:'center',
-        marginTop:8,
+    },
 
-        
-       },
+    text: {
+        color: 'black',
+        fontSize: 15,
+        textAlign: 'center',
+        marginTop: 8,
 
-       img:{
+
+    },
+
+    img: {
         width:70,
-        height:70,
-        marginLeft:40,
-        marginTop:10
+        height: 70,
+        marginLeft: 40,
+        marginTop: 10
 
-       }
-    
- 
+    }
+
+
 
 });

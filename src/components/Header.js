@@ -16,7 +16,7 @@ const Header = ({ name }) => {
       <Appbar.BackAction onPress={() => navigation.goBack()} color="white" size={28} />
       <Appbar.Content
         title={name}
-        titleStyle={{ fontWeight: "bold", fontSize: 24, marginLeft:65,}}
+        titleStyle={{ fontWeight: "bold", fontSize: 24, marginLeft:65}}
         color="white"
       />
     </Appbar.Header>

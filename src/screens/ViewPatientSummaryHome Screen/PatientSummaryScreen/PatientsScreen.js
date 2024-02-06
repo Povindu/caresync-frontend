@@ -1,11 +1,13 @@
-import {FlatList,View} from 'react-native';
+import {FlatList,View,ScrollView} from 'react-native';
 import { LIST} from '../Data/dummy-data';
 import PatientGridTile from '../Components/PatientGridTile';
 import Search from '../Components/Search';
+import CustomHeader from '../Components/CustomHeader';
 
 
 
 function PatientsScreen({navigation}){
+   
    
     function renderCategoryItem(itemData){
         function presshandler(){
@@ -22,14 +24,14 @@ function PatientsScreen({navigation}){
         );
     }
     return(
-        <View>
-         
-          
-        <FlatList data={LIST}
-        keyExtractor={(item)=>item.id}
-        renderItem={renderCategoryItem}>
-
-        </FlatList>
+        <View style={{ flex: 1 }}>
+            <CustomHeader />
+            <FlatList
+                data={LIST}
+                keyExtractor={(item) => item.id}
+                renderItem={renderCategoryItem}
+                style={{ flex: 1 }}
+            />
         </View>
     );
 

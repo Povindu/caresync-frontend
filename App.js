@@ -21,6 +21,7 @@ import PatientProfileScreen from "./src/screens/ViewPatientSummaryHome Screen/Pa
 import PatientHistoryScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientsHistoryScreen";
 import DoctorDashboard from "./src/screens/DoctorDashboard";
 import CustomHeader from "./src/screens/ViewPatientSummaryHome Screen/Components/CustomHeader";
+import Header from "./src/components/Header";
 
 const Stack = createNativeStackNavigator();
 
@@ -62,7 +63,7 @@ export default function App() {
             name="PatientsScreen"
             component={PatientsScreen}
             options={{
-              header: (props) => <CustomHeader {...props} />,
+              headerShown: false ,
             }}
           />
            <Stack.Screen

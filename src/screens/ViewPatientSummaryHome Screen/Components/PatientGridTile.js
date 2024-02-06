@@ -1,9 +1,12 @@
 import {Pressable,View,Text,StyleSheet,Image} from 'react-native';
-
+import CustomHeader from './CustomHeader';
 function PatientGridTile({id,title,imageUrl,gender,age,color,blood,onPress}){
    
+   
     return(
+       
         <View style={[styles.gridItem ,{backgroundColor:color}]}>
+           
             <Pressable android_ripple={{color:'#ccc'}} style={styles.button} onPress={onPress}>
            
           

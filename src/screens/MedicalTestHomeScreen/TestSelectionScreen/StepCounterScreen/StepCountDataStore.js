@@ -39,7 +39,7 @@ const StepCountDataStore = ({sampleData}) => {
       </DataTable>
     </View>
     <View style={styles.resetTable}>
-    <Text style={{ color: "#990000" }}>Reset</Text>
+    <Text style={{ color: "#990000" }} onPress={()=>{}}>Reset</Text>
   </View>
   </View>
   );

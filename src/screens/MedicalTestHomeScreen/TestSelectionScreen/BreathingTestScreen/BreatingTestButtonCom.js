@@ -7,7 +7,7 @@ import {
   Alert,
   ScrollView,
 } from "react-native";
-import DisplayTime from "../../../../components/StopwatchDisplay";
+import DisplayTime from "../../components/StopwatchDisplay";
 import BreathingTestDataStore from "./BreathingTestDataStore";
 
 const HoldButton = () => {

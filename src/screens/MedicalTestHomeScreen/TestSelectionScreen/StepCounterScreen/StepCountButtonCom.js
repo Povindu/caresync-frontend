@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
-import DisplayTime from "../../../../components/StopwatchDisplay";
+import DisplayTime from "../../components/StopwatchDisplay";
 import StepCount from "./../StepCounterScreen/StepCountCom";
 import StepCountDataStore from "./StepCountDataStore";
 

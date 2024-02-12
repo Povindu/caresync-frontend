@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import TestHeader from "../../../components/Header";
+import TestHeader from "../components/Header";
 import StepCounterSelection from "./StepCounterSelectionCom";
 import BreatingTestSelection from "./BreatingTestSelectionCom";
 

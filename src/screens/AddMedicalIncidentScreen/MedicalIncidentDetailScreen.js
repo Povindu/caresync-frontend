@@ -7,7 +7,6 @@ const { width, height } = Dimensions.get('window');
 const MedicalIncidentDetailScreen = () => {
     return (
         <>
-            
                 <Header2 text="Add Details" />
                 <View style={styles.background}>
                    

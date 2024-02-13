@@ -171,6 +171,7 @@ const styles= StyleSheet.create({
     },
     cat1:{
         flexDirection:'column',
+       
     
 
     },
@@ -186,6 +187,8 @@ const styles= StyleSheet.create({
     main1:{
         flexDirection:'row',
         marginTop:20,
+        marginRight:'10%'
+  
 
     }
     ,cat3:{
@@ -214,6 +217,7 @@ const styles= StyleSheet.create({
     main2:{
         flexDirection:'row',
         marginTop:20,
+        marginRight:'22%'
     },
     cat4:{
         flexDirection:'column',

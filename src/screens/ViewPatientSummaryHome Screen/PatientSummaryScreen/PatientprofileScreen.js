@@ -38,7 +38,7 @@ function PatientProfileScreen({ route, navigation }) {
 
                     <View style={styles.tile1} >
                         <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
-                            {/* <Image style={styles.img} source={require('assets/ImagesDid/medication.png')} /> */}
+                            <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Patient History</Text>
                         </TouchableOpacity>
 
@@ -47,7 +47,7 @@ function PatientProfileScreen({ route, navigation }) {
 
                     <View style={styles.tile1}>
                         <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
-                            {/* <Image style={styles.img} source={require('../assets/ImagesDid/medication.png')} /> */}
+                        <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Medications</Text>
                         </TouchableOpacity>
 
@@ -58,14 +58,14 @@ function PatientProfileScreen({ route, navigation }) {
                 <View style={styles.row1}>
                     <View style={styles.tile1}>
                         <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
-                            {/* <Image style={styles.img} source={require('../assets/ImagesDid/appointement.png')} /> */}
+                        <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Past Appointments </Text>
                         </TouchableOpacity>
 
                     </View>
                     <View style={styles.tile1}>
                         <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
-                            {/* <Image style={styles.img} source={require('../assets/ImagesDid/results.png')} /> */}
+                        <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Test Results</Text>
                         </TouchableOpacity>
 
@@ -75,7 +75,7 @@ function PatientProfileScreen({ route, navigation }) {
                 <View style={styles.row1}>
                     <View style={styles.tile1}>
                         <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
-                            {/* <Image style={styles.img} source={require('../assets/ImagesDid/appointement.png')} /> */}
+                        <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Contact Patient</Text>
                         </TouchableOpacity>
 
@@ -137,17 +137,17 @@ const styles = StyleSheet.create({
     // tile1:{
     //     width:'40%',
     //     height:120,
-    //     marginLeft:20,
+
     //     backgroundColor:'white',
-    //     marginTop: 20,
+      
     //     borderRadius:15
     //    },
     row1: {
         flexDirection: 'row',
-        marginLeft: 15,
-        justifyContent: 'center',
-        alignItems: 'center',
-
+        marginLeft: '4%',
+   
+     
+      
     },
 
     text: {

@@ -1,6 +1,23 @@
 import {Pressable,View,Text,StyleSheet,Image} from 'react-native';
 import CustomHeader from './CustomHeader';
+import axios from 'axios';
+import { useState,useEffect} from 'react';
 function PatientGridTile({id,title,imageUrl,gender,age,color,blood,onPress}){
+    const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    fetchPatients();
+  }, []);
+
+  const fetchPatients = async () => {
+    try {
+      const response = await axios.get('http://192.168.8.102:3006/patients');
+      setPatients(response.data);
+    } catch (error) {
+      console.error('Error fetching patients:', error);
+    }
+  };
+    
    
    
     return(
@@ -14,11 +31,12 @@ function PatientGridTile({id,title,imageUrl,gender,age,color,blood,onPress}){
                 <View style={styles.innerContainer}>
                       <View><Image source={{uri: imageUrl}} style={styles.image}/></View>
                     
-                
+            
                     <Text style={styles.title}>
                         {title}
                     </Text>
-           
+                  
+            
 
                     <View>
                     <Text style={styles.gender}>
@@ -85,7 +103,7 @@ const styles= StyleSheet.create({
 
     },
     age:{
-        marginTop:-22,
+        marginTop:-20,
         paddingLeft:180,
         fontSize:15,
 
@@ -99,7 +117,7 @@ const styles= StyleSheet.create({
     id:{
         paddingLeft:300,
         fontSize:15,
-        marginTop:-22,
+        marginTop:-20,
 
     }
     }

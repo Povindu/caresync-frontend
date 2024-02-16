@@ -1,7 +1,10 @@
 import {Pressable,View,Text,StyleSheet,Image} from 'react-native';
+import axios from 'axios';
+import { useState,useEffect} from 'react';
  
 function PatientSummary({id,title,imageUrl,gender,age,weight,height,blood}){
     
+ 
 
     return(
 

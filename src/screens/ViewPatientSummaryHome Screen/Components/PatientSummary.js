@@ -1,5 +1,8 @@
 import {Pressable,View,Text,StyleSheet,Image} from 'react-native';
+ 
 function PatientSummary({id,title,imageUrl,gender,age,weight,height,blood}){
+    
+
     return(
 
            

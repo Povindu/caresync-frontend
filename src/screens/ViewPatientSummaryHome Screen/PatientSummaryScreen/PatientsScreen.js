@@ -18,7 +18,7 @@ function PatientsScreen({navigation}){
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get('http://192.168.8.102:3006/patients');
+      const response = await axios.get('http://10.10.4.158:3006/patients');
       setPatients(response.data);
     } catch (error) {
       console.error('Error fetching patients:', error);
@@ -29,7 +29,7 @@ function PatientsScreen({navigation}){
    
     function renderCategoryItem({item}){
         function presshandler(){
-            navigation.navigate('PatientProfileScreen',{patientId:item.id,});
+            navigation.navigate('PatientProfileScreen',{ptid:item._id});
 
         }
     

@@ -3,22 +3,7 @@ import CustomHeader from './CustomHeader';
 import axios from 'axios';
 import { useState,useEffect} from 'react';
 function PatientGridTile({id,title,imageUrl,gender,age,color,blood,onPress}){
-    const [patients, setPatients] = useState([]);
-
-  useEffect(() => {
-    fetchPatients();
-  }, []);
-
-  const fetchPatients = async () => {
-    try {
-      const response = await axios.get('http://10.10.4.158:3006/patients');
-      setPatients(response.data);
-    } catch (error) {
-      console.error('Error fetching patients:', error);
-    }
-  };
     
-   
    
     return(
        

@@ -15,7 +15,7 @@ const PatientLogin = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:3004/signin", {
+      const response = await fetch("http://localhost:3003/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

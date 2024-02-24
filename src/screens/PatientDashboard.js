@@ -42,12 +42,12 @@ const PatientDashboard = ({navigation}) => {
           <Text style={styles.dashboardButtonText}>Perform Medical Tests</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.dashboardButton}>
+        <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('MedicationView')}}>
           <Image
             source={require("../../assets/DocImage.png")}
             style={styles.dashboardImage}
           />
-          <Text style={styles.dashboardButtonText}>View Meditation Plans</Text>
+          <Text style={styles.dashboardButtonText}>View Medication Plans</Text>
         </TouchableOpacity>
       </View>
 

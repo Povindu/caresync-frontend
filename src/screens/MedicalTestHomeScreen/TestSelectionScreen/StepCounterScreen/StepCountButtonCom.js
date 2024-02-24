@@ -5,7 +5,12 @@ import StepCount from "./../StepCounterScreen/StepCountCom";
 import StepCountDataStore from "./StepCountDataStore";
 
 const StepCountButton = () => {
-  const sDate = new Date().toDateString();
+  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
+
+  var date = new Date().getDate(); //To get the Current Date
+  var month = new Date().getMonth() + 1; //To get the Current Month
+  var year = new Date().getFullYear(); //To get the Current Year
+  let sDate = `${padtoTwo(date)}/${padtoTwo(month)}/${year}`;
 
   const [result, setResult] = useState([]);
 
@@ -19,6 +24,8 @@ const StepCountButton = () => {
     updatedM = time.m,
     updatedH = time.h;
 
+  const sTime=   `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}`
+  
   const handleButtonClick = () => {
     if (isStarted) {
       clearInterval(intervalRef.current);
@@ -46,12 +53,10 @@ const StepCountButton = () => {
     return setTime({ s: updatedS, m: updatedM, h: updatedH });
   };
 
-  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
-
   const saveData = () => {
     console.log(updatedH,updatedM,updatedS);
     console.log(sDate);
-    setResult((prevResult) => [...prevResult, {date: sDate, time: `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}` ,steps:'00'}]);
+    setResult((prevResult) => [...prevResult, {date: sDate, time: sTime ,steps:'00'}]);
   };
 
   const resetTime = () => {

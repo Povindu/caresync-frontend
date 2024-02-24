@@ -11,7 +11,12 @@ import DisplayTime from "../../../../components/StopwatchDisplay";
 import BreathingTestDataStore from "./BreathingTestDataStore";
 
 const HoldButton = () => {
-  const sDate = new Date().toDateString();
+  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
+  
+  var date = new Date().getDate(); //To get the Current Date
+  var month = new Date().getMonth() + 1; //To get the Current Month
+  var year = new Date().getFullYear(); //To get the Current Year
+  let sDate = `${padtoTwo(date)}/${padtoTwo(month)}/${year}`;
 
   const [isPressing, setIsPressing] = useState(false);
 
@@ -39,8 +44,6 @@ const HoldButton = () => {
       clearInterval(intervalRef.current);
     }
   };
-
-  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
 
   const saveData = () => {
     console.log(updatedH,updatedM,updatedS);

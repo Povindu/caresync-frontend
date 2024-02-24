@@ -1,10 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import DisplayTime from "../../../../components/StopwatchDisplay";
-import StepCount from "./../StepCounterScreen/StepCountCom";
 import StepCountDataStore from "./StepCountDataStore";
+import { Pedometer } from "expo-sensors";
 
 const StepCountButton = () => {
+  useEffect(() => {
+    subscribe();
+  }, []);
+
   const sDate = new Date().toDateString();
 
   const [result, setResult] = useState([]);
@@ -24,6 +28,7 @@ const StepCountButton = () => {
       clearInterval(intervalRef.current);
       saveData();
       resetTime();
+      setstepcount(0);
       console.log("Stoped");
     } else {
       intervalRef.current = setInterval(run, 1000);
@@ -46,22 +51,56 @@ const StepCountButton = () => {
     return setTime({ s: updatedS, m: updatedM, h: updatedH });
   };
 
-  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
+  const padtoTwo = (number) => (number <= 9 ? `0${number}` : number);
 
   const saveData = () => {
-    console.log(updatedH,updatedM,updatedS);
+    console.log(updatedH, updatedM, updatedS);
     console.log(sDate);
-    setResult((prevResult) => [...prevResult, {date: sDate, time: `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}` ,steps:'00'}]);
+    setResult((prevResult) => [
+      ...prevResult,
+      {
+        date: sDate,
+        time: `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(
+          updatedS
+        )}`,
+        steps: stepcount,
+        distance: "0.5",
+      },
+    ]);
   };
 
   const resetTime = () => {
     setTime({ s: 0, m: 0, h: 0 });
   };
 
+  const [pedoAvailability, setpedoAvailability] = useState("");
+
+  const [stepcount, setstepcount] = useState(0);
+
+  subscribe = () => {
+    const subscription = Pedometer.watchStepCount((result) => {
+      setstepcount(result.steps);
+    });
+    Pedometer.isAvailableAsync().then(
+      (result) => {
+        setpedoAvailability(String(result));
+      },
+      (error) => {
+        setpedoAvailability(error);
+      }
+    );
+  };
+
   return (
     <View style={styles.container}>
+      <Text style={styles.pedotext}>
+        Is Pedometer available on the device : {pedoAvailability}
+      </Text>
       <DisplayTime time={time} />
-      <StepCount />
+      <View style={styles.containerSteps}>
+        <Text style={styles.texts}>Steps : </Text>
+        <Text style={styles.texts}>{stepcount}</Text>
+      </View>
       <TouchableOpacity
         style={[styles.button, isStarted && styles.buttonClicked]}
         onPress={handleButtonClick}
@@ -69,8 +108,8 @@ const StepCountButton = () => {
         <Text style={styles.buttonText}>{isStarted ? "Stop" : "Start"}</Text>
       </TouchableOpacity>
       <View style={styles.table}>
-          <StepCountDataStore sampleData={result} />
-        </View>
+        <StepCountDataStore sampleData={result} />
+      </View>
     </View>
   );
 };
@@ -79,6 +118,12 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  pedotext: {
+    backgroundColor: "#FFCACA",
+    padding: 3,
+    marginTop: 2,
+    fontWeight: "bold",
   },
   button: {
     padding: 35,
@@ -97,8 +142,18 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign: "center",
   },
-  table:{
-    width:"100%",
+  table: {
+    width: "100%",
+  },
+  containerSteps: {
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+    flexDirection: "row",
+    paddingBottom: 10,
+  },
+  texts: {
+    fontSize: 26,
   },
 });
 export default StepCountButton;

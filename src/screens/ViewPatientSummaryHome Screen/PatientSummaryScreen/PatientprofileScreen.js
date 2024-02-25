@@ -1,15 +1,32 @@
 import PatientSummary from "../Components/PatientSummary";
 import { FlatList, View, StyleSheet, Button, TouchableOpacity, Text, Image } from 'react-native';
-import { LIST } from '../Data/dummy-data';
-import ProfileHeader from "../Components/ProfileHeader";
+import axios from 'axios';
+import { useState,useEffect} from 'react';
+
 
 function PatientProfileScreen({ route, navigation }) {
-    const pId = route.params.patientId;
-    const dispalyedpatient = LIST.filter((patient) => {
-        return patient.id.indexOf(pId) >= 0;
+    const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    fetchPatients();
+  }, []);
+
+  const fetchPatients = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/patients');
+      setPatients(response.data);
+    } catch (error) {
+      console.error('Error fetching patients:', error);
+    }
+  };
+
+   
+    const pId = route.params.ptid;
+    const dispalyedpatient = patients.filter((patient) => {
+        return patient._id.indexOf(pId) >= 0;
     });
 
-    function renderCategoryItem(itemData) {
+    function renderCategoryItem({item}) {
 
 
 
@@ -24,7 +41,7 @@ function PatientProfileScreen({ route, navigation }) {
                     <View style={styles.grid}>
 
 
-                        <PatientSummary id={itemData.item.id} title={itemData.item.title} age={itemData.item.age} gender={itemData.item.gender} imageUrl={itemData.item.imageUrl} weight={itemData.item.weight} height={itemData.item.height} blood={itemData.item.blood} />
+                        <PatientSummary id={item.patientId} title={item.title} age={item.age} gender={item.gender} imageUrl={item.imageUrl} weight={item.weight} height={item.height} blood={item.blood} />
                     </View>
 
 
@@ -37,7 +54,7 @@ function PatientProfileScreen({ route, navigation }) {
                 <View style={styles.row1}>
 
                     <View style={styles.tile1} >
-                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate}>
                             <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Patient History</Text>
                         </TouchableOpacity>
@@ -46,7 +63,7 @@ function PatientProfileScreen({ route, navigation }) {
 
 
                     <View style={styles.tile1}>
-                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate}>
                         <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Medications</Text>
                         </TouchableOpacity>
@@ -57,14 +74,14 @@ function PatientProfileScreen({ route, navigation }) {
                 </View>
                 <View style={styles.row1}>
                     <View style={styles.tile1}>
-                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate}>
                         <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Past Appointments </Text>
                         </TouchableOpacity>
 
                     </View>
                     <View style={styles.tile1}>
-                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate}>
                         <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Test Results</Text>
                         </TouchableOpacity>
@@ -74,7 +91,7 @@ function PatientProfileScreen({ route, navigation }) {
                 </View>
                 <View style={styles.row1}>
                     <View style={styles.tile1}>
-                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate}>
                         <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Contact Patient</Text>
                         </TouchableOpacity>
@@ -99,12 +116,17 @@ function PatientProfileScreen({ route, navigation }) {
 
 
 
-
-            <FlatList data={dispalyedpatient}
-                keyExtractor={(item) => item.id}
-                renderItem={renderCategoryItem}>
-
-            </FlatList>
+   
+<FlatList
+            
+            data={dispalyedpatient}
+            keyExtractor={(item) => item._id}
+          
+            renderItem={renderCategoryItem}
+            style={{ flex: 1 }}
+            
+        />
+                    
 
         </View>
     );

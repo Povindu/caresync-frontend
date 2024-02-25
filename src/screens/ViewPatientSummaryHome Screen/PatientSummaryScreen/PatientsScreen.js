@@ -1,39 +1,69 @@
-import {FlatList,View,ScrollView} from 'react-native';
+import {FlatList,View,ScrollView,Text} from 'react-native';
 import { LIST} from '../Data/dummy-data';
 import PatientGridTile from '../Components/PatientGridTile';
 import Search from '../Components/Search';
-import CustomHeader from '../Components/CustomHeader';
+import CustomHeader from '../Components/CustomHeader'
+import axios from 'axios';
+import { useState,useEffect} from 'react';
+
 
 
 
 function PatientsScreen({navigation}){
+    const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    fetchPatients();
+  }, []);
+
+  const fetchPatients = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/patients');
+      setPatients(response.data);
+    } catch (error) {
+      console.error('Error fetching patients:', error);
+    }
+  };
+
    
    
-    function renderCategoryItem(itemData){
+    function renderCategoryItem({item}){
         function presshandler(){
-            navigation.navigate('PatientProfileScreen',{patientId:itemData.item.id,});
+            navigation.navigate('PatientProfileScreen',{ptid:item._id});
 
         }
     
         return(
         <View>
-           
+           {/* {patients.map(patient => (
+        <PatientGridTile id={patient.patientId} title={patient.title} color={patient.color} age={patient.age} gender={patient.gender} imageUrl={patient.imageUrl} onPress={presshandler}/>
+      ))} */}
+
          
-            <PatientGridTile id={itemData.item.id} title={itemData.item.title} color={itemData.item.color} age={itemData.item.age} gender={itemData.item.gender} imageUrl={itemData.item.imageUrl} onPress={presshandler}/>
+            <PatientGridTile id={item.patientId} title={item.title} color={item.color} age={item.age} gender={item.gender} imageUrl={item.imageUrl} onPress={presshandler}/>
             </View>
         );
     }
     return(
         <View style={{ flex: 1 }}>
             <CustomHeader />
+           
+              
             <FlatList
-                data={LIST}
-                keyExtractor={(item) => item.id}
-                renderItem={renderCategoryItem}
-                style={{ flex: 1 }}
-            />
+            
+            data={patients}
+            keyExtractor={(item) => item._id}
+          
+            renderItem={renderCategoryItem}
+            style={{ flex: 1 }}
+            
+        />
+                    
+           
+
         </View>
     );
 
 }
 export default PatientsScreen;
+

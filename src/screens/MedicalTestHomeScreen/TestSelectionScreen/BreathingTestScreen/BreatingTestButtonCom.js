@@ -13,7 +13,7 @@ import BreathingTestDataStore from "./BreathingTestDataStore";
 import axios from "axios";
 
 const HoldButton = () => {
-  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
+  // const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
   
   var date = new Date().getDate(); //To get the Current Date
   var month = new Date().getMonth() + 1; //To get the Current Month

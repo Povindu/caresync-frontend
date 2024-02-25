@@ -2,35 +2,34 @@ import * as React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { DataTable } from "react-native-paper";
 
-const BreathingTestDataStore = ({sampleData}) => {
-  if(!sampleData){
+const BreathingTestDataStore = ({ sampleData }) => {
+  if (!sampleData) {
     return null;
   }
   return (
-      <View style={styles.container}>
-        <Text style={styles.headtext}>Past Results</Text>
-        <DataTable>
-          <DataTable.Header>
-            <DataTable.Title style={{ justifyContent: "center" }}>
-              Test Date
-            </DataTable.Title>
-            <DataTable.Title style={{ justifyContent: "center" }}>
-              Time (H:M:S)
-            </DataTable.Title>
-          </DataTable.Header>
-
-          {sampleData.map((data, index) => (
-            <DataTable.Row key={index}>
-              <DataTable.Cell style={{ justifyContent: "center" }}>
-                {data.date}
-              </DataTable.Cell>
-              <DataTable.Cell style={{ justifyContent: "center" }}>
-                {data.time}
-              </DataTable.Cell>
-            </DataTable.Row>
-          ))}
-        </DataTable>
-      </View>
+    <View style={styles.container}>
+      <Text style={styles.headtext}>Past Results</Text>
+      <DataTable>
+        <DataTable.Header>
+          <DataTable.Title style={{ justifyContent: "center" }}>
+            Test Date
+          </DataTable.Title>
+          <DataTable.Title style={{ justifyContent: "center" }}>
+            Time (H:M:S)
+          </DataTable.Title>
+        </DataTable.Header>
+        {sampleData.map((data, index) => (
+          <DataTable.Row key={index}>
+            <DataTable.Cell style={{ justifyContent: "center" }}>
+              {data.date}
+            </DataTable.Cell>
+            <DataTable.Cell style={{ justifyContent: "center" }}>
+              {data.stopwatchTime}
+            </DataTable.Cell>
+          </DataTable.Row>
+        ))}
+      </DataTable>
+    </View>
   );
 };
 

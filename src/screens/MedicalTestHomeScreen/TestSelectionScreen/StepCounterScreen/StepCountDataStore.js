@@ -32,7 +32,7 @@ const StepCountDataStore = ({sampleData}) => {
               {data.date}
             </DataTable.Cell>
             <DataTable.Cell style={{ justifyContent: "center" }}>
-              {data.time}
+              {data.stopwatchTime}
             </DataTable.Cell>
             <DataTable.Cell style={{ justifyContent: "center" }}>
               {data.steps}
@@ -44,9 +44,6 @@ const StepCountDataStore = ({sampleData}) => {
         ))}
       </DataTable>
     </View>
-    <View style={styles.resetTable}>
-    <Text style={{ color: "#990000" }}>Reset</Text>
-  </View>
   </View>
   );
 };
@@ -64,10 +61,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     padding: 10,
     paddingBottom: 0,
-  },
-  resetTable: {
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 

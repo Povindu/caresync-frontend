@@ -2,14 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import DisplayTime from "../../../../components/StopwatchDisplay";
 import StepCountDataStore from "./StepCountDataStore";
-import {Pedometer} from "expo-sensors"
+import { Pedometer } from "expo-sensors";
+import axios from "axios";
 
 const StepCountButton = () => {
   useEffect(() => {
     subscribe();
+    getResults();
   }, []);
 
-  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
+  const padtoTwo = (number) => (number <= 9 ? `0${number}` : number);
 
   var date = new Date().getDate(); //To get the Current Date
   var month = new Date().getMonth() + 1; //To get the Current Month
@@ -24,16 +26,61 @@ const StepCountButton = () => {
 
   const intervalRef = useRef(null);
 
+  const [pedoAvailability, setpedoAvailability] = useState("");
+
+  const [stepcount, setstepcount] = useState(0);
+
+  const [distance , setdistance] =useState(0);
+
   var updatedS = time.s,
     updatedM = time.m,
     updatedH = time.h;
 
-  const sTime=   `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}`
-  
+  const sTime = `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}`;
+
+  const getResults = () => {
+    axios
+      .get("http://192.168.43.192:4000/api/stepCounterTests")
+      .then((response) => {
+        setResult(response.data || []);
+      })
+      .catch((error) => {
+        console.error("Axios Error : ", error);
+      });
+  };
+
+  const addResults = (data) => {
+    const payload = {
+      date: data.date,
+      stopwatchTime: data.stopwatchTime,
+      steps: data.steps,
+      distance: data.distance,
+    };
+    axios
+      .post("http://192.168.43.192:4000/api/stepCounterTests", payload)
+      .then(() => {
+        getResults();
+      })
+      .catch((error) => {
+        console.error("Axios Error : ", error);
+      });
+  };
+
+  const deleteResults = () => {
+    axios
+      .delete("http://192.168.43.192:4000/api/stepCounterTests")
+      .then(() => {
+        getResults();
+      })
+      .catch((error) => {
+        console.error("Axios Error : ", error);
+      });
+  };
+
   const handleButtonClick = () => {
     if (isStarted) {
       clearInterval(intervalRef.current);
-      saveData();
+      addResults({date: sDate, stopwatchTime: sTime ,steps: stepcount,distance: distance});
       resetTime();
       setstepcount(0);
       console.log("Stoped");
@@ -58,29 +105,9 @@ const StepCountButton = () => {
     return setTime({ s: updatedS, m: updatedM, h: updatedH });
   };
 
-  const saveData = () => {
-    console.log(updatedH,updatedM,updatedS);
-    console.log(sDate);
-    setResult((prevResult) => [
-      ...prevResult,
-      {
-        date: sDate,
-        time: `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(
-          updatedS
-        )}`,
-        steps: stepcount,
-        distance: "0",
-      },
-    ]);
-  };
-
   const resetTime = () => {
     setTime({ s: 0, m: 0, h: 0 });
   };
-
-  const [pedoAvailability, setpedoAvailability] = useState("");
-
-  const [stepcount, setstepcount] = useState(0);
 
   subscribe = () => {
     const subscription = Pedometer.watchStepCount((result) => {
@@ -105,7 +132,7 @@ const StepCountButton = () => {
       <View style={styles.container1}>
         <Text style={styles.texts}>Steps : </Text>
         <Text style={styles.texts}>{stepcount}</Text>
-    </View>
+      </View>
       <TouchableOpacity
         style={[styles.button, isStarted && styles.buttonClicked]}
         onPress={handleButtonClick}
@@ -113,8 +140,11 @@ const StepCountButton = () => {
         <Text style={styles.buttonText}>{isStarted ? "Stop" : "Start"}</Text>
       </TouchableOpacity>
       <View style={styles.table}>
-          <StepCountDataStore sampleData={result} />
-        </View>
+        <StepCountDataStore sampleData={result} />
+      </View>
+      <TouchableOpacity onPress={deleteResults}>
+        <Text style={{ color: "#990000" }}>Reset</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -141,24 +171,24 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign: "center",
   },
-  table:{
-    width:"100%",
+  table: {
+    width: "100%",
   },
-  container1:{
-    alignItems:'center',
-    justifyContent:"center",
-    display:"flex",
-    flexDirection:"row",
-    paddingBottom:10,
-},
-texts:{
-    fontSize:26,
-},
-pedotext: {
-  backgroundColor: "#FFCACA",
-  padding: 3,
-  marginTop: 2,
-  fontWeight: "bold",
-},
+  container1: {
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+    flexDirection: "row",
+    paddingBottom: 10,
+  },
+  texts: {
+    fontSize: 26,
+  },
+  pedotext: {
+    backgroundColor: "#FFCACA",
+    padding: 3,
+    marginTop: 2,
+    fontWeight: "bold",
+  },
 });
 export default StepCountButton;

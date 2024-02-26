@@ -2,14 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import DisplayTime from "../../../../components/StopwatchDisplay";
 import StepCountDataStore from "./StepCountDataStore";
-import { Pedometer } from "expo-sensors";
 
 const StepCountButton = () => {
   useEffect(() => {
     subscribe();
   }, []);
 
-  const sDate = new Date().toDateString();
+  var date = new Date().getDate(); //To get the Current Date
+  var month = new Date().getMonth() + 1; //To get the Current Month
+  var year = new Date().getFullYear(); //To get the Current Year
+  let sDate = `${padtoTwo(date)}/${padtoTwo(month)}/${year}`;
 
   const [result, setResult] = useState([]);
 
@@ -27,6 +29,7 @@ const StepCountButton = () => {
     if (isStarted) {
       clearInterval(intervalRef.current);
       saveData();
+      setstepcount(0);
       resetTime();
       setstepcount(0);
       console.log("Stoped");
@@ -97,10 +100,7 @@ const StepCountButton = () => {
         Is Pedometer available on the device : {pedoAvailability}
       </Text>
       <DisplayTime time={time} />
-      <View style={styles.containerSteps}>
-        <Text style={styles.texts}>Steps : </Text>
-        <Text style={styles.texts}>{stepcount}</Text>
-      </View>
+      <StepCount />
       <TouchableOpacity
         style={[styles.button, isStarted && styles.buttonClicked]}
         onPress={handleButtonClick}
@@ -155,5 +155,15 @@ const styles = StyleSheet.create({
   texts: {
     fontSize: 26,
   },
+  container1:{
+    alignItems:'center',
+    justifyContent:"center",
+    display:"flex",
+    flexDirection:"row",
+    paddingBottom:10,
+},
+texts:{
+    fontSize:26,
+}
 });
 export default StepCountButton;

@@ -1,47 +1,45 @@
-import { Text, StyleSheet, View, SafeAreaView, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, StyleSheet, View, SafeAreaView, TouchableOpacity, Dimensions, Image } from 'react-native';
 import Header2 from '../AddMedicalIncidentScreen/components/Header2';
-// import MedicalIncidentScreen from './MedicalIncidentScreen';
 const { width, height } = Dimensions.get('window');
 
 
 const MedicalIncidentDetailScreen = () => {
     return (
         <>
-            
-                <Header2 text="Add Details" />
-                <View style={styles.background}>
-                   
-                        <View style={styles.coloumn}>
-                        {/* <View style={styles.tile1}> */}
-                            
-                            <TouchableOpacity style={[{ backgroundColor: '#FFEBA5' }, styles.tiles]}>
 
-                                {/* <Image style={styles.img} source={require('../assets/img.png')} /> */}
-                                <Text style={styles.txt}>Add Symptoms</Text>
-                            </TouchableOpacity>
-                        {/* </View> */}
+            <Header2 text="Add Details" />
+            <View style={styles.background}>
+            <View style={styles.container}>
+                <View style={styles.coloumn}>
 
-                        {/* <View style={styles.tile2}> */}
-                            
-                             <TouchableOpacity style={[{ backgroundColor: '#A7F4FF' }, styles.tiles]}>
-                            {/* <Image style={styles.img} source={require('../assets/img1.png')} /> */}
-                                <Text style={styles.txt}>Add Appointments</Text>
-                            </TouchableOpacity>
-                        {/* </View> */}
 
-                        {/* <View style={styles.tile2}> */}
-                            
-                            <TouchableOpacity style={[{ backgroundColor: '#94FFC5' }, styles.tiles]}>
-                                {/* <Image style={styles.img} source={require('../assets/img2.png')} /> */}
-                                <Text style={styles.txt}>Add Prescriptions</Text>
-                            </TouchableOpacity>
-                        {/* </View> */}
-                        </View>
+                    <TouchableOpacity style={[{ backgroundColor: '#FFEBA5' }, styles.tiles]}>
+                    <Image source={require('../AddMedicalIncidentScreen/Images/img.png')}  style={styles.img} />
+                        <Text style={styles.txt}>Add Symptoms</Text>
+                    </TouchableOpacity>
 
 
 
-                    </View>
-                
+                    <TouchableOpacity style={[{ backgroundColor: '#A7F4FF' }, styles.tiles]}>
+                        <Image style={styles.img} source={require('../AddMedicalIncidentScreen/Images/img1.png')} />
+                        <Text style={styles.txt}>Add Appointments</Text>
+                    </TouchableOpacity>
+
+
+
+
+                    <TouchableOpacity style={[{ backgroundColor: '#94FFC5' }, styles.tiles]}>
+                        <Image style={styles.img} source={require("../AddMedicalIncidentScreen/Images/img2.png")} />
+                        <Text style={styles.txt}>Add Prescriptions</Text>
+                    </TouchableOpacity>
+
+                </View>
+                </View>
+
+
+
+            </View>
+
 
 
 
@@ -61,31 +59,32 @@ const styles = StyleSheet.create({
     safeArea: {
         flex: 1,
     },
-    tiles:{
+    tiles: {
+
+        padding:'2%',
         
-        height: height * 0.20,
-        width: width* 0.40,
-        marginLeft: width * 0.05,
-        marginTop: height * 0.04,
+        marginTop: '10%',
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
 
     },
 
-    // container: {
-    //     // flex:1,
-    //     // maxWidth: '100%',
-        
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     backgroundColor: '#FFFF',
-    //   width: '100%',
-    //   height: '8%',
+    container: {
+        flex:1,
+        width:'93%',
 
-    
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#FFFF',
+        marginVertical:'3%',
+        marginHorizontal:'3%',
+     
+     
 
-    // },
+
+
+    },
 
     background: {
         backgroundColor: '#e3ffff',
@@ -94,24 +93,25 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 1,
         alignItems: 'center',
-        
 
-       
+
+
     },
     img: {
         //    marginLeft:16,
         marginTop: 13,
         alignSelf: 'center',
+        
 
     },
     txt: {
         fontSize: 16,
         alignSelf: 'center',
     },
-    coloumn:{
-        flexDirection:'column',
-        flex:1,
-        
+    coloumn: {
+        flexDirection: 'column',
+        flex: 1,
+
 
     },
 

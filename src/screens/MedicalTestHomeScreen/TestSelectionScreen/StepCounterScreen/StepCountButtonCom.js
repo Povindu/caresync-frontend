@@ -1,13 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
 import DisplayTime from "../../../../components/StopwatchDisplay";
-import StepCount from "./../StepCounterScreen/StepCountCom";
 import StepCountDataStore from "./StepCountDataStore";
+import {Pedometer} from "expo-sensors"
 
 const StepCountButton = () => {
   useEffect(() => {
     subscribe();
   }, []);
+
+  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
 
   var date = new Date().getDate(); //To get the Current Date
   var month = new Date().getMonth() + 1; //To get the Current Month
@@ -33,6 +35,7 @@ const StepCountButton = () => {
       clearInterval(intervalRef.current);
       saveData();
       resetTime();
+      setstepcount(0);
       console.log("Stoped");
     } else {
       intervalRef.current = setInterval(run, 1000);
@@ -66,7 +69,7 @@ const StepCountButton = () => {
           updatedS
         )}`,
         steps: stepcount,
-        distance: "0.5",
+        distance: "0",
       },
     ]);
   };
@@ -95,8 +98,14 @@ const StepCountButton = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.pedotext}>
+        Is Pedometer available on the device : {pedoAvailability}
+      </Text>
       <DisplayTime time={time} />
-      <StepCount />
+      <View style={styles.container1}>
+        <Text style={styles.texts}>Steps : </Text>
+        <Text style={styles.texts}>{stepcount}</Text>
+    </View>
       <TouchableOpacity
         style={[styles.button, isStarted && styles.buttonClicked]}
         onPress={handleButtonClick}
@@ -135,5 +144,21 @@ const styles = StyleSheet.create({
   table:{
     width:"100%",
   },
+  container1:{
+    alignItems:'center',
+    justifyContent:"center",
+    display:"flex",
+    flexDirection:"row",
+    paddingBottom:10,
+},
+texts:{
+    fontSize:26,
+},
+pedotext: {
+  backgroundColor: "#FFCACA",
+  padding: 3,
+  marginTop: 2,
+  fontWeight: "bold",
+},
 });
 export default StepCountButton;

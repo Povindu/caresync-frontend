@@ -21,6 +21,9 @@ const StepCountDataStore = ({sampleData}) => {
           <DataTable.Title style={{ justifyContent: "center" }}>
             Steps
           </DataTable.Title>
+          <DataTable.Title style={{ justifyContent: "center" }}>
+            Distance (km)
+          </DataTable.Title>
         </DataTable.Header>
 
         {sampleData.map((data, index) => (
@@ -33,6 +36,9 @@ const StepCountDataStore = ({sampleData}) => {
             </DataTable.Cell>
             <DataTable.Cell style={{ justifyContent: "center" }}>
               {data.steps}
+            </DataTable.Cell>
+            <DataTable.Cell style={{ justifyContent: "center" }}>
+              {data.distance}
             </DataTable.Cell>
           </DataTable.Row>
         ))}

@@ -13,7 +13,7 @@ import BreathingTestDataStore from "./BreathingTestDataStore";
 import axios from "axios";
 
 const HoldButton = () => {
-  // const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
+  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
   
   var date = new Date().getDate(); //To get the Current Date
   var month = new Date().getMonth() + 1; //To get the Current Month
@@ -87,16 +87,6 @@ const HoldButton = () => {
       clearInterval(intervalRef.current);
     }
   };
-
-
-  const saveData = () => {
-    console.log(updatedH,updatedM,updatedS);
-    console.log(sDate);
-    setResult((prevResult) => [...prevResult, {date: sDate, time: `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}` }]);
-    resetTime();
-  };
-
-  const padtoTwo = (number) => (number <= 9 ? `0${number}` : number);
   const sTime = `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}`;
 
   

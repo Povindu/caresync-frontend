@@ -49,19 +49,21 @@ const PatientDashboard = ({navigation}) => {
           />
           <Text style={styles.dashboardButtonText}>View Medication Plans</Text>
         </TouchableOpacity>
-      </View>
 
-      <TouchableOpacity style={styles.roundedPlusButton}>
-        <Text style={styles.plusButtonText}>+</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('MedicalIncidentHomeScreen')}}>
+        <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('MedicalIncidentHomeScreen')}}>
           <Image
             source={require("../../assets/DocImage.png")}
             style={styles.dashboardImage}
           />
           <Text style={styles.dashboardButtonText}>Add Medical Incident</Text>
         </TouchableOpacity>
+      </View>
+
+      <TouchableOpacity style={styles.roundedPlusButton}>
+        <Text style={styles.plusButtonText}>+</Text>
+      </TouchableOpacity>
+
+      
     </View>
 
   );

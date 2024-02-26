@@ -1,12 +1,7 @@
 import {
-  Text,
-  View,
-  StyleSheet,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-  Modal,
-} from "react-native";
+  Text,View,KeyboardAvoidingView,Platform,TouchableOpacity,Modal,StyleSheet, TouchableWithoutFeedback} 
+      from "react-native";import {  } from "react-native";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import DatePicker from "react-native-modern-datepicker";
@@ -16,7 +11,7 @@ function Calendar() {
   const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
   const today = new Date();
   const startDate = getFormatedDate(
-    today.setDate(today.getDate() + 1),
+    today.setDate(),
     "YYYY/MM/DD"
   );
   const [selectedStartDate, setSelectedStartDate] = useState("");
@@ -29,6 +24,7 @@ function Calendar() {
   const handleOnPressStartDate = () => {
     setOpenStartDatePicker(!openStartDatePicker);
   };
+  
 
 
   return (
@@ -46,6 +42,7 @@ function Calendar() {
               <TouchableOpacity
                 style={styles.inputBtn}
                 onPress={handleOnPressStartDate}
+                placeholder="Select date"
               >
                 <Text>{selectedStartDate}</Text>
               </TouchableOpacity>
@@ -77,7 +74,7 @@ function Calendar() {
                 />
 
                 <TouchableOpacity onPress={handleOnPressStartDate}>
-                  <Text style={{ color: "white" }}>Close</Text>
+                  <Text style={{ color: "white" }}>OK</Text>
                 </TouchableOpacity>
               </View>
             
@@ -92,8 +89,8 @@ export default Calendar;
 const styles = StyleSheet.create({
  
   inputBtn: {
-
-    justifyContent: "center",
+    
+    
     borderColor: '#8e8e8e',
     borderWidth: 1,
     padding: 10,
@@ -107,13 +104,17 @@ const styles = StyleSheet.create({
 
   
   modalView: {
+    marginTop:200,
+    alignContent: 'center',
     margin: 20,
+    marginVertical:'%10',
     backgroundColor: "#080516",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
     padding: 35,
     width: "90%",
+    
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

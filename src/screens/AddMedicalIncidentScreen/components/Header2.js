@@ -6,6 +6,7 @@ const Header2 = ({ text }) => {
       <SafeAreaView>
      
         <View style={styles.headercontainer}>
+       
         <Text style={styles.text}>{text}</Text>
         <StatusBar style="auto" />
       </View>
@@ -28,8 +29,9 @@ const styles = StyleSheet.create({
     },
     text: {
         paddingTop: 50,
-        fontSize: 20,
         color: '#FFF',
+        fontWeight: "bold", 
+        fontSize: 24,
         // fontFamily: 'poppins medium',
       },
 });

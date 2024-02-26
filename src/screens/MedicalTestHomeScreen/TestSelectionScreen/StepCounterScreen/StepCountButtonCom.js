@@ -5,7 +5,9 @@ import StepCount from "./../StepCounterScreen/StepCountCom";
 import StepCountDataStore from "./StepCountDataStore";
 
 const StepCountButton = () => {
-  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
+  useEffect(() => {
+    subscribe();
+  }, []);
 
   var date = new Date().getDate(); //To get the Current Date
   var month = new Date().getMonth() + 1; //To get the Current Month
@@ -56,11 +58,39 @@ const StepCountButton = () => {
   const saveData = () => {
     console.log(updatedH,updatedM,updatedS);
     console.log(sDate);
-    setResult((prevResult) => [...prevResult, {date: sDate, time: sTime ,steps:'00'}]);
+    setResult((prevResult) => [
+      ...prevResult,
+      {
+        date: sDate,
+        time: `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(
+          updatedS
+        )}`,
+        steps: stepcount,
+        distance: "0.5",
+      },
+    ]);
   };
 
   const resetTime = () => {
     setTime({ s: 0, m: 0, h: 0 });
+  };
+
+  const [pedoAvailability, setpedoAvailability] = useState("");
+
+  const [stepcount, setstepcount] = useState(0);
+
+  subscribe = () => {
+    const subscription = Pedometer.watchStepCount((result) => {
+      setstepcount(result.steps);
+    });
+    Pedometer.isAvailableAsync().then(
+      (result) => {
+        setpedoAvailability(String(result));
+      },
+      (error) => {
+        setpedoAvailability(error);
+      }
+    );
   };
 
   return (

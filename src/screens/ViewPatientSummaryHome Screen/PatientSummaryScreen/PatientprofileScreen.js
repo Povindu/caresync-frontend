@@ -57,7 +57,7 @@ function PatientProfileScreen({ route, navigation }) {
                 </View>
                 <View style={styles.row1}>
                     <View style={styles.tile1}>
-                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PastAppointmentScreen")}>
                         <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Past Appointments </Text>
                         </TouchableOpacity>

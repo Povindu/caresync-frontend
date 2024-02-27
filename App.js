@@ -20,6 +20,7 @@ import PatientsScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientS
 import PatientProfileScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientprofileScreen";
 import PatientHistoryScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientsHistoryScreen";
 import DoctorDashboard from "./src/screens/DoctorDashboard";
+import PastAppointmentScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PastAppointmentScreen";
 import CustomHeader from "./src/screens/ViewPatientSummaryHome Screen/Components/CustomHeader";
 import Header from "./src/components/Header";
 
@@ -73,13 +74,24 @@ export default function App() {
               headerShown: false ,
             }}
           />
-                <Stack.Screen
+              <Stack.Screen
             name="PatientHistoryScreen"
             component={PatientHistoryScreen}
             options={{
               headerShown: false ,
             }}
           />
+          <Stack.Screen
+            name="PastAppointmentScreen"
+            component={PastAppointmentScreen}
+            options={{
+              headerShown: false ,
+            }}
+          />
+
+
+
+      
            <Stack.Screen
               name="DoctorDashboard"
               component={DoctorDashboard}

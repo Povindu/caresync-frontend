@@ -25,7 +25,7 @@ function PatientsScreen({navigation}){
     }
     return(
         <View style={{ flex: 1 }}>
-            <CustomHeader />
+            <CustomHeader  title="My Patients" />
             <FlatList
                 data={LIST}
                 keyExtractor={(item) => item.id}

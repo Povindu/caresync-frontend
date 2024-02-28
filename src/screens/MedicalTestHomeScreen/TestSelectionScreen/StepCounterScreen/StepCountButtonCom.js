@@ -4,6 +4,7 @@ import DisplayTime from "../../../../components/StopwatchDisplay";
 import StepCountDataStore from "./StepCountDataStore";
 import { Pedometer } from "expo-sensors";
 import axios from "axios";
+import CircularProgress from "react-native-circular-progress-indicator";
 
 const StepCountButton = () => {
   useEffect(() => {
@@ -30,9 +31,10 @@ const StepCountButton = () => {
 
   const [stepcount, setstepcount] = useState(0);
 
-  const [distance , setdistance] =useState(0);
-
-  var updatedS = time.s,
+  var dist = stepcount/ 1300;
+  var distance = dist.toFixed(4);
+  
+    var updatedS = time.s,
     updatedM = time.m,
     updatedH = time.h;
 
@@ -129,9 +131,18 @@ const StepCountButton = () => {
         Is Pedometer available on the device : {pedoAvailability}
       </Text>
       <DisplayTime time={time} />
-      <View style={styles.container1}>
-        <Text style={styles.texts}>Steps : </Text>
-        <Text style={styles.texts}>{stepcount}</Text>
+      <View>
+        <CircularProgress
+        value={stepcount}
+        maxValue={13000}
+        radius={80}
+        activeStrokeColor={'#00567D'}
+        inActiveStrokeColor={'#DEFFFB'}
+        inActiveStrokeWidth={20}
+        activeStrokeWidth={20}
+        title={"Step Count"}
+        titleStyle={{fontWeight:"bold"}}
+        />
       </View>
       <TouchableOpacity
         style={[styles.button, isStarted && styles.buttonClicked]}
@@ -161,6 +172,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#D5FFCA",
     borderRadius: 5,
     borderRadius: 10,
+    marginTop:10
   },
   buttonClicked: {
     backgroundColor: "#FFCACA",
@@ -173,16 +185,6 @@ const styles = StyleSheet.create({
   },
   table: {
     width: "100%",
-  },
-  container1: {
-    alignItems: "center",
-    justifyContent: "center",
-    display: "flex",
-    flexDirection: "row",
-    paddingBottom: 10,
-  },
-  texts: {
-    fontSize: 26,
   },
   pedotext: {
     backgroundColor: "#FFCACA",

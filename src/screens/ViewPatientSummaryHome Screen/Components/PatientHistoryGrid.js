@@ -79,7 +79,7 @@ function PatientHistoryGrid({id,title,date,description,doctor,symptom,presId}){
                     </View>
                     <View style={styles.subcom1}>
                     <Text style={styles.date1}>{date}</Text>
-                    <Text style={styles.presId}>Id : {presId}</Text>
+                    {/* <Text style={styles.presId}>Id : {presId}</Text> */}
                     <ViewButton text="View"/>
                     </View>
                     

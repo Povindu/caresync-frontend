@@ -13,7 +13,7 @@ function PatientProfileScreen({ route, navigation }) {
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get('http://192.168.34.160:8003/patients');
+      const response = await axios.get('http://192.168.143.160:8004/patients');
       setPatients(response.data);
     } catch (error) {
       console.error('Error fetching patients:', error);

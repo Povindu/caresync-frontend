@@ -13,7 +13,7 @@ function PatientProfileScreen({ route, navigation }) {
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/patients');
+      const response = await axios.get('http://192.168.34.160:8003/patients');
       setPatients(response.data);
     } catch (error) {
       console.error('Error fetching patients:', error);
@@ -54,7 +54,7 @@ function PatientProfileScreen({ route, navigation }) {
                 <View style={styles.row1}>
 
                     <View style={styles.tile1} >
-                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate}>
+                        <TouchableOpacity style={{ backgroundColor: 'white', height: 120, width: 160, borderRadius: 15, marginLeft: 20, marginTop: 20, }} onPress={() => navigation.navigate("PatientHistoryScreen")}>
                             <Image style={styles.img} source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")} />
                             <Text style={styles.text} >Patient History</Text>
                         </TouchableOpacity>

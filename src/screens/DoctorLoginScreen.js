@@ -15,7 +15,7 @@ const DoctorLogin = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:3003/doctors/signin", {
+      const response = await fetch("http://localhost:3004/doctors/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -24,8 +24,11 @@ const DoctorLogin = ({ navigation }) => {
       });
       const data = await response.json();
       if (response.ok) {
-        // Navigate to DoctorDashboard if login successful
-        navigation.navigate("DoctorDashboard");
+        if (data.medicalIdVerify) {
+          navigation.navigate("DoctorDashboard");
+        } else {
+          navigation.navigate("MedicalIdFalseScreen");
+        }
       } else {
         Alert.alert("Login Failed", data.error);
       }

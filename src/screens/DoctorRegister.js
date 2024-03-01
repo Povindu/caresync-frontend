@@ -22,7 +22,7 @@ const DoctorRegister = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:3003/doctors/signup', {
+      const response = await fetch('http://localhost:3004/doctors/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,11 +34,11 @@ const DoctorRegister = ({ navigation }) => {
           email,
           password,
           medicalId,
+          medicalIdVerify: false,
         }),
       });
       const data = await response.json();
       if (response.ok) {
-        // Handle successful registration here
         Alert.alert('Success', 'Registration successful.', [
           {
             text: 'OK',

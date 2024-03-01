@@ -23,6 +23,9 @@ import DoctorDashboard from "./src/screens/DoctorDashboard";
 import CustomHeader from "./src/screens/ViewPatientSummaryHome Screen/Components/CustomHeader";
 import MedicalIdFalseScreen from "./src/screens/MedicalIdFalseScreen";
 
+import Header from "./src/components/Header";
+import MedicationView from "./src/screens/MedicationToCalendar/MedicationViewInCalendarHome";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -53,6 +56,7 @@ export default function App() {
             <Stack.Screen name="TestSelection" component={TestSelection} />
             <Stack.Screen name="StepCounterHome" component={StepCounterHome} />
             <Stack.Screen name="BreathingHome" component={BreathingHome} />
+            <Stack.Screen name="MedicationView" component={MedicationView}/>
 
             <Stack.Screen name="MedicalIncidentHomeScreen" component={MedicalIncidentHomeScreen} options={{ headerShown:false}}/>
             <Stack.Screen name="MedicalIncidentDetailScreen" component={MedicalIncidentDetailScreen} options={{ headerShown:false}}/>
@@ -63,7 +67,7 @@ export default function App() {
             name="PatientsScreen"
             component={PatientsScreen}
             options={{
-              header: (props) => <CustomHeader {...props} />,
+              headerShown: false ,
             }}
           />
            <Stack.Screen

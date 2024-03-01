@@ -1,42 +1,45 @@
-import { Text, StyleSheet, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, View, SafeAreaView, TouchableOpacity, Dimensions, Image } from 'react-native';
 import Header2 from '../AddMedicalIncidentScreen/components/Header2';
-// import MedicalIncidentScreen from './MedicalIncidentScreen';
+const { width, height } = Dimensions.get('window');
 
 
 const MedicalIncidentDetailScreen = () => {
     return (
         <>
-            <SafeAreaView>
-                <Header2 text="Add Details" />
-                <View style={styles.background}>
-                    <View style={styles.container}>
-                        <View style={styles.tile1}>
-                            <TouchableOpacity style={{ backgroundColor: '#FFEBA5', height: 181, width: 171, marginLeft: 100, marginTop: 30, borderRadius: 10 }}>
-                                {/* <Image style={styles.img} source={require('../assets/img.png')} /> */}
-                                <Text style={styles.txt}>Add Symptoms</Text>
-                            </TouchableOpacity>
-                        </View>
 
-                        <View style={styles.tile2}>
-                            <TouchableOpacity style={{ backgroundColor: '#A7F4FF', height: 181, width: 171, marginLeft: 100, marginTop: 30, borderRadius: 10 }}>
-                                {/* <Image style={styles.img} source={require('../assets/img1.png')} /> */}
-                                <Text style={styles.txt}>Add Appointments</Text>
-                            </TouchableOpacity>
-                        </View>
+            <Header2 text="Add Details" />
+            <View style={styles.background}>
+            <View style={styles.container}>
+                <View style={styles.coloumn}>
 
-                        <View style={styles.tile2}>
-                            <TouchableOpacity style={{ backgroundColor: '#94FFC5', height: 181, width: 171, marginLeft: 100, marginTop: 30, borderRadius: 10 }}>
-                                {/* <Image style={styles.img} source={require('../assets/img2.png')} /> */}
-                                <Text style={styles.txt}>Add Prescriptions</Text>
-                            </TouchableOpacity>
-                        </View>
+
+                    <TouchableOpacity style={[{ backgroundColor: '#FFEBA5' }, styles.tiles]}>
+                    <Image source={require('../AddMedicalIncidentScreen/Images/img.png')}  style={styles.img} />
+                        <Text style={styles.txt}>Add Symptoms</Text>
+                    </TouchableOpacity>
 
 
 
-                    </View>
+                    <TouchableOpacity style={[{ backgroundColor: '#A7F4FF' }, styles.tiles]}>
+                        <Image style={styles.img} source={require('../AddMedicalIncidentScreen/Images/img1.png')} />
+                        <Text style={styles.txt}>Add Appointments</Text>
+                    </TouchableOpacity>
+
+
+
+
+                    <TouchableOpacity style={[{ backgroundColor: '#94FFC5' }, styles.tiles]}>
+                        <Image style={styles.img} source={require("../AddMedicalIncidentScreen/Images/img2.png")} />
+                        <Text style={styles.txt}>Add Prescriptions</Text>
+                    </TouchableOpacity>
+
+                </View>
                 </View>
 
-            </SafeAreaView>
+
+
+            </View>
+
 
 
 
@@ -52,31 +55,65 @@ const MedicalIncidentDetailScreen = () => {
 
 export default MedicalIncidentDetailScreen;
 const styles = StyleSheet.create({
-    container: {
-        width: 380,
-        height: '80%',
 
+    safeArea: {
+        flex: 1,
+    },
+    tiles: {
+
+        padding:'2%',
+        
+        marginTop: '10%',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+
+    },
+
+    container: {
+        flex:1,
+        width:'93%',
+
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#FFFF',
-        margin: 15,
+        marginVertical:'3%',
+        marginHorizontal:'3%',
+     
+     
+
+
 
     },
 
     background: {
-        backgroundColor: '#DEFFFB',
+        backgroundColor: '#e3ffff',
         width: '100%',
         height: '100%',
+        justifyContent: 'center',
+        flex: 1,
+        alignItems: 'center',
+
+
+
     },
     img: {
         //    marginLeft:16,
         marginTop: 13,
         alignSelf: 'center',
+        
 
     },
     txt: {
         fontSize: 16,
         alignSelf: 'center',
     },
+    coloumn: {
+        flexDirection: 'column',
+        flex: 1,
 
+
+    },
 
 
 })

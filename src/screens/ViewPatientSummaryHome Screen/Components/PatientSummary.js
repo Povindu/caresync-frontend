@@ -1,21 +1,27 @@
 import {Pressable,View,Text,StyleSheet,Image} from 'react-native';
+import axios from 'axios';
+import { useState,useEffect} from 'react';
+ 
 function PatientSummary({id,title,imageUrl,gender,age,weight,height,blood}){
+    
+ 
+
     return(
 
            
           <View>
        
-                <View >
+                <View style={styles.first}>
                       <View><Image source={{uri: imageUrl}} style={styles.image}/></View>
                     
                          <View style={styles.tid}>
-                    <Text style={styles.title}>
-                        {title}
-                    </Text>
-                    <Text style={styles.id}>
-                        {id}
-                    </Text>
-                    </View>
+                                <Text style={styles.title}>
+                                    {title}
+                                 </Text>
+                                <Text style={styles.id}>
+                                     {id}
+                                </Text>
+                        </View>
                   
            
 
@@ -114,10 +120,25 @@ const styles= StyleSheet.create({
       
        
     },
+    first:{
+        justifyContent:'center',
+        alignItems:'center'
+
+    },
     tid:{
+     
         justifyContent:'center',
         alignItems:'center'
     },
+    image: {
+          
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: -20,
+    
+        width: 50,
+        height: 50,
+      },
 
     content:{
         flexDirection:'row'
@@ -138,18 +159,13 @@ const styles= StyleSheet.create({
         fontWeight:'bold'
 
     },
-    image:{
-        marginTop:-20,
-        marginLeft: 160,
-        width:50,
-        height:50,
-
-    },
+    
+      
     id:{
        
         fontSize:15,
         marginTop:10,
-
+     
     },
     blood:{
         
@@ -161,6 +177,7 @@ const styles= StyleSheet.create({
     },
     cat1:{
         flexDirection:'column',
+       
     
 
     },
@@ -176,6 +193,8 @@ const styles= StyleSheet.create({
     main1:{
         flexDirection:'row',
         marginTop:20,
+        marginRight:'10%'
+  
 
     }
     ,cat3:{
@@ -204,6 +223,7 @@ const styles= StyleSheet.create({
     main2:{
         flexDirection:'row',
         marginTop:20,
+        marginRight:'22%'
     },
     cat4:{
         flexDirection:'column',

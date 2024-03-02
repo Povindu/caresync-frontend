@@ -21,6 +21,8 @@ import PatientProfileScreen from "./src/screens/ViewPatientSummaryHome Screen/Pa
 import PatientHistoryScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientsHistoryScreen";
 import DoctorDashboard from "./src/screens/DoctorDashboard";
 import CustomHeader from "./src/screens/ViewPatientSummaryHome Screen/Components/CustomHeader";
+import MedicalIdFalseScreen from "./src/screens/MedicalIdFalseScreen";
+
 import Header from "./src/components/Header";
 import MedicationView from "./src/screens/MedicationToCalendar/MedicationViewInCalendarHome";
 
@@ -85,6 +87,11 @@ export default function App() {
            <Stack.Screen
               name="DoctorDashboard"
               component={DoctorDashboard}
+            />
+            <Stack.Screen
+              name="MedicalIdFalseScreen"
+              component={MedicalIdFalseScreen}
+              options={{ headerShown: false }}
             />
 
 

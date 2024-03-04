@@ -27,7 +27,13 @@ import GiveDocAcessScreen from './src/screens/GiveDocAccess/GiveDocAccessScreen'
 import DoctorDashboard from "./src/screens/DoctorDashboard";
 import CustomHeader from "./src/screens/ViewPatientSummaryHome Screen/Components/CustomHeader";
 
+
+
+
+
+
 const Stack = createNativeStackNavigator();
+
 
 export default function App() {
   return (

@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import Header from "../../components/Header";
+import Header from "../MedicalTestHomeScreen/components/Header";
 import { Calendar } from "react-native-calendars";
 
 const MedicationView = ({navigation}) => {

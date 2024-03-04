@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, TouchableOpacity, StyleSheet, Text, ScrollView } from "react-native";
-import DisplayTime from "../../../../components/StopwatchDisplay";
+import DisplayTime from "../../components/StopwatchDisplay";
 import StepCountDataStore from "./StepCountDataStore";
 import { Pedometer } from "expo-sensors";
 import axios from "axios";

@@ -21,7 +21,6 @@ import PatientProfileScreen from "./src/screens/ViewPatientSummaryHome Screen/Pa
 import PatientHistoryScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientsHistoryScreen";
 import DoctorDashboard from "./src/screens/DoctorDashboard";
 import CustomHeader from "./src/screens/ViewPatientSummaryHome Screen/Components/CustomHeader";
-import Header from "./src/components/Header";
 import MedicationView from "./src/screens/MedicationToCalendar/MedicationViewInCalendarHome";
 import AddMedication from "./src/screens/MedicationToCalendar/AddMedicationPage"
 import ViewMedication from "./src/screens/MedicationToCalendar/ViewMedicationPage";

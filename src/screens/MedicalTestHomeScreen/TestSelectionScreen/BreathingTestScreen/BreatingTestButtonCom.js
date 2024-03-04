@@ -8,7 +8,7 @@ import {
   ScrollView,
   TouchableOpacity
 } from "react-native";
-import DisplayTime from "../../../../components/StopwatchDisplay";
+import DisplayTime from "../../components/StopwatchDisplay";
 import BreathingTestDataStore from "./BreathingTestDataStore";
 import axios from "axios";
 

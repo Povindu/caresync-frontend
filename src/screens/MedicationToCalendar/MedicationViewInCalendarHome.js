@@ -3,8 +3,6 @@ import Header from "../../components/Header";
 import { Calendar } from "react-native-calendars";
 
 const MedicationView = ({navigation}) => {
-  const today = new Date().toISOString().split('T')[0];
-
   const addMedication=()=>{
     navigation.navigate("AddMedication");
   };
@@ -22,9 +20,6 @@ const MedicationView = ({navigation}) => {
           marginLeft: 30,
           marginTop: 100,
           elevation: 4,
-        }}
-        markedDates={{
-          [today]: { selected: true, selectedColor: 'blue' },
         }}
         onDayPress={(day) => {
           viewMedication();

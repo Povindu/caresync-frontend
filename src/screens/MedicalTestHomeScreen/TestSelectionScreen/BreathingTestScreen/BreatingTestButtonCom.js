@@ -150,7 +150,7 @@ const HoldButton = () => {
           <BreathingTestDataStore sampleData={result} />
         </View>
         <View style={styles.resetTable}>
-        <TouchableOpacity onPress={deleteResults}>
+        <TouchableOpacity onPress={deleteResults} style={{paddingBottom:100}}>
           <Text style={{ color: "#990000" }}>Reset</Text>
         </TouchableOpacity>
         </View>

@@ -9,19 +9,22 @@ import {
   Alert,
 } from "react-native";
 
+const baseURL = "http://localhost:4000/";
+
 const PatientLogin = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:3003/signin", {
+      const response = await fetch(baseURL + "signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await response.json();
       if (response.ok) {
         // Navigate to PatientDashboard if login successful

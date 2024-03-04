@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
 const PatientRegister = ({ navigation }) => {
+
+  const baseURL = "http://localhost:4000/";
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [nic, setNic] = useState('');
@@ -21,7 +24,7 @@ const PatientRegister = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:3003/signup', {
+      const response = await fetch(baseURL+'signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -33,7 +33,7 @@ const MedicationScreen = () => {
 
   const fetchMedications = async () => {
     try {
-      const response = await fetch("http://192.168.137.1:8012/medications", {
+      const response = await fetch("http://10.10.14.114:4000/medications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const MedicationScreen = () => {
 
   const saveMedication = async () => {
     try {
-      const res = await fetch("http://192.168.137.1:8012/medications/add", {
+      const res = await fetch("http://10.10.14.114.1:4000/medications/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +108,7 @@ const MedicationScreen = () => {
 
   const removeMedication = async (selectedDate, medicalDetails) => {
     try {
-      const res = await fetch("http://192.168.137.1:8012/medications/delete", {
+      const res = await fetch("http://10.10.14.114:4000/medications/delete", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -201,23 +201,41 @@ const MedicationScreen = () => {
       />
 
       <ScrollView style={styles.medicationsContainer}>
-        <Text style={styles.medicationsTitle}>Medications:</Text>
         {medications && medications.length > 0 ? (
           medications
             .slice() // Create a copy of medications array to avoid mutating the original array
             .sort((a, b) => new Date(a.selectedDate) - new Date(b.selectedDate)) // Sort medications by selectedDate
             .map((medication, index) => (
-              <Text
+              <View
                 key={`${medication.selectedDate}-${index}`}
-                style={styles.medicationItem}
+                style={styles.dateContainer}
               >
-                {medication.selectedDate}: {medication.medicalDetails}
-              </Text>
+                <View style={styles.subcon}>
+                  <Text style={styles.day}>
+                    {new Date(medication.selectedDate).toLocaleDateString(
+                      undefined,
+                      { day: "numeric" }
+                    )}
+                  </Text>
+                  <Text style={styles.month}>
+                    {new Date(medication.selectedDate).toLocaleDateString(
+                      undefined,
+                      { month: "short" }
+                    )}
+                  </Text>
+                </View>
+                <View style={styles.medicationDetailscon}>
+                  <Text style={styles.medicationDetailstext}>
+                    {medication.medicalDetails}
+                  </Text>
+                </View>
+              </View>
             ))
         ) : (
           <Text>No medications found</Text>
         )}
       </ScrollView>
+
       {renderMedicationsModal()}
     </View>
   );
@@ -248,9 +266,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   medicationsContainer: {
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 20,
-    maxHeight: 300,
+    maxHeight: 350,
     marginRight: 20,
     showVerticalScrollIndicator: true,
   },
@@ -288,5 +306,37 @@ const styles = StyleSheet.create({
   },
   deleteButtonText: {
     color: "white",
+  },
+  dateContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  day: {
+    fontSize: 26,
+  },
+  month: {
+    fontSize: 16,
+  },
+  medicationDetailscon: {
+    flex: 1,
+    marginLeft: 20,
+    backgroundColor: "white",
+    width: "30%",
+    height: "90%",
+    borderRadius: 10,
+  },
+  medicationDetailstext: {
+    fontSize: 16,
+    padding: "3%",
+  },
+  subcon: {
+    flexDirection: "column",
+    width: 60,
+    height: 60,
+    backgroundColor: "#91e882",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
   },
 });

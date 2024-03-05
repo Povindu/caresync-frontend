@@ -15,7 +15,7 @@ function PatientsScreen({ navigation }) {
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get("http://192.168.137.1:8012/patients");
+      const response = await axios.get("http://10.10.14.114:4000/patients");
       setPatients(response.data);
     } catch (error) {
       console.error("Error fetching patients:", error);

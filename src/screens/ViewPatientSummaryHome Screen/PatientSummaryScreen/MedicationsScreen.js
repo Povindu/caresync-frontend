@@ -7,6 +7,7 @@ import {
   Modal,
   StyleSheet,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { Calendar } from "react-native-calendars";
 import Header2 from "../../AddMedicalIncidentScreen/components/Header2";
@@ -32,7 +33,7 @@ const MedicationScreen = () => {
 
   const fetchMedications = async () => {
     try {
-      const response = await fetch("http://192.168.8.104:8011/medications", {
+      const response = await fetch("http://192.168.137.1:8012/medications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +85,7 @@ const MedicationScreen = () => {
 
   const saveMedication = async () => {
     try {
-      const res = await fetch("http://192.168.8.104:8011/medications/add", {
+      const res = await fetch("http://192.168.137.1:8012/medications/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -105,6 +106,28 @@ const MedicationScreen = () => {
     }
   };
 
+  const removeMedication = async (selectedDate, medicalDetails) => {
+    try {
+      const res = await fetch("http://192.168.137.1:8012/medications/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          patientId: "65cde7c585ffe2b8d4a75878",
+          selectedDate,
+          medicalDetails,
+        }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to delete medication");
+      }
+      // Refresh medication list after successful deletion
+      fetchMedications();
+    } catch (error) {
+      console.error("Error deleting medication:", error);
+    }
+  };
   const renderMedicationsModal = () => {
     return (
       <Modal
@@ -120,12 +143,25 @@ const MedicationScreen = () => {
             </Text>
             <ScrollView style={styles.scrollContainer}>
               {medicationsForSelectedDate.map((medication, index) => (
-                <Text
+                <View
                   key={`${medication.selectedDate}-${index}`}
-                  style={styles.medicationItem}
+                  style={styles.medicationItemContainer}
                 >
-                  {medication.medicalDetails}
-                </Text>
+                  <Text style={styles.medicationItem}>
+                    {medication.medicalDetails}
+                  </Text>
+                  <TouchableOpacity
+                    style={styles.deleteButton}
+                    onPress={() =>
+                      removeMedication(
+                        medication.selectedDate,
+                        medication.medicalDetails
+                      )
+                    }
+                  >
+                    <Text style={styles.deleteButtonText}>Delete</Text>
+                  </TouchableOpacity>
+                </View>
               ))}
             </ScrollView>
             <Text>Add Medication</Text>
@@ -167,19 +203,21 @@ const MedicationScreen = () => {
       <ScrollView style={styles.medicationsContainer}>
         <Text style={styles.medicationsTitle}>Medications:</Text>
         {medications && medications.length > 0 ? (
-          medications.map((medication, index) => (
-            <Text
-              key={`${medication.selectedDate}-${index}`}
-              style={styles.medicationItem}
-            >
-              {medication.selectedDate}: {medication.medicalDetails}
-            </Text>
-          ))
+          medications
+            .slice() // Create a copy of medications array to avoid mutating the original array
+            .sort((a, b) => new Date(a.selectedDate) - new Date(b.selectedDate)) // Sort medications by selectedDate
+            .map((medication, index) => (
+              <Text
+                key={`${medication.selectedDate}-${index}`}
+                style={styles.medicationItem}
+              >
+                {medication.selectedDate}: {medication.medicalDetails}
+              </Text>
+            ))
         ) : (
           <Text>No medications found</Text>
         )}
       </ScrollView>
-
       {renderMedicationsModal()}
     </View>
   );
@@ -242,5 +280,13 @@ const styles = StyleSheet.create({
   },
   calendar: {
     marginBottom: 20,
+  },
+  deleteButton: {
+    backgroundColor: "red",
+    padding: 5,
+    borderRadius: 5,
+  },
+  deleteButtonText: {
+    color: "white",
   },
 });

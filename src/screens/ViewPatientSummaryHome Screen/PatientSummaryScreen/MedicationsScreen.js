@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Calendar } from "react-native-calendars";
+
 import Header2 from "../../AddMedicalIncidentScreen/components/Header2";
 
 const MedicationScreen = () => {
@@ -21,6 +22,7 @@ const MedicationScreen = () => {
   const [medicationsForSelectedDate, setMedicationsForSelectedDate] = useState(
     []
   );
+  const [viewCalender, setViewCalender] = useState(false);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -33,7 +35,7 @@ const MedicationScreen = () => {
 
   const fetchMedications = async () => {
     try {
-      const response = await fetch("http://10.10.14.114:4000/medications", {
+      const response = await fetch("http://192.168.1.9:4000/medications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +87,7 @@ const MedicationScreen = () => {
 
   const saveMedication = async () => {
     try {
-      const res = await fetch("http://10.10.14.114.1:4000/medications/add", {
+      const res = await fetch("http://192.168.1.9:4000/medications/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +110,7 @@ const MedicationScreen = () => {
 
   const removeMedication = async (selectedDate, medicalDetails) => {
     try {
-      const res = await fetch("http://10.10.14.114:4000/medications/delete", {
+      const res = await fetch("http://192.168.1.9:4000/medications/delete", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -164,6 +166,7 @@ const MedicationScreen = () => {
                 </View>
               ))}
             </ScrollView>
+
             <Text>Add Medication</Text>
             <TextInput
               placeholder="Selected Date"
@@ -193,50 +196,93 @@ const MedicationScreen = () => {
   return (
     <View style={styles.container}>
       <Header2 text="Medications" />
-
-      <Calendar
-        markedDates={markedDates}
-        onDayPress={handleDayPress}
-        style={styles.calendar}
-      />
+      {viewCalender && (
+        <Calendar
+          markedDates={markedDates}
+          onDayPress={handleDayPress}
+          style={styles.calendar}
+          visible={viewCalender}
+        />
+      )}
+      <TouchableOpacity
+        style={{
+          backgroundColor: "white",
+          height: 40,
+          width: "90%",
+          borderRadius: 15,
+          marginLeft: 20,
+          marginTop: 8,
+          marginBottom: 8,
+          borderColor: "#00567D", // Border color for default
+          borderWidth: 1, // Border width
+        }}
+        onPress={() => setViewCalender(!viewCalender)}
+      >
+        <Text style={styles.calendarButton}>Calendar</Text>
+      </TouchableOpacity>
 
       <ScrollView style={styles.medicationsContainer}>
         {medications && medications.length > 0 ? (
-          medications
-            .slice() // Create a copy of medications array to avoid mutating the original array
-            .sort((a, b) => new Date(a.selectedDate) - new Date(b.selectedDate)) // Sort medications by selectedDate
-            .map((medication, index) => (
-              <View
-                key={`${medication.selectedDate}-${index}`}
-                style={styles.dateContainer}
-              >
-                <View style={styles.subcon}>
-                  <Text style={styles.day}>
-                    {new Date(medication.selectedDate).toLocaleDateString(
-                      undefined,
-                      { day: "numeric" }
-                    )}
-                  </Text>
-                  <Text style={styles.month}>
-                    {new Date(medication.selectedDate).toLocaleDateString(
-                      undefined,
-                      { month: "short" }
-                    )}
-                  </Text>
-                </View>
-                <View style={styles.medicationDetailscon}>
-                  <Text style={styles.medicationDetailstext}>
-                    {medication.medicalDetails}
-                  </Text>
-                </View>
+          Object.entries(
+            medications
+              .slice() // Create a copy of medications array to avoid mutating the original array
+              .sort(
+                (a, b) => new Date(a.selectedDate) - new Date(b.selectedDate)
+              ) // Sort medications by selectedDate
+              .reduce((acc, medication) => {
+                const date = new Date(
+                  medication.selectedDate
+                ).toLocaleDateString(undefined, {
+                  day: "numeric",
+                  month: "short",
+                });
+                if (!acc[date]) {
+                  acc[date] = [];
+                }
+                acc[date].push(medication);
+                return acc;
+              }, {})
+          ).map(([date, medicationsForDate]) => (
+            <View key={date} style={styles.dateContainer}>
+              <View style={styles.subcon}>
+                <Text style={styles.day}>{date.split(" ")[0]}</Text>
+                <Text style={styles.month}>{date.split(" ")[1]}</Text>
               </View>
-            ))
+
+              {renderMedications(medicationsForDate)}
+            </View>
+          ))
         ) : (
           <Text>No medications found</Text>
         )}
       </ScrollView>
 
       {renderMedicationsModal()}
+    </View>
+  );
+};
+
+const renderMedications = (medicationsForDate) => {
+  return (
+    <View style={{ flexDirection: "column", width: "90%" }}>
+      {medicationsForDate.map((medication, index) => (
+        <View
+          key={index}
+          style={[
+            styles.medicationDetailscon,
+            {
+              marginLeft: 20,
+              backgroundColor: "white",
+              width: "85%", // Adjust the width as needed to fit multiple medications in one row
+              height: 60, // Set a fixed height for each medication item
+              borderRadius: 10,
+              marginBottom: 10, // Add margin between medication items
+            },
+          ]}
+        >
+          <Text style={styles.medicationItem}>{medication.medicalDetails}</Text>
+        </View>
+      ))}
     </View>
   );
 };
@@ -268,7 +314,7 @@ const styles = StyleSheet.create({
   medicationsContainer: {
     marginTop: 10,
     marginLeft: 20,
-    maxHeight: 350,
+    maxHeight: "90%",
     marginRight: 20,
     showVerticalScrollIndicator: true,
   },
@@ -282,7 +328,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   medicationItem: {
-    marginBottom: 5,
+    marginTop: 10,
+    marginLeft: 20,
   },
   scrollContainer: {
     maxHeight: 100, // Set max height for scrolling
@@ -297,7 +344,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   calendar: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
   deleteButton: {
     backgroundColor: "red",
@@ -309,14 +356,15 @@ const styles = StyleSheet.create({
   },
   dateContainer: {
     flexDirection: "row",
-    alignItems: "center",
+
     marginBottom: 10,
   },
   day: {
     fontSize: 26,
   },
   month: {
-    fontSize: 16,
+    fontSize: 12,
+    marginTop: -5,
   },
   medicationDetailscon: {
     flex: 1,
@@ -327,7 +375,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   medicationDetailstext: {
-    fontSize: 16,
+    fontSize: 26,
     padding: "3%",
   },
   subcon: {
@@ -338,5 +386,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
+  },
+  medicationItemContainer: {
+    // Your existing styles for medicationItemContainer
+    marginBottom: 10, // Add margin between medication items
+  },
+  calendarButton: {
+    textAlign: "center",
+    marginTop: 6,
+    fontSize: 16,
   },
 });

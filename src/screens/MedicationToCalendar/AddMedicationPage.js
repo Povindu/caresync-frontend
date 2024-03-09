@@ -1,8 +1,16 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import Header from "../MedicalTestHomeScreen/components/Header";
 import { TextInput } from "react-native-paper";
 
 const AddMedication = () => {
+  const AlertBox=()=>{
+    Alert.alert("Successful message","Add medication to the calendar successfully.",[{
+      text:"ok",
+      onPress:()=>{
+
+      },
+    }]);
+  };
   return (
     <View style={{ flex: 1 }}>
       <Header name="Add Medication" />
@@ -36,7 +44,7 @@ const AddMedication = () => {
         </Text>
         <Text style={styles.topics}>Add notes</Text>
         <View style={{alignItems:"center"}}>
-        <TouchableOpacity style={styles.button}><Text style={styles.buttontext}>Add Medication</Text></TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={AlertBox}><Text style={styles.buttontext}>Add Medication</Text></TouchableOpacity>
         </View>
       </View>
     </View>

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import Header from "../../../../components/Header";
+import Header from "../../components/Header";
 import StepCountButton from "./StepCountButtonCom";
 
 const StepCounterHome=()=>{

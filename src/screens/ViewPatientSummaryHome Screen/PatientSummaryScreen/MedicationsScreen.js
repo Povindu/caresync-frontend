@@ -17,6 +17,7 @@ const MedicationScreen = () => {
   const [medications, setMedications] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
   const [medicalDetails, setMedicalDetails] = useState("");
+  const [doctor, setDoctor] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [markedDates, setMarkedDates] = useState({});
   const [medicationsForSelectedDate, setMedicationsForSelectedDate] = useState(
@@ -62,6 +63,7 @@ const MedicationScreen = () => {
         return {
           selectedDate: formattedDate,
           medicalDetails: item.medicalDetails,
+          doctor: item.doctor,
         };
       });
 
@@ -96,6 +98,7 @@ const MedicationScreen = () => {
           patientId: "65cde7c585ffe2b8d4a75878",
           selectedDate: selectedDate,
           medicalDetails: medicalDetails,
+          doctor: doctor,
         }),
       });
       if (!res.ok) {
@@ -110,6 +113,9 @@ const MedicationScreen = () => {
 
   const removeMedication = async (selectedDate, medicalDetails) => {
     try {
+      // Convert selectedDate to ISO format
+      // const isoDate = new Date(selectedDate).toISOString();
+
       const res = await fetch("http://192.168.1.9:4000/medications/delete", {
         method: "DELETE",
         headers: {
@@ -117,19 +123,28 @@ const MedicationScreen = () => {
         },
         body: JSON.stringify({
           patientId: "65cde7c585ffe2b8d4a75878",
-          selectedDate,
-          medicalDetails,
+          selectedDate: selectedDate, // Use the ISO format date
+          medicalDetails: medicalDetails,
+          doctor, // Ensure that 'doctor' variable is defined
         }),
       });
+
+      console.log("Response status:", res.status);
+      const responseBody = await res.text();
+      console.log("Response body:", responseBody);
+
       if (!res.ok) {
         throw new Error("Failed to delete medication");
       }
+
       // Refresh medication list after successful deletion
       fetchMedications();
     } catch (error) {
       console.error("Error deleting medication:", error);
+      // Handle error: Show a message to the user or perform any other action
     }
   };
+
   const renderMedicationsModal = () => {
     return (
       <Modal
@@ -149,20 +164,26 @@ const MedicationScreen = () => {
                   key={`${medication.selectedDate}-${index}`}
                   style={styles.medicationItemContainer}
                 >
-                  <Text style={styles.medicationItem}>
-                    {medication.medicalDetails}
-                  </Text>
-                  <TouchableOpacity
-                    style={styles.deleteButton}
-                    onPress={() =>
-                      removeMedication(
-                        medication.selectedDate,
-                        medication.medicalDetails
-                      )
-                    }
-                  >
-                    <Text style={styles.deleteButtonText}>Delete</Text>
-                  </TouchableOpacity>
+                  <View style={{ backgroundColor: "#FEFFE0", marginBottom: 5 }}>
+                    <Text style={styles.medicationItem1}>
+                      {medication.medicalDetails}
+                    </Text>
+                    <Text style={styles.medicationItem1}>
+                      By : Dr. {medication.doctor}
+                    </Text>
+
+                    <TouchableOpacity
+                      style={styles.deleteButton}
+                      onPress={() =>
+                        removeMedication(
+                          medication.selectedDate,
+                          medication.medicalDetails
+                        )
+                      }
+                    >
+                      <Text style={styles.deleteButtonText}>Delete</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               ))}
             </ScrollView>
@@ -182,10 +203,39 @@ const MedicationScreen = () => {
               style={[styles.input, { height: 100 }]}
               multiline
             />
+            <TextInput
+              placeholder="Doctor"
+              value={doctor}
+              onChangeText={setDoctor}
+              style={[styles.input, { height: 100 }]}
+              multiline
+            />
 
             <View style={styles.buttonContainer}>
-              <Button title="Close" onPress={() => setModalVisible(false)} />
-              <Button title="Save" onPress={saveMedication} />
+              <TouchableOpacity
+                style={{
+                  borderRadius: 10,
+                  backgroundColor: "#30A8DE",
+                  padding: 10,
+                  width: 70,
+                  alignItems: "center",
+                }}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={{ color: "white" }}>Close</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  borderRadius: 10,
+                  backgroundColor: "#30A8DE",
+                  padding: 10,
+                  width: 70,
+                  alignItems: "center",
+                }}
+                onPress={saveMedication}
+              >
+                <Text style={{ color: "white" }}>Save</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -196,15 +246,15 @@ const MedicationScreen = () => {
   return (
     <View style={styles.container}>
       <Header2 text="Medications" />
-      {viewCalender && (
-        <Calendar
-          markedDates={markedDates}
-          onDayPress={handleDayPress}
-          style={styles.calendar}
-          visible={viewCalender}
-        />
-      )}
-      <TouchableOpacity
+      {/* {viewCalender && ( */}
+      <Calendar
+        markedDates={markedDates}
+        onDayPress={handleDayPress}
+        style={styles.calendar}
+        visible={viewCalender}
+      />
+      {/* )} */}
+      {/* <TouchableOpacity
         style={{
           backgroundColor: "white",
           height: 40,
@@ -213,13 +263,13 @@ const MedicationScreen = () => {
           marginLeft: 20,
           marginTop: 8,
           marginBottom: 8,
-          borderColor: "#00567D", // Border color for default
-          borderWidth: 1, // Border width
+          borderColor: "#00567D", 
+          borderWidth: 1, 
         }}
         onPress={() => setViewCalender(!viewCalender)}
       >
         <Text style={styles.calendarButton}>Calendar</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <ScrollView style={styles.medicationsContainer}>
         {medications && medications.length > 0 ? (
@@ -280,7 +330,16 @@ const renderMedications = (medicationsForDate) => {
             },
           ]}
         >
-          <Text style={styles.medicationItem}>{medication.medicalDetails}</Text>
+          <View style={styles.medicationItemCon1}>
+            <Text style={styles.medicationItem1}>
+              {medication.medicalDetails}
+            </Text>
+          </View>
+          <View style={styles.medicationItemCon2}>
+            <Text style={styles.medicationItem2}>
+              By : Dr.{medication.doctor}
+            </Text>
+          </View>
         </View>
       ))}
     </View>
@@ -327,9 +386,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 10,
   },
-  medicationItem: {
-    marginTop: 10,
-    marginLeft: 20,
+  medicationItem1: {
+    marginTop: 0,
+    marginLeft: 10,
+  },
+  medicationItem2: {
+    marginTop: 5,
+    marginLeft: 15,
   },
   scrollContainer: {
     maxHeight: 100, // Set max height for scrolling
@@ -347,9 +410,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   deleteButton: {
-    backgroundColor: "red",
-    padding: 5,
-    borderRadius: 5,
+    borderRadius: 10,
+    backgroundColor: "#30A8DE",
+    padding: 2,
+    width: 70,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    marginLeft: 170,
   },
   deleteButtonText: {
     color: "white",
@@ -396,4 +463,16 @@ const styles = StyleSheet.create({
     marginTop: 6,
     fontSize: 16,
   },
+  medicationItemCon1: {
+    width: "95%",
+    backgroundColor: "#FEFFE0",
+    marginTop: "2%",
+    marginLeft: "2%",
+  },
+  // medicationItemCon2: {
+  //   width: "95%",
+  //   backgroundColor: "#E3FFFC",
+
+  //   marginLeft: "2%",
+  // },
 });

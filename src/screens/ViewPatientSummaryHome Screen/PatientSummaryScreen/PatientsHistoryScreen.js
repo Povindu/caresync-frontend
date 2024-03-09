@@ -1,41 +1,64 @@
-import { Text,StyleSheet,FlatList,View } from "react-native";
+import { Text, StyleSheet, FlatList, View } from "react-native";
 import CustomHeader from "../Components/CustomHeader";
-import {LIST1} from "../Data/dummy2";
+import { LIST1 } from "../Data/dummy2";
 import PatientHistoryGrid from "../Components/PatientHistoryGrid";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
+function PatientsHistoryScreen() {
+  const [patientsHistory, setPatientsHistory] = useState([]);
 
-function PatientsHistoryScreen(){
-    function renderCategoryItem(itemData){
-        function presshandler(){
-           
+  useEffect(() => {
+    fetchPatientsHistory();
+  }, []);
 
-        }
-    
-        return(
-        <View>
-           
-         
-            <PatientHistoryGrid id={itemData.item.id} title={itemData.item.title} date={itemData.item.date} doctor={itemData.item.doctor} description={itemData.item.description} symptom={itemData.item.symptom} presId={itemData.item.presId}   onPress={presshandler}/>
-            </View>
-        );
+  const fetchPatientsHistory = async () => {
+    try {
+      const response = await axios.get(
+        "http://192.168.1.9:4000/patientsHistory"
+      );
+      console.log("Response from backend:", response.data);
+      setPatientsHistory(response.data);
+    } catch (error) {
+      console.error("Error fetching patientsHistory:", error);
     }
-    return(
-        <View style={styles.container}>
-            <CustomHeader  title="Patient History" />
-            <FlatList
-                data={LIST1}
-                keyExtractor={(item) => item.id}
-                renderItem={renderCategoryItem}
-                style={{ flex: 1 }}
-            />
-        </View>
-    );
+  };
+  function renderCategoryItem({ item }) {
+    // function presshandler(){
 
+    // }
+
+    return (
+      <View>
+        <PatientHistoryGrid
+          id={item.recordId}
+          title={item.title}
+          date={item.date}
+          doctor={item.doctor}
+          description={item.description}
+          symptom={item.symptom}
+          presId={itemData.item.presId}
+          onPress={presshandler}
+        />
+      </View>
+    );
+  }
+  return (
+    <View style={styles.container}>
+      <CustomHeader title="Patient History" />
+      <FlatList
+        data={patientsHistory}
+        keyExtractor={(item) => item._id}
+        renderItem={renderCategoryItem}
+        style={{ flex: 1 }}
+      />
+    </View>
+  );
 }
 export default PatientsHistoryScreen;
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        backgroundColor:'#E3F7FF'
-    }
-})
+  container: {
+    flex: 1,
+    backgroundColor: "#E3F7FF",
+  },
+});

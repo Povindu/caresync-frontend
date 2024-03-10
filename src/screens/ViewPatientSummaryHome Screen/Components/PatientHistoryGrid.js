@@ -40,7 +40,9 @@ function PatientHistoryGrid({
         { height: heightAnim },
       ]}
     >
-      <Text style={styles.title}>{title}</Text>
+      <View style={styles.titleGrid}>
+        <Text style={styles.title}>{title}</Text>
+      </View>
       <View style={styles.icon}>
         <ToochableIconDown
           onPress={handlePress}
@@ -122,8 +124,9 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 18,
-    marginTop: 20,
+    marginTop: 7,
     marginLeft: 25,
+    color: "white",
   },
   description: {
     paddingLeft: 25,
@@ -265,5 +268,13 @@ const styles = StyleSheet.create({
   presId: {
     marginLeft: "14%",
     fontSize: 13,
+  },
+  titleGrid: {
+    width: "70%",
+    backgroundColor: "#5c074b",
+    marginTop: "4%",
+    marginLeft: "5%",
+    paddingBottom: "2%",
+    borderRadius: 10,
   },
 });

@@ -15,7 +15,7 @@ function PatientsHistoryScreen() {
   const fetchPatientsHistory = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.1.9:4000/patientsHistory"
+        "http://192.168.8.104:4000/patientsHistory"
       );
       console.log("Response from backend:", response.data);
       setPatientsHistory(response.data);
@@ -37,8 +37,7 @@ function PatientsHistoryScreen() {
           doctor={item.doctor}
           description={item.description}
           symptom={item.symptom}
-          presId={itemData.item.presId}
-          onPress={presshandler}
+          presId={item.presId}
         />
       </View>
     );

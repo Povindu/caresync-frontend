@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Header from "../MedicalTestHomeScreen/components/Header";
 import { Calendar } from "react-native-calendars";
+import { Ionicons } from '@expo/vector-icons';
 
 const MedicationView = ({navigation}) => {
   const addMedication=()=>{
@@ -31,7 +32,7 @@ const MedicationView = ({navigation}) => {
           addMedication();
         }}
       >
-        <Text style={styles.plusButtonText}>+</Text>
+        <Ionicons name="add-circle" size={60} color="#3498db" />
       </TouchableOpacity>
     </View>
   );
@@ -44,15 +45,9 @@ const styles = StyleSheet.create({
     right: 30,
     width: 60,
     height: 60,
-    backgroundColor: "#3498db",
     borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
-  },
-  plusButtonText: {
-    fontSize: 40,
-    color: "#fff",
-    fontWeight: "bold",
   },
 });
 

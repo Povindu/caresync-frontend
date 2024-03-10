@@ -16,6 +16,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import MedicalIncidentHomeScreen from "./src/screens/AddMedicalIncidentScreen/MedicalIncidentHomeScreen";
 import MedicalIncidentDetailScreen from "./src/screens/AddMedicalIncidentScreen/MedicalIncidentDetailScreen";
+import NewMedicalRecordScreen from "./src/screens/AddMedicalRecordScreen/NewMedicalRecordScreen";
 import PatientsScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientsScreen";
 import PatientProfileScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientprofileScreen";
 import PatientHistoryScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientsHistoryScreen";
@@ -58,6 +59,7 @@ export default function App() {
 
             <Stack.Screen name="MedicalIncidentHomeScreen" component={MedicalIncidentHomeScreen} options={{ headerShown:false}}/>
             <Stack.Screen name="MedicalIncidentDetailScreen" component={MedicalIncidentDetailScreen} options={{ headerShown:false}}/>
+            <Stack.Screen name="NewMedicalRecordScreen" component={NewMedicalRecordScreen} options={{ headerShown:false}}/>
 
        
 

@@ -1,5 +1,5 @@
 import {
-  Text,View,KeyboardAvoidingView,Platform,TouchableOpacity,Modal,StyleSheet, TouchableWithoutFeedback} 
+  Text,View,KeyboardAvoidingView,Platform,TouchableOpacity,Modal,StyleSheet,} 
       from "react-native";import {  } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -30,7 +30,7 @@ function Calendar() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : ""}
+        // behavior={Platform.OS == "ios" ? "padding" : ""}
         style={{
           width: "100%",
           height: "100%",
@@ -38,14 +38,16 @@ function Calendar() {
         }}
       >
         
-              <Text style={{ fontSize: 20, color: '#1e1e1e',marginLeft:20,marginTop:-25   }}>Date</Text>
+              <Text style={{ fontSize: 20, color: '#1e1e1e',marginLeft:25,marginTop:-25   }}>Date</Text>
               <TouchableOpacity
                 style={styles.inputBtn}
                 onPress={handleOnPressStartDate}
                 placeholder="Select date"
               >
-                <Text>{selectedStartDate}</Text>
+                <Text>{selectedStartDate} </Text>
+               
               </TouchableOpacity>
+             
            
 
 
@@ -73,7 +75,8 @@ function Calendar() {
                   }}
                 />
 
-                <TouchableOpacity onPress={handleOnPressStartDate}>
+                <TouchableOpacity onPress={handleOnPressStartDate}  >
+                  
                   <Text style={{ color: "white" }}>OK</Text>
                 </TouchableOpacity>
               </View>
@@ -93,13 +96,15 @@ const styles = StyleSheet.create({
     
     borderColor: '#8e8e8e',
     borderWidth: 1,
-    padding: 10,
+    padding: 8,
     width: '88%',
     height: 38,
     marginTop: 10,
-    marginLeft:20,
+    marginLeft:25,
     borderRadius: 10,
     fontSize: 16,
+    // position:'relative'
+    zIndex:0
   },
 
   
@@ -114,6 +119,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 35,
     width: "90%",
+    // zIndex:2,
+    position: 'absolute',
     
     shadowColor: "#000",
     shadowOffset: {

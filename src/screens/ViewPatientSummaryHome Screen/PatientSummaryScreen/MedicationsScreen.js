@@ -36,7 +36,7 @@ const MedicationScreen = () => {
 
   const fetchMedications = async () => {
     try {
-      const response = await fetch("http://192.168.1.9:4000/medications", {
+      const response = await fetch("http://192.168.8.104:4000/medications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +89,7 @@ const MedicationScreen = () => {
 
   const saveMedication = async () => {
     try {
-      const res = await fetch("http://192.168.1.9:4000/medications/add", {
+      const res = await fetch("http://192.168.8.104:4000/medications/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,23 +115,61 @@ const MedicationScreen = () => {
     try {
       // Convert selectedDate to ISO format
       // const isoDate = new Date(selectedDate).toISOString();
+      console.log(selectedDate, medicalDetails);
+      const formatDate = (selectedDate) => {
+        if (!selectedDate) {
+          return "Invalid Date";
+        }
 
-      const res = await fetch("http://192.168.1.9:4000/medications/delete", {
+        const date = new Date(selectedDate);
+
+        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+
+        const day = days[date.getDay()];
+        const month = months[date.getMonth()];
+        const dayOfMonth = date.getDate();
+        const year = date.getFullYear();
+        const hours = ("0" + date.getHours()).slice(-2);
+        const minutes = ("0" + date.getMinutes()).slice(-2);
+        const seconds = ("0" + date.getSeconds()).slice(-2);
+        const timeZone = date.toString().match(/\(([^)]+)\)$/)[1];
+
+        return `${day} ${month} ${dayOfMonth} ${year} ${hours}:${minutes}:${seconds} GMT${
+          date.getTimezoneOffset() > 0 ? "-" : "+"
+        }${Math.abs(date.getTimezoneOffset() / 60)
+          .toString()
+          .padStart(2, "0")}${Math.abs(date.getTimezoneOffset() % 60)
+          .toString()
+          .padStart(2, "0")} (${timeZone})`;
+      };
+      console.log(formatDate);
+
+      const res = await fetch("http://192.168.8.104:4000/medications/delete", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          patientId: "65cde7c585ffe2b8d4a75878",
-          selectedDate: selectedDate, // Use the ISO format date
-          medicalDetails: medicalDetails,
-          doctor, // Ensure that 'doctor' variable is defined
+          formatDate,
+          medicalDetails,
         }),
       });
 
       console.log("Response status:", res.status);
-      const responseBody = await res.text();
-      console.log("Response body:", responseBody);
 
       if (!res.ok) {
         throw new Error("Failed to delete medication");
@@ -164,7 +202,13 @@ const MedicationScreen = () => {
                   key={`${medication.selectedDate}-${index}`}
                   style={styles.medicationItemContainer}
                 >
-                  <View style={{ backgroundColor: "#FEFFE0", marginBottom: 5 }}>
+                  <View
+                    style={{
+                      backgroundColor: "#FEFFE0",
+                      marginBottom: 5,
+                      paddingBottom: 10,
+                    }}
+                  >
                     <Text style={styles.medicationItem1}>
                       {medication.medicalDetails}
                     </Text>
@@ -415,8 +459,8 @@ const styles = StyleSheet.create({
     padding: 2,
     width: 70,
     alignItems: "center",
-    justifyContent: "flex-end",
-    marginLeft: 170,
+    marginLeft: 100,
+    marginTop: 5,
   },
   deleteButtonText: {
     color: "white",

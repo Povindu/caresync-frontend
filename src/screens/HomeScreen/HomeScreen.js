@@ -29,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.titleMain}>CareSync</Text>
       <Image
-        source={require("../../assets/homelogo.png")}
+        source={require("../../../assets/homelogo.png")}
         style={styles.logo}
       />
       <Text style={styles.title}>I am a </Text>

@@ -8,27 +8,28 @@ import {
   Image,
   Alert,
 } from "react-native";
+import { BASE_URL } from "../../../../App";
 
-const baseURL = "http://localhost:4000/";
-
-const PatientLogin = ({ navigation }) => {
+const DoctorLogin = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(baseURL + "signin", {
+      const response = await fetch(`${BASE_URL}/doctors/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
-
       const data = await response.json();
       if (response.ok) {
-        // Navigate to PatientDashboard if login successful
-        navigation.navigate("PatientDashboard");
+        if (data.medicalIdVerify) {
+          navigation.navigate("DoctorDashboard");
+        } else {
+          navigation.navigate("MedicalIdFalseScreen");
+        }
       } else {
         Alert.alert("Login Failed", data.error);
       }
@@ -43,9 +44,12 @@ const PatientLogin = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Patient Login Screen</Text>
+      <Text style={styles.title}>Doctor Login Screen</Text>
 
-      <Image source={require("../../assets/doc.png")} style={styles.docimg} />
+      <Image
+        source={require("../../../../assets/doc.png")}
+        style={styles.docimg}
+      />
 
       <TextInput
         style={styles.input}
@@ -64,7 +68,7 @@ const PatientLogin = ({ navigation }) => {
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("PatientRegister")}>
+      <TouchableOpacity onPress={() => navigation.navigate("DoctorRegister")}>
         <Text style={styles.linkText}>New here? Register</Text>
       </TouchableOpacity>
     </View>
@@ -107,6 +111,11 @@ const styles = StyleSheet.create({
     color: "#00567D",
     marginTop: 10,
   },
+  docimg: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
+  },
 });
 
-export default PatientLogin;
+export default DoctorLogin;

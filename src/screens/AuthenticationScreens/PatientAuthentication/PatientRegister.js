@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { BASE_URL } from '../../../../App';
 
-const DoctorRegister = ({ navigation }) => {
+const PatientRegister = ({ navigation }) => {
+
+  const baseURL = BASE_URL;
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [nic, setNic] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [medicalId, setMedicalId] = useState('');
 
   const handleRegister = async () => {
-    if (!firstName || !lastName || !nic || !email || !password || !confirmPassword || !medicalId) {
+    if (!firstName || !lastName || !nic || !email || !password || !confirmPassword) {
       Alert.alert('Error', 'Please fill in all fields.');
       return;
     }
@@ -22,7 +25,7 @@ const DoctorRegister = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:3004/doctors/signup', {
+      const response = await fetch(baseURL+'signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,16 +36,15 @@ const DoctorRegister = ({ navigation }) => {
           nic,
           email,
           password,
-          medicalId,
-          medicalIdVerify: false,
         }),
       });
       const data = await response.json();
       if (response.ok) {
+        // Handle successful registration here
         Alert.alert('Success', 'Registration successful.', [
           {
             text: 'OK',
-            onPress: () => navigation.navigate('DoctorLogin'), // Navigate back to login page
+            onPress: () => navigation.navigate('PatientLogin'), // Navigate back to login page
           },
         ]);
       } else {
@@ -57,7 +59,7 @@ const DoctorRegister = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Doctor Registration</Text>
+      <Text style={styles.title}>Patient Registration</Text>
       <Text style={styles.titleSub}>Welcome to CareSync</Text>
 
       <TextInput
@@ -102,13 +104,6 @@ const DoctorRegister = ({ navigation }) => {
         value={confirmPassword}
         onChangeText={setConfirmPassword}
         secureTextEntry
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Medical ID"
-        value={medicalId}
-        onChangeText={setMedicalId}
       />
 
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
@@ -158,4 +153,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DoctorRegister;
+export default PatientRegister;

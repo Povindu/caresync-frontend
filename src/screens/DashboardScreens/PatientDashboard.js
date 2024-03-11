@@ -11,14 +11,14 @@ const PatientDashboard = ({navigation}) => {
         <TouchableOpacity style={styles.profileButton}>
           <View style={styles.profileImageContainer}>
             <Image
-              source={require("../../assets/Person.png")}
+              source={require("../../../assets/Person.png")}
               style={styles.profileImage}
             />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.bellIcon}>
           <Image
-            source={require("../../assets/Notification.png")}
+            source={require("../../../assets/Notification.png")}
             style={styles.bellImage}
           />
         </TouchableOpacity>
@@ -27,7 +27,7 @@ const PatientDashboard = ({navigation}) => {
       <View style={styles.dashboardContainer}>
         <TouchableOpacity style={styles.dashboardButton}  onPress={navigateToMedicalHistory}>
           <Image
-            source={require("../../assets/DocImage.png")}
+            source={require("../../../assets/DocImage.png")}
             style={styles.dashboardImage}
            
           />
@@ -36,7 +36,7 @@ const PatientDashboard = ({navigation}) => {
 
         <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('TestSelection')}}>
           <Image
-            source={require("../../assets/DocImage.png")}
+            source={require("../../../assets/DocImage.png")}
             style={styles.dashboardImage}
           />
           <Text style={styles.dashboardButtonText}>Perform Medical Tests</Text>
@@ -44,7 +44,7 @@ const PatientDashboard = ({navigation}) => {
 
         <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('MedicationView')}}>
           <Image
-            source={require("../../assets/DocImage.png")}
+            source={require("../../../assets/DocImage.png")}
             style={styles.dashboardImage}
           />
           <Text style={styles.dashboardButtonText}>View Medication Plans</Text>
@@ -52,7 +52,7 @@ const PatientDashboard = ({navigation}) => {
 
         <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('MedicalIncidentHomeScreen')}}>
           <Image
-            source={require("../../assets/DocImage.png")}
+            source={require("../../../assets/DocImage.png")}
             style={styles.dashboardImage}
           />
           <Text style={styles.dashboardButtonText}>Add Medical Incident</Text>

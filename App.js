@@ -1,12 +1,12 @@
 import * as React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import HomeScreen from "./src/screens/HomeScreen";
-import DoctorLogin from "./src/screens/DoctorLoginScreen";
+import HomeScreen from "./src/screens/HomeScreen/HomeScreen";
+import DoctorLogin from "./src/screens/AuthenticationScreens/DoctorAuthentication/DoctorLoginScreen";
 import ContactUs from "./src/screens/ContactUs";
-import DoctorRegister from "./src/screens/DoctorRegister";
-import PatientRegister from "./src/screens/PatientRegister";
-import PatientLogin from "./src/screens/PatientLogin";
-import PatientDashboard from "./src/screens/PatientDashboard";
+import DoctorRegister from "./src/screens/AuthenticationScreens/DoctorAuthentication/DoctorRegister";
+import PatientRegister from "./src/screens/AuthenticationScreens/PatientAuthentication/PatientRegister";
+import PatientLogin from "./src/screens/AuthenticationScreens/PatientAuthentication/PatientLogin";
+import PatientDashboard from "./src/screens/DashboardScreens/PatientDashboard";
 import MedicalHistory from "./src/screens/MedicalHistory";
 import TestSelection from "./src/screens/MedicalTestHomeScreen/TestSelectionScreen/TestSelectionHomeScreen";
 import StepCounterHome from "./src/screens/MedicalTestHomeScreen/TestSelectionScreen/StepCounterScreen/StepCounterHomeScreen";
@@ -19,16 +19,19 @@ import MedicalIncidentDetailScreen from "./src/screens/AddMedicalIncidentScreen/
 import PatientsScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientsScreen";
 import PatientProfileScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientprofileScreen";
 import PatientHistoryScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientsHistoryScreen";
-import DoctorDashboard from "./src/screens/DoctorDashboard";
+import DoctorDashboard from "./src/screens/DashboardScreens/DoctorDashboard";
 import CustomHeader from "./src/screens/ViewPatientSummaryHome Screen/Components/CustomHeader";
-import MedicalIdFalseScreen from "./src/screens/MedicalIdFalseScreen";
+import MedicalIdFalseScreen from "./src/screens/AuthenticationScreens/DoctorAuthentication/MedicalIdFalseScreen";
 
 import Header from "./src/components/Header";
 import MedicationView from "./src/screens/MedicationToCalendar/MedicationViewInCalendarHome";
 
 const Stack = createNativeStackNavigator();
 
+export const BASE_URL=BASE_URL;
+
 export default function App() {
+
   return (
       <SafeAreaProvider>
         <NavigationContainer>

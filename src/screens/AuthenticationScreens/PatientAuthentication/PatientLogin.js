@@ -1,4 +1,8 @@
+// import Config from "react-native-config";
 import React, { useState } from "react";
+// import {REACT_APP_PUBLIC_URL} from "react-native-dotenv"
+
+
 import {
   View,
   Text,
@@ -8,27 +12,30 @@ import {
   Image,
   Alert,
 } from "react-native";
+import { BASE_URL } from "../../../../App";
 
-const DoctorLogin = ({ navigation }) => {
+// const baseURL = Config.API_URL;
+const baseURL = BASE_URL;
+// console.log("baseURL new:uyw ",REACT_APP_PUBLIC_URL);
+
+const PatientLogin = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:3004/doctors/signin", {
+      const response = await fetch(baseURL + "signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await response.json();
       if (response.ok) {
-        if (data.medicalIdVerify) {
-          navigation.navigate("DoctorDashboard");
-        } else {
-          navigation.navigate("MedicalIdFalseScreen");
-        }
+        // Navigate to PatientDashboard if login successful
+        navigation.navigate("PatientDashboard");
       } else {
         Alert.alert("Login Failed", data.error);
       }
@@ -43,12 +50,9 @@ const DoctorLogin = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Doctor Login Screen</Text>
+      <Text style={styles.title}>Patient Login Screen</Text>
 
-      <Image
-        source={require("../../assets/doc.png")}
-        style={styles.docimg}
-      />
+      <Image source={require("../../../../assets/doc.png")} style={styles.docimg} />
 
       <TextInput
         style={styles.input}
@@ -67,7 +71,7 @@ const DoctorLogin = ({ navigation }) => {
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("DoctorRegister")}>
+      <TouchableOpacity onPress={() => navigation.navigate("PatientRegister")}>
         <Text style={styles.linkText}>New here? Register</Text>
       </TouchableOpacity>
     </View>
@@ -110,11 +114,6 @@ const styles = StyleSheet.create({
     color: "#00567D",
     marginTop: 10,
   },
-  docimg: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
-  },
 });
 
-export default DoctorLogin;
+export default PatientLogin;

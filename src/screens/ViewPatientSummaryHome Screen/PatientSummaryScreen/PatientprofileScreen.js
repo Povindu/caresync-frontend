@@ -20,7 +20,9 @@ function PatientProfileScreen({ route, navigation }) {
 
   const fetchPatients = async () => {
     try {
+
       const response = await axios.get("http://192.168.8.102:4000/patients");
+
       setPatients(response.data);
     } catch (error) {
       console.error("Error fetching patients:", error);
@@ -63,7 +65,11 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-              onPress={() => navigation.navigate}
+
+            
+
+              onPress={() => navigation.navigate("PatientHistoryScreen")}
+
             >
               <Image
                 style={styles.img}
@@ -83,7 +89,10 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
+
               onPress={() => navigation.navigate("MedicationsScreen")}
+
+        
             >
               <Image
                 style={styles.img}

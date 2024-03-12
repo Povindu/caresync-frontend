@@ -12,7 +12,7 @@ const BreatingTestSelection = ({navigation}) => {
     <View style={styles.view}>
       <TouchableOpacity style={styles.buttonContainer} onPress={handlePress}>
         <View style={styles.imageview}>
-        <Image source={require("../../../../assets/MedicalTest/res.png")} style={styles.image} />
+        <Image source={require("../images/res.png")} style={styles.image} />
         </View>
         <Text style={styles.text}>Breathing Test</Text>
       </TouchableOpacity>

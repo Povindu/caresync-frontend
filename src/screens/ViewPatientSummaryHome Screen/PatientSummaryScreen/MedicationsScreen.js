@@ -36,7 +36,7 @@ const MedicationScreen = () => {
 
   const fetchMedications = async () => {
     try {
-      const response = await fetch("http://192.168.8.104:4000/medications", {
+      const response = await fetch("http://192.168.8.102:4000/medications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +89,7 @@ const MedicationScreen = () => {
 
   const saveMedication = async () => {
     try {
-      const res = await fetch("http://192.168.8.104:4000/medications/add", {
+      const res = await fetch("http://192.168.8.102:4000/medications/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,7 +158,7 @@ const MedicationScreen = () => {
       };
       console.log(formatDate);
 
-      const res = await fetch("http://192.168.8.104:4000/medications/delete", {
+      const res = await fetch("http://192.168.8.102:4000/medications/delete", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -416,9 +416,9 @@ const styles = StyleSheet.create({
   },
   medicationsContainer: {
     marginTop: 10,
-    marginLeft: 20,
+    marginLeft: 10,
     maxHeight: "90%",
-    marginRight: 20,
+    marginRight: 10,
     showVerticalScrollIndicator: true,
   },
   medicationsTitle: {
@@ -435,7 +435,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   medicationItem2: {
-    marginTop: 5,
+    marginTop: 3,
     marginLeft: 15,
   },
   scrollContainer: {
@@ -469,13 +469,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
 
     marginBottom: 10,
+    marginLeft: 5,
   },
   day: {
     fontSize: 26,
+    color: "white",
   },
   month: {
     fontSize: 12,
     marginTop: -5,
+    color: "white",
   },
   medicationDetailscon: {
     flex: 1,
@@ -493,7 +496,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     width: 60,
     height: 60,
-    backgroundColor: "#91e882",
+    backgroundColor: "#026b9c",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
@@ -509,9 +512,10 @@ const styles = StyleSheet.create({
   },
   medicationItemCon1: {
     width: "95%",
-    backgroundColor: "#FEFFE0",
+    backgroundColor: "#E3FFFC",
     marginTop: "2%",
     marginLeft: "2%",
+    padding: "1%",
   },
   // medicationItemCon2: {
   //   width: "95%",

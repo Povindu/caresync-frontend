@@ -24,6 +24,7 @@ const MedicationView = ({navigation}) => {
         }}
         onDayPress={(day) => {
           viewMedication();
+          console.log(day);
         }}
       />
       <TouchableOpacity

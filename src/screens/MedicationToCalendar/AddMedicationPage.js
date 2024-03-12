@@ -42,6 +42,7 @@ const AddMedication = () => {
       <Header name="Add Medication" />
       <ScrollView>
         <View style={styles.container}>
+
           <Text style={styles.topics}>Name of Medicine</Text>
           <View style={styles.nameContainer}>
             <TextInput placeholder="Search" style={styles.textName} />
@@ -49,6 +50,7 @@ const AddMedication = () => {
               <EvilIcons name="search" size={26} color="gray" />
             </TouchableOpacity>
           </View>
+
           <Text style={styles.topics}>Starting Date</Text>
           <Text style={styles.subtopics}>When do you start medication?</Text>
           <View style={styles.nameContainer}>
@@ -57,6 +59,7 @@ const AddMedication = () => {
               <EvilIcons name="calendar" size={28} color="gray" />
             </TouchableOpacity>
           </View>
+
           <Text style={styles.topics}>Dosage & Duration</Text>
           <Text style={styles.subtopics}>
             How many pills need to take at once? & How long?
@@ -75,6 +78,7 @@ const AddMedication = () => {
               </TouchableOpacity>
             </View>
           </View>
+
           <Text style={styles.topics}>Time</Text>
           <Text style={styles.subtopics}>
             Add times when you need to take pills
@@ -95,21 +99,22 @@ const AddMedication = () => {
                 style={{ marginTop: 5 }}
               />
             </TouchableOpacity>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <View style={styles.nameContainer4}>
-                <Text style={styles.textName4}>Morning</Text>
-                <TouchableOpacity onPress={() => {}}>
-                  <MaterialIcons name="delete-outline" size={24} color="red" />
-                </TouchableOpacity>
-              </View>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <View style={styles.nameContainer4}>
+              <Text style={styles.textName4}>Morning</Text>
+              <TouchableOpacity onPress={() => {}}>
+                <MaterialIcons name="delete-outline" size={24} color="red" />
+              </TouchableOpacity>
             </View>
           </View>
+
           <Text style={styles.topics}>Food & Pill</Text>
           <Text style={styles.subtopics}>
             What's the time you need to take pill?
@@ -148,6 +153,7 @@ const AddMedication = () => {
               <Text style={styles.buttontext}>Add Medication</Text>
             </TouchableOpacity>
           </View>
+          
         </View>
       </ScrollView>
     </View>
@@ -260,8 +266,8 @@ const styles = StyleSheet.create({
   radioText: {
     marginTop: 8,
     fontSize: 17,
-    marginRight:18
-    },
+    marginRight: 18,
+  },
 });
 
 export default AddMedication;

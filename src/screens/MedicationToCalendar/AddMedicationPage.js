@@ -36,21 +36,26 @@ const AddMedication = () => {
       ]
     );
   };
+
   return (
-      <View style={{ flex: 1 }}>
-        <Header name="Add Medication" />
-        <ScrollView>
+    <View style={{ flex: 1 }}>
+      <Header name="Add Medication" />
+      <ScrollView>
         <View style={styles.container}>
           <Text style={styles.topics}>Name of Medicine</Text>
           <View style={styles.nameContainer}>
-            <TextInput placeholder="Panadol" style={styles.textName} />
-            <EvilIcons name="search" size={26} color="gray" />
+            <TextInput placeholder="Search" style={styles.textName} />
+            <TouchableOpacity onPress={() => {}}>
+              <EvilIcons name="search" size={26} color="gray" />
+            </TouchableOpacity>
           </View>
           <Text style={styles.topics}>Starting Date</Text>
           <Text style={styles.subtopics}>When do you start medication?</Text>
           <View style={styles.nameContainer}>
-            <TextInput placeholder={sDate} style={styles.textName} />
-            <EvilIcons name="calendar" size={28} color="gray" />
+            <TextInput value={sDate} style={styles.textName} />
+            <TouchableOpacity onPress={() => {}}>
+              <EvilIcons name="calendar" size={28} color="gray" />
+            </TouchableOpacity>
           </View>
           <Text style={styles.topics}>Dosage & Duration</Text>
           <Text style={styles.subtopics}>
@@ -59,11 +64,15 @@ const AddMedication = () => {
           <View style={{ display: "flex", flexDirection: "row" }}>
             <View style={styles.nameContainer2}>
               <TextInput placeholder="1 pill" style={styles.textName2} />
-              <AntDesign name="down" size={16} color="gray" />
+              <TouchableOpacity onPress={() => {}}>
+                <AntDesign name="down" size={16} color="gray" />
+              </TouchableOpacity>
             </View>
             <View style={styles.nameContainer2}>
               <TextInput placeholder="10 days" style={styles.textName2} />
-              <AntDesign name="down" size={16} color="gray" />
+              <TouchableOpacity onPress={() => {}}>
+                <AntDesign name="down" size={16} color="gray" />
+              </TouchableOpacity>
             </View>
           </View>
           <Text style={styles.topics}>Time</Text>
@@ -72,36 +81,35 @@ const AddMedication = () => {
           </Text>
           <View style={{ display: "flex", flexDirection: "row" }}>
             <View style={styles.nameContainer3}>
-              <TextInput placeholder="00:00 AM" style={styles.textName3} />
+              <TextInput placeholder="00:00AM" style={styles.textName3} />
             </View>
-            <Text style={{ marginTop: 15, marginRight: 10 }}>or</Text>
+            <Text style={{ marginTop: 15, marginRight: 12 }}>or</Text>
             <View style={styles.nameContainer3}>
               <TextInput placeholder="Morning" style={styles.textName3} />
             </View>
-            <Ionicons
-              name="add-circle"
-              size={40}
-              color="gray"
-              style={{ marginTop: 5 }}
-            />
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <View style={styles.nameContainer4}>
-              <Text style={styles.textName4}>09:00 AM</Text>
-              <MaterialIcons name="delete-outline" size={24} color="red" />
+            <TouchableOpacity onPress={() => {}}>
+              <Ionicons
+                name="add-circle"
+                size={40}
+                color="gray"
+                style={{ marginTop: 5 }}
+              />
+            </TouchableOpacity>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <View style={styles.nameContainer4}>
+                <Text style={styles.textName4}>Morning</Text>
+                <TouchableOpacity onPress={() => {}}>
+                  <MaterialIcons name="delete-outline" size={24} color="red" />
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.nameContainer4}>
-              <Text style={styles.textName4}>Morning</Text>
-              <MaterialIcons name="delete-outline" size={24} color="red" />
-            </View>
           </View>
-          <View></View>
           <Text style={styles.topics}>Food & Pill</Text>
           <Text style={styles.subtopics}>
             What's the time you need to take pill?
@@ -141,8 +149,8 @@ const AddMedication = () => {
             </TouchableOpacity>
           </View>
         </View>
-        </ScrollView>
-      </View>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -207,13 +215,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    marginRight: 10,
+    marginRight: 8,
   },
   textName3: {
     backgroundColor: "white",
     height: 40,
-    width: "80%",
-    marginLeft: 10,
+    width: "90%",
+    marginLeft: 5,
   },
   nameContainer4: {
     marginTop: 5,
@@ -252,8 +260,8 @@ const styles = StyleSheet.create({
   radioText: {
     marginTop: 8,
     fontSize: 17,
-    marginRight: 30,
-  },
+    marginRight:18
+    },
 });
 
 export default AddMedication;

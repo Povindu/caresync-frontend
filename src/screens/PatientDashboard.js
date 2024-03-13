@@ -57,6 +57,17 @@ const PatientDashboard = ({navigation}) => {
           />
           <Text style={styles.dashboardButtonText}>Add Medical Incident</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('SelectDocForAccessScreen')}}>
+          <Image
+            source={require("../../assets/DocImage.png")}
+            style={styles.dashboardImage}
+          />
+          <Text style={styles.dashboardButtonText}>Give Access to Doctors</Text>
+        </TouchableOpacity>
+
+
+
       </View>
 
       <TouchableOpacity style={styles.roundedPlusButton}>

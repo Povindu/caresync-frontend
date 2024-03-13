@@ -47,9 +47,7 @@ const ViewMedication = () => {
             <Text style={{marginLeft:20}}>After Meal</Text>
         </View>
         <View style={{display:"flex",flexDirection:"row",justifyContent:"flex-end",padding:10}}>
-            <TouchableOpacity onPress={()=>{}}>
-                <MaterialIcons name="edit-off" size={24} color="gray" style={{marginRight:10}}/>
-            </TouchableOpacity>
+            <MaterialIcons name="edit-off" size={24} color="gray" style={{marginRight:10}}/>
             <TouchableOpacity onPress={()=>{}}>
                 <MaterialCommunityIcons name="delete-outline" size={24} color="red" />
             </TouchableOpacity>

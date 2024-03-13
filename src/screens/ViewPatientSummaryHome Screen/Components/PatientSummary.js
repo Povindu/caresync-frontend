@@ -1,5 +1,11 @@
 import {Pressable,View,Text,StyleSheet,Image} from 'react-native';
+import axios from 'axios';
+import { useState,useEffect} from 'react';
+ 
 function PatientSummary({id,title,imageUrl,gender,age,weight,height,blood}){
+    
+ 
+
     return(
 
            
@@ -171,6 +177,7 @@ const styles= StyleSheet.create({
     },
     cat1:{
         flexDirection:'column',
+       
     
 
     },
@@ -186,6 +193,8 @@ const styles= StyleSheet.create({
     main1:{
         flexDirection:'row',
         marginTop:20,
+        marginRight:'10%'
+  
 
     }
     ,cat3:{
@@ -214,6 +223,7 @@ const styles= StyleSheet.create({
     main2:{
         flexDirection:'row',
         marginTop:20,
+        marginRight:'22%'
     },
     cat4:{
         flexDirection:'column',

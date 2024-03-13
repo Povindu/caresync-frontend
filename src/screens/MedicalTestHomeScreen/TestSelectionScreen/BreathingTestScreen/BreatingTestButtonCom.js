@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,12 +6,19 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
+  TouchableOpacity
 } from "react-native";
-import DisplayTime from "../../../../components/StopwatchDisplay";
+import DisplayTime from "../../components/StopwatchDisplay";
 import BreathingTestDataStore from "./BreathingTestDataStore";
+import axios from "axios";
 
 const HoldButton = () => {
-  const sDate = new Date().toDateString();
+  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
+  
+  var date = new Date().getDate(); //To get the Current Date
+  var month = new Date().getMonth() + 1; //To get the Current Month
+  var year = new Date().getFullYear(); //To get the Current Year
+  let sDate = `${padtoTwo(date)}/${padtoTwo(month)}/${year}`;
 
   const [isPressing, setIsPressing] = useState(false);
 
@@ -24,6 +31,47 @@ const HoldButton = () => {
   var updatedS = time.s,
     updatedM = time.m,
     updatedH = time.h;
+
+  useEffect(() => {
+    getResults();
+  }, []);
+
+  const getResults = () => {
+    axios
+      .get("http://192.168.43.192:4000/api/breathingTests")
+      .then((response) => {
+        setResult(response.data || []);
+      })
+      .catch((error) => {
+        console.error("Axios Error : ", error);
+      });
+  };
+
+  const addResults = (data) => {
+    const payload = {
+      date: data.date,
+      stopwatchTime : data.stopwatchTime,
+    }
+    axios
+      .post('http://192.168.43.192:4000/api/breathingTests', payload)
+      .then(() => {
+        getResults();
+      })
+      .catch((error) => {
+        console.error("Axios Error : ", error);
+      });
+  };
+
+  const deleteResults = ()=> {
+    axios
+      .delete('http://192.168.43.192:4000/api/breathingTests')
+      .then(() => {
+        getResults();
+      })
+      .catch((error) => {
+        console.error("Axios Error : ", error);
+      });
+  };
 
   const handlePressIn = () => {
     setIsPressing(true);
@@ -39,16 +87,9 @@ const HoldButton = () => {
       clearInterval(intervalRef.current);
     }
   };
+  const sTime = `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}`;
 
-  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
-
-  const saveData = () => {
-    console.log(updatedH,updatedM,updatedS);
-    console.log(sDate);
-    setResult((prevResult) => [...prevResult, {date: sDate, time: `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}` }]);
-    resetTime();
-  };
-
+  
   const showDecisionBox = () => {
     Alert.alert("Save Details", "Do you want to save your test result?", [
       {
@@ -60,7 +101,8 @@ const HoldButton = () => {
       {
         text: "Save",
         onPress: () => {
-          saveData();
+          addResults({date : sDate, stopwatchTime : sTime})
+          resetTime();
         },
       },
     ]);
@@ -108,7 +150,9 @@ const HoldButton = () => {
           <BreathingTestDataStore sampleData={result} />
         </View>
         <View style={styles.resetTable}>
+        <TouchableOpacity onPress={deleteResults} style={{paddingBottom:100}}>
           <Text style={{ color: "#990000" }}>Reset</Text>
+        </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -155,6 +199,7 @@ const styles = StyleSheet.create({
   resetTable: {
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 20,
   },
 });
 

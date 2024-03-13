@@ -26,6 +26,11 @@ import GiveDocAcessScreen from './src/screens/GiveDocAccess/GiveDocAccessScreen'
 
 import DoctorDashboard from "./src/screens/DoctorDashboard";
 import CustomHeader from "./src/screens/ViewPatientSummaryHome Screen/Components/CustomHeader";
+import MedicalIdFalseScreen from "./src/screens/MedicalIdFalseScreen";
+import Header from "./src/components/Header";
+import MedicationView from "./src/screens/MedicationToCalendar/MedicationViewInCalendarHome";
+import AddMedication from "./src/screens/MedicationToCalendar/AddMedicationPage"
+import ViewMedication from "./src/screens/MedicationToCalendar/ViewMedicationPage";
 
 
 
@@ -86,12 +91,15 @@ export default function App() {
             component={GiveDocAcessScreen}
             options={{ headerShown: false }}
           />
+            <Stack.Screen name="MedicationView" component={MedicationView}/>
+            <Stack.Screen name="AddMedication" component={AddMedication}/>
+            <Stack.Screen name="ViewMedication" component={ViewMedication}/>
 
-          <Stack.Screen
+            <Stack.Screen
             name="PatientsScreen"
             component={PatientsScreen}
             options={{
-              header: (props) => <CustomHeader {...props} />,
+              headerShown: false ,
             }}
           />
           <Stack.Screen
@@ -109,8 +117,13 @@ export default function App() {
             }}
           />
           <Stack.Screen name="DoctorDashboard" component={DoctorDashboard} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+            <Stack.Screen
+              name="MedicalIdFalseScreen"
+              component={MedicalIdFalseScreen}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
   );
 }

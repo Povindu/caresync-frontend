@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text, TextInput, Pressable, SafeAreaView, } from "react-native";
 import Inputbar from "../AddMedicalIncidentScreen/components/Inputbar";
 import Header from "../../components/Header";
-import Button from "../AddMedicalIncidentScreen/components/Button";
+import Btn from "../AddMedicalIncidentScreen/components/Btn";
 
 const NewMedicalRecordScreen = ({navigation}) => {
   return (
@@ -19,7 +19,7 @@ const NewMedicalRecordScreen = ({navigation}) => {
           
         </View>
        <View style={styles.box2}>
-       <Button
+       <Btn
             navigation={navigation}
             text="Add New"
             screenName="MedicalIncidentHomeScreen"

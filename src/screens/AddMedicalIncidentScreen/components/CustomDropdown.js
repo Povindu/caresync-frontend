@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Inputbar from './Inputbar';
+import { Ionicons } from '@expo/vector-icons'; 
 
-const CustomDropdown = ({ options, setInputValue }) => {
+const CustomDropdown = ({ options, setInputValue, placeholderText }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isOtherSelected, setIsOtherSelected] = useState(false);
@@ -16,7 +17,7 @@ const CustomDropdown = ({ options, setInputValue }) => {
   return (
     <View style={styles.dropdownContainer}>
       <TouchableOpacity onPress={() => setIsOpen(!isOpen)} style={styles.dropdownTrigger}>
-        <Text style={styles.selectedItem}>{selectedOption || 'Select Incident type'}</Text>
+        <Text style={styles.selectedItem}>{selectedOption || placeholderText}</Text>
       </TouchableOpacity>
       {isOpen && (
         <View style={styles.dropdownMenu}>
@@ -28,7 +29,9 @@ const CustomDropdown = ({ options, setInputValue }) => {
         </View>
       )}
       {isOtherSelected && (
-        <Inputbar text1="Other Option" placeholder="Enter other option" setInputValue={setInputValue} />
+        <View style={styles.inputbarcontainer}>
+          <Inputbar text1="Other:" placeholder="type any other options" setInputValue={setInputValue} />
+        </View>
       )}
     </View>
   );
@@ -49,23 +52,32 @@ const styles = StyleSheet.create({
   },
   selectedItem: {
     fontSize: 16,
+    fontWeight: '400',
   },
   dropdownMenu: {
     position: 'absolute',
-    top: 50,
+    top: 55,
     left: 10,
-    backgroundColor: '#FFF',
-    borderRadius: 10,
+    backgroundColor: '#f5f5f5',
     borderColor: '#8e8e8e',
     borderWidth: 1,
     width: '90%',
     zIndex: 2,
+    padding: 10,
+    borderRadius: 10
   },
   dropdownItem: {
     paddingVertical: 8,
   },
   itemText: {
     fontSize: 16,
+    fontWeight: '500',
+  },
+  inputbarcontainer: {
+    marginLeft: "-5%",
+  },
+  placeholderText: {
+    fontWeight: '00', // Adjust font weight as needed
   },
 });
 

@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import IncidentTypeDropdown from "./components/IncidentTypeDropdown";
 
 
-function MedicalIncidentHomeScreen({ navigation }) {
+const MedicalIncidentHomeScreen = (navigation) => {
 
   return (
     <SafeAreaView >
@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '100%',
     height: '76%',
-    backgroundColor: '#FFFF',
+    // backgroundColor: '#FFFF',
+   
 
 
   },

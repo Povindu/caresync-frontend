@@ -1,23 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text,Pressable,navigation,navigate,View,SafeAreaView } from 'react-native';
 
-const Button = ({ navigation, text, screenName })=> {
- const onPressHandler = () => {
-          navigation.navigate(screenName);
-        };
+const Btn = ({ navigation, text, screenName })=> {
+ 
     
     
     return(
 
-        <View>
-        <Pressable style={styles.btn}  onPress={onPressHandler}>
+        <Pressable style={styles.btn} >
             <Text style={styles.btntext}>{text}</Text>
           </Pressable>
-          </View>
+         
 
     )
 }
-export default Button;
+export default Btn;
 
 const styles = StyleSheet.create({
     btn:{

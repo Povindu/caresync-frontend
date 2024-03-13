@@ -42,9 +42,9 @@ function Calendar() {
               <TouchableOpacity
                 style={styles.inputBtn}
                 onPress={handleOnPressStartDate}
-                placeholder="Select date"
+                placeholder="Select date" 
               >
-                <Text>{selectedStartDate} </Text>
+                <Text style={{fontWeight:'bold'}}>{selectedStartDate } </Text>
                
               </TouchableOpacity>
              
@@ -131,4 +131,5 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+ 
 });

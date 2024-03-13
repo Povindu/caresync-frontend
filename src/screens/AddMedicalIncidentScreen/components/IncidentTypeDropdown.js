@@ -7,6 +7,7 @@ import PrescriptionModal from './Modals/PrescriptionModal';
 import MedicationModal from './Modals/MedicationModal';
 import AppointmentModal from './Modals/AppointmentModal';
 
+
 const Inputbar = ({ text1, placeholder, dropdownItems, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -25,7 +26,8 @@ const Inputbar = ({ text1, placeholder, dropdownItems, onSelect }) => {
     <View style={styles.inputcontainer}>
       <Text style={styles.text1}>{text1}</Text>
       <TouchableOpacity onPress={handleDropdownPress} style={styles.dropdownTrigger}>
-        <Text style={styles.selectedItem}>{selectedItem || placeholder}</Text>
+        
+        <Text style={styles.selectedItem}>{selectedItem || placeholder}</Text> 
       </TouchableOpacity>
       {isOpen && (
         <View style={styles.dropdownMenu}>
@@ -41,7 +43,7 @@ const Inputbar = ({ text1, placeholder, dropdownItems, onSelect }) => {
 };
 
 const IncidentTypeDropdown = () => {
-  const dropdownItems = ['Test', 'Symptom', 'Prescription', 'Medication', 'Appointment'];
+  const dropdownItems = ['TEST', 'SYMPTOM', 'PRESCRIPTION', 'MEDICATION', 'APPOINMENT'];
   const [selectedOption, setSelectedOption] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -59,15 +61,15 @@ const IncidentTypeDropdown = () => {
 
   const renderModalContent = () => {
     switch (selectedOption) {
-      case 'Test':
-        return <TestModal onClose={handleCloseModal} />;
-      case 'Symptom':
+      case 'TEST':
+        return <TestModal  onClose={handleCloseModal} />;
+      case 'SYMPTOM':
         return <SymptomModal onClose={handleCloseModal} />;
-      case 'Prescription':
+      case 'PRESCRIPTION':
         return <PrescriptionModal onClose={handleCloseModal} />;
-      case 'Medication':
+      case 'MEDICATION':
         return <MedicationModal onClose={handleCloseModal} />;
-      case 'Appointment':
+      case 'APPOINMENT':
         return <AppointmentModal onClose={handleCloseModal} />;
       default:
         return null;
@@ -81,9 +83,11 @@ const IncidentTypeDropdown = () => {
       <TouchableOpacity style={styles.btn} onPress={handleNextPress}>
         <Text style={styles.btntext}>Next</Text>
       </TouchableOpacity>
-      <Modal visible={modalVisible} animationType="slide">
+      <View style={styles.modalContainer}>
+      <Modal visible={modalVisible} animationType="slide" transparent={true} >
         {renderModalContent()}
       </Modal>
+      </View>
     </View>
   );
 };
@@ -113,27 +117,46 @@ const styles = StyleSheet.create({
     width: '88%',
     borderRadius: 10,
   },
+
+   
+  
   selectedItem: {
     fontSize: 16,
+    fontWeight: 'bold',
+    
+
   },
   dropdownMenu: {
     position: 'absolute',
-    top: 115,
-    left: 26,
-    backgroundColor: '#FFF',
-    borderRadius: 10,
-    borderColor: '#8e8e8e',
+    top: 155,
+    left: 28,
+    backgroundColor: '#f5f5f5',
+    paddingVertical: 10,
     borderWidth: 1,
-    width: '89%',
+    borderColor: '#CCCCCC',
+    borderRadius: 8,
+    marginBottom: 10,
+    elevation:8,
+    width: '88%',
     zIndex: 2,
-    padding: 10,
-    paddingBottom: 20,
+    paddingHorizontal:12,
+    
+    
   },
   dropdownItem: {
-    paddingVertical: 8,
+    paddingVertical: 6,
+    
+    
   },
   itemText: {
-    fontSize: 16,
+    fontSize: 17,
+    fontWeight:'bold',
+    fontSize: 17,
+    fontWeight: 'bold',
+    color: '#1e1e1e',
+    
+    
+    
   },
   modalContainer: {
     flex: 1,
@@ -149,6 +172,7 @@ const styles = StyleSheet.create({
     padding: 2,
     bottom: -505,
     alignItems: 'center',
+    elevation:4,
   },
   btntext: {
     color: '#FFF',

@@ -60,7 +60,8 @@ const PatientDashboard = ({ navigation }) => {
                 style={styles.dashboardImage}
               />
               <Text style={styles.dashboardButtonText}>Add Medical Incident</Text>
-            </TouchableOpacity></View>
+            </TouchableOpacity>
+            </View>
 
             <View style={styles.row}>
             <TouchableOpacity style={styles.dashboardButton} onPress={() => { navigation.navigate('NewMedicalRecordScreen') }}>

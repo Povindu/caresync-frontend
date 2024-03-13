@@ -19,13 +19,13 @@ export default Inputbar;
 const styles = StyleSheet.create({
   inputcontainer:{
     // flex: 0.4,
-    paddingTop:40,
+    paddingTop:'6%',
     justifyContent: 'center',
   },
   text1: {
     marginLeft: 28,
-    
-    fontSize: 20,
+    fontWeight:'500',
+    fontSize: 16,
     color: '#1e1e1e',
     // fontFamily: 'poppins regular,',
   },
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     height: 38,
     margin: 20,
     marginLeft:25,
-    marginTop: 10,
+    // marginTop: 10,
     borderRadius: 10,
     fontSize: 16,
     

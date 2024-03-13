@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import TestHeader from "../../../components/Header";
+import Header from "../components/Header";
 import StepCounterSelection from "./StepCounterSelectionCom";
 import BreatingTestSelection from "./BreatingTestSelectionCom";
 
@@ -7,7 +7,7 @@ import BreatingTestSelection from "./BreatingTestSelectionCom";
 const TestSelection =({navigation})=>{
     return(
         <View>
-        <TestHeader name="Medical Test"/>
+        <Header name="Medical Test"/>
         <StepCounterSelection navigation={navigation}/>
         <BreatingTestSelection navigation={navigation}/>
         </View>

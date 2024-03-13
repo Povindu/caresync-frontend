@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
-import DisplayTime from "../../../../components/StopwatchDisplay";
+import { View, TouchableOpacity, StyleSheet, Text, ScrollView } from "react-native";
+import DisplayTime from "../../components/StopwatchDisplay";
 import StepCountDataStore from "./StepCountDataStore";
 import { Pedometer } from "expo-sensors";
 import axios from "axios";
@@ -126,6 +126,7 @@ const StepCountButton = () => {
   };
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Text style={styles.pedotext}>
         Is Pedometer available on the device : {pedoAvailability}
@@ -153,10 +154,11 @@ const StepCountButton = () => {
       <View style={styles.table}>
         <StepCountDataStore sampleData={result} />
       </View>
-      <TouchableOpacity onPress={deleteResults}>
+      <TouchableOpacity onPress={deleteResults} style={{paddingBottom:120}}>
         <Text style={{ color: "#990000" }}>Reset</Text>
       </TouchableOpacity>
     </View>
+    </ScrollView>
   );
 };
 

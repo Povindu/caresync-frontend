@@ -25,6 +25,8 @@ import MedicalIdFalseScreen from "./src/screens/AuthenticationScreens/DoctorAuth
 
 import Header from "./src/components/Header";
 import MedicationView from "./src/screens/MedicationToCalendar/MedicationViewInCalendarHome";
+import AddMedication from "./src/screens/MedicationToCalendar/AddMedicationPage"
+import ViewMedication from "./src/screens/MedicationToCalendar/ViewMedicationPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +62,8 @@ export default function App() {
             <Stack.Screen name="StepCounterHome" component={StepCounterHome} />
             <Stack.Screen name="BreathingHome" component={BreathingHome} />
             <Stack.Screen name="MedicationView" component={MedicationView}/>
+            <Stack.Screen name="AddMedication" component={AddMedication}/>
+            <Stack.Screen name="ViewMedication" component={ViewMedication}/>
 
             <Stack.Screen name="MedicalIncidentHomeScreen" component={MedicalIncidentHomeScreen} options={{ headerShown:false}}/>
             <Stack.Screen name="MedicalIncidentDetailScreen" component={MedicalIncidentDetailScreen} options={{ headerShown:false}}/>

@@ -6,7 +6,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import WelcomeScreen from "./src/screens/WelcomeScreen/WelcomeScreen";
-import DoctorLogin from "./src/screens/DoctorLoginScreen";
 import ContactUs from "./src/screens/ContactUs";
 import DoctorRegister from "./src/screens/AuthenticationScreens/DoctorAuthentication/DoctorRegister";
 import PatientRegister from "./src/screens/AuthenticationScreens/PatientAuthentication/PatientRegister";

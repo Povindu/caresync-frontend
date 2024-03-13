@@ -1,9 +1,3 @@
-import {FlatList,View,ScrollView,Text} from 'react-native';
-import { LIST} from '../Data/dummy-data';
-import PatientGridTile from '../Components/PatientGridTile';
-import Search from '../Components/Search';
-import CustomHeader from '../Components/CustomHeader'
-import axios from 'axios';
 import { useState,useEffect} from 'react';
 import { BASE_URL } from '../../../../App';
 import { FlatList, View, ScrollView, Text } from "react-native";
@@ -12,7 +6,6 @@ import PatientGridTile from "../Components/PatientGridTile";
 import Search from "../Components/Search";
 import CustomHeader from "../Components/CustomHeader";
 import axios from "axios";
-import { useState, useEffect } from "react";
 
 function PatientsScreen({ navigation }) {
   const [patients, setPatients] = useState([]);

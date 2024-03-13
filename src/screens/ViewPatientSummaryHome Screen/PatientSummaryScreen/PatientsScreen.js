@@ -24,6 +24,7 @@ function PatientsScreen({ navigation }) {
   const fetchPatients = async () => {
     try {
       const response = await axios.get(`${BASE_URL}patients`);
+
       setPatients(response.data);
     } catch (error) {
       console.error("Error fetching patients:", error);
@@ -55,7 +56,10 @@ function PatientsScreen({ navigation }) {
   }
   return (
     <View style={{ flex: 1 }}>
-      <CustomHeader title="My Patients" />
+
+      <CustomHeader />
+
+ 
 
       <FlatList
         data={patients}

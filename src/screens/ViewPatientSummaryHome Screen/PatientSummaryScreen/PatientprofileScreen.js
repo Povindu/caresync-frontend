@@ -57,7 +57,11 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
+
+            
+
               onPress={() => navigation.navigate("PatientHistoryScreen")}
+
             >
               <Image
                 style={styles.img}
@@ -77,7 +81,10 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-              onPress={() => navigation.navigate}
+
+              onPress={() => navigation.navigate("MedicationsScreen")}
+
+        
             >
               <Image
                 style={styles.img}

@@ -6,14 +6,6 @@ const { width, height } = Dimensions.get('window');
 const MedicalIncidentDetailScreen = () => {
     return (
         <>
-                <Header2 text="Add Details" />
-                <View style={styles.background}>
-                   
-                        <View style={styles.coloumn}>
-                        {/* <View style={styles.tile1}> */}
-                            
-                            <TouchableOpacity style={[{ backgroundColor: '#FFEBA5' }, styles.tiles]}>
-
             <Header2 text="Add Details" />
             <View style={styles.background}>
             <View style={styles.container}>

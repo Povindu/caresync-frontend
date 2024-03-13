@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import styles from "./homeStyles";
 
-const HomeScreen = ({ navigation }) => {
+const WelcomeScreen = ({ navigation }) => {
   const [selectedAccountType, setSelectedAccountType] = useState(null);
 
   const handleSelectAccountType = (accountType) => {
@@ -29,7 +29,7 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.titleMain}>CareSync</Text>
       <Image
-        source={require("../../assets/homelogo.png")}
+        source={require("../../../assets/homelogo.png")}
         style={styles.logo}
       />
       <Text style={styles.title}>I am a </Text>
@@ -86,4 +86,4 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-export default HomeScreen;
+export default WelcomeScreen;

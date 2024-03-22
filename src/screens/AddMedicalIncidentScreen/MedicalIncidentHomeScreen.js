@@ -1,9 +1,27 @@
 import { View, StyleSheet, SafeAreaView, } from "react-native";
 import Header from "../../components/Header";
 import IncidentTypeDropdown from "./components/IncidentTypeDropdown";
+import React ,{useState} from "react";
 
 
 const MedicalIncidentHomeScreen = (navigation) => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <SafeAreaView >

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
-import Calendar from './Calendar';
+import Calendar from './Calendar'; // Assuming this is the path to your Calendar component
 import TestModal from './Modals/TestModal';
 import SymptomModal from './Modals/SymptomModal';
 import PrescriptionModal from './Modals/PrescriptionModal';
 import MedicationModal from './Modals/MedicationModal';
 import AppointmentModal from './Modals/AppointmentModal';
-
 
 const Inputbar = ({ text1, placeholder, dropdownItems, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,17 +16,23 @@ const Inputbar = ({ text1, placeholder, dropdownItems, onSelect }) => {
   };
 
   const handleItemPress = (item) => {
+
     setSelectedItem(item);
     setIsOpen(false);
     onSelect(item); // Call onSelect callback with selected item
+
   };
 
+  
+
+
+
   return (
+
     <View style={styles.inputcontainer}>
       <Text style={styles.text1}>{text1}</Text>
       <TouchableOpacity onPress={handleDropdownPress} style={styles.dropdownTrigger}>
-        
-        <Text style={styles.selectedItem}>{selectedItem || placeholder}</Text> 
+        <Text style={styles.selectedItem}>{selectedItem || placeholder}</Text>
       </TouchableOpacity>
       {isOpen && (
         <View style={styles.dropdownMenu}>
@@ -39,54 +44,105 @@ const Inputbar = ({ text1, placeholder, dropdownItems, onSelect }) => {
         </View>
       )}
     </View>
+
   );
+
+
 };
 
 const IncidentTypeDropdown = () => {
-  const dropdownItems = ['TEST', 'SYMPTOM', 'PRESCRIPTION', 'MEDICATION', 'APPOINMENT'];
+  const dropdownItems = ['TEST', 'SYMPTOM', 'PRESCRIPTION', 'MEDICATION', 'APPOINTMENT'];
   const [selectedOption, setSelectedOption] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
 
+  const saveIncident = async () => {
+    try {
+      if (!selectedDate) {
+        throw new Error("Date is required.");
+      }
+  
+      const res = await fetch("http://10.10.8.227:4003/api/medicalIncident", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          incidentType: selectedOption,
+          date: selectedDate,
+        }),
+      });
+  
+      console.log("Response status:", res.status);
+  
+      const responseData = await res.json(); // Parse response body as JSON
+  
+      if (!res.ok) {
+        throw new Error(`Failed to save incident. Server response: ${JSON.stringify(responseData)}`);
+      }
+  
+      console.log("Success:", responseData);
+    } catch (error) {
+      console.error("Error saving incident:", error.message);
+    }
+  };
+  
+  
   const handleSelect = (item) => {
-    setSelectedOption(item); // Set selected option
+    setSelectedOption(item);
   };
 
   const handleCloseModal = () => {
-    setModalVisible(false); // Close the modal
+    setModalVisible(false);
   };
 
   const handleNextPress = () => {
-    setModalVisible(true); // Open the modal
+    setModalVisible(true);
   };
 
   const renderModalContent = () => {
+    // Render modal content based on selected option
     switch (selectedOption) {
       case 'TEST':
-        return <TestModal  onClose={handleCloseModal} />;
+        return <TestModal onClose={handleCloseModal} />;
       case 'SYMPTOM':
         return <SymptomModal onClose={handleCloseModal} />;
       case 'PRESCRIPTION':
         return <PrescriptionModal onClose={handleCloseModal} />;
       case 'MEDICATION':
         return <MedicationModal onClose={handleCloseModal} />;
-      case 'APPOINMENT':
+      case 'APPOINTMENT':
         return <AppointmentModal onClose={handleCloseModal} />;
       default:
         return null;
     }
   };
 
+  const handleCombinedPress = () => {
+    handleNextPress(); // Open the modal
+    saveIncident(); // Save the incident
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date); // Update selected date
+  };
+
   return (
     <View style={styles.container}>
-      <Calendar />
-      <Inputbar text1="Incident Type" placeholder="Select Incident type" dropdownItems={dropdownItems} onSelect={handleSelect} />
-      <TouchableOpacity style={styles.btn} onPress={handleNextPress}>
+      <Calendar onDateChange={handleDateChange} />
+      <Inputbar
+        text1="Incident Type"
+        placeholder="Select Incident type"
+        dropdownItems={dropdownItems}
+        onSelect={handleSelect}
+      />
+      <TouchableOpacity style={styles.btn} onPress={handleCombinedPress}>
         <Text style={styles.btntext}>Next</Text>
       </TouchableOpacity>
       <View style={styles.modalContainer}>
-      <Modal visible={modalVisible} animationType="slide" transparent={true} >
-        {renderModalContent()}
-      </Modal>
+        <Modal visible={modalVisible} animationType="slide" transparent={true}>
+          {renderModalContent()}
+        </Modal>
       </View>
     </View>
   );
@@ -95,12 +151,10 @@ const IncidentTypeDropdown = () => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
-    
   },
   inputcontainer: {
     paddingTop: 20,
     justifyContent: 'center',
-    
   },
   text1: {
     marginLeft: 28,
@@ -117,14 +171,9 @@ const styles = StyleSheet.create({
     width: '88%',
     borderRadius: 10,
   },
-
-   
-  
   selectedItem: {
     fontSize: 16,
     fontWeight: 'bold',
-    
-
   },
   dropdownMenu: {
     position: 'absolute',
@@ -136,27 +185,18 @@ const styles = StyleSheet.create({
     borderColor: '#CCCCCC',
     borderRadius: 8,
     marginBottom: 10,
-    elevation:8,
+    elevation: 8,
     width: '88%',
     zIndex: 2,
-    paddingHorizontal:12,
-    
-    
+    paddingHorizontal: 12,
   },
   dropdownItem: {
     paddingVertical: 6,
-    
-    
   },
   itemText: {
     fontSize: 17,
-    fontWeight:'bold',
-    fontSize: 17,
     fontWeight: 'bold',
     color: '#1e1e1e',
-    
-    
-    
   },
   modalContainer: {
     flex: 1,
@@ -172,7 +212,7 @@ const styles = StyleSheet.create({
     padding: 2,
     bottom: -505,
     alignItems: 'center',
-    elevation:4,
+    elevation: 4,
   },
   btntext: {
     color: '#FFF',

@@ -39,14 +39,14 @@ import ViewMedication from "./src/screens/MedicationToCalendar/ViewMedicationPag
 
 const Stack = createNativeStackNavigator();
 
-export const BASE_URL = "http://192.168.8.104:4001";
+export const BASE_URL = "http://192.168.8.102:4001";
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="WelcomeScreen"
+          initialRouteName="DoctorDashboard"
           screenOptions={{
             headerStyle: { backgroundColor: "#FBDABB" },
             headerShown: false,

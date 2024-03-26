@@ -9,7 +9,7 @@ import {
 } from "react-native";
 // import { BASE_URL } from '../../../../App';
 
-const BASE_URL = "http://192.168.8.102:4001/api";
+const BASE_URL = "http://10.10.0.25:4001/api";
 
 const DoctorRegister = ({ navigation }) => {
   const [firstName, setFirstName] = useState("");
@@ -40,21 +40,24 @@ const DoctorRegister = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch(`${BASE_URL}/doctors/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          nic,
-          email,
-          password,
-          medicalId,
-          medicalIdVerify: false,
-        }),
-      });
+      const response = await fetch(
+        "http://10.10.0.25:4001/api/doctors/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            nic,
+            email,
+            password,
+            medicalId,
+            medicalIdVerify: false,
+          }),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         Alert.alert("Success", "Registration successful.", [

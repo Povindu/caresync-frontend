@@ -13,6 +13,7 @@ import { Calendar } from "react-native-calendars";
 
 import Header2 from "../../AddMedicalIncidentScreen/components/Header2";
 import Inputbar from "../../AddMedicalIncidentScreen/components/Inputbar";
+import Dropdown from "../Components/Dropdown";
 
 const MedicationScreen = () => {
   const [medications, setMedications] = useState([]);
@@ -251,19 +252,51 @@ const MedicationScreen = () => {
             <Text style={styles.topics}>Name of Medicine</Text>
             <View style={styles.nameContainer}>
               <TextInput
-                placeholder="Medical Details"
+                placeholder="Medicine"
                 value={medicalDetails}
                 onChangeText={setMedicalDetails}
                 style={styles.textName}
               />
             </View>
 
-            <TextInput
+            <Text style={styles.topics}>Dosage (Tablets)</Text>
+            <View style={styles.view2}>
+              <View style={styles.view1}>
+                <Text style={styles.text1}>Morning</Text>
+                <Dropdown options={["1/2", "1", "2", "3"]} />
+              </View>
+              <View style={styles.view1}>
+                <Text style={styles.text1}>Afternoon</Text>
+                <Dropdown options={["1/2", "1", "2", "3"]} />
+              </View>
+
+              <View style={styles.view1}>
+                <Text style={styles.text1}>Night</Text>
+                <Dropdown options={["1/2", "1", "2", "3"]} />
+              </View>
+            </View>
+
+            <Text style={styles.topics}>Duration</Text>
+            <View style={styles.view1}>
+              <Dropdown options={["1/2", "1", "2", "3"]} />
+            </View>
+
+            <Text style={styles.topics}>Doctor</Text>
+            <View style={styles.nameContainer}>
+              <TextInput
+                placeholder="Doctor"
+                value={medicalDetails}
+                onChangeText={setMedicalDetails}
+                style={styles.textName}
+              />
+            </View>
+
+            {/* <TextInput
               placeholder="Doctor"
               value={doctor}
               onChangeText={setDoctor}
               style={[styles.input, { height: 100 }]}
-            />
+            /> */}
 
             <View style={styles.buttonContainer}>
               <TouchableOpacity
@@ -407,6 +440,17 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 0,
   },
+  view1: {
+    flexDirection: "column",
+    marginLeft: 20,
+    width: "25%",
+  },
+  view2: {
+    flexDirection: "row",
+  },
+  topics: {
+    marginTop: 10,
+  },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -529,6 +573,7 @@ const styles = StyleSheet.create({
   },
   nameContainer: {
     marginTop: 5,
+    marginLeft: 15,
     marginBottom: 5,
     width: "100%",
     backgroundColor: "white",
@@ -547,10 +592,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 10,
   },
-  // medicationItemCon2: {
-  //   width: "95%",
-  //   backgroundColor: "#E3FFFC",
-
-  //   marginLeft: "2%",
-  // },
+  text1: {
+    marginLeft: 10,
+  },
 });

@@ -48,9 +48,9 @@ export default function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator
-          // initialRouteName="WelomeScreen"
+          initialRouteName="WelomeScreen"
           // initialRouteName="DoctorDashboard"
-          initialRouteName="PatientDashboard"
+          // initialRouteName="PatientDashboard"
 
 
           screenOptions={{

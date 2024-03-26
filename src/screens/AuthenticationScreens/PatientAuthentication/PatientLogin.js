@@ -19,8 +19,9 @@ const PatientLogin = ({ navigation }) => {
 
     const handleLogin = async () => {
         try {
-            console.log(baseUrl + "signin");
-            const response = await fetch(baseUrl + "signin", {
+            console.log(baseUrl + "/signin");
+
+            const response = await fetch(baseUrl + "/signin", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -29,7 +30,7 @@ const PatientLogin = ({ navigation }) => {
             });
 
             const data = await response.json();
-            console.log("data")
+            console.log(data)
             if (response.ok) {
                 // Navigate to PatientDashboard if login successful
                 navigation.navigate("PatientDashboard");

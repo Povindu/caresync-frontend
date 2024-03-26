@@ -36,6 +36,8 @@ import MedicationsScreen from "./src/screens/ViewPatientSummaryHome Screen/Patie
 
 import AddMedication from "./src/screens/MedicationToCalendar/AddMedicationPage"
 import ViewMedication from "./src/screens/MedicationToCalendar/ViewMedicationPage";
+import NewMedicalRecordScreen from "./src/screens/AddMedicalRecordScreen/NewMedicalRecordScreen";
+
 
 
 
@@ -49,7 +51,7 @@ export default function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="WelcomeScreen"
+          initialRouteName="PatientDashboard"
           screenOptions={{
             headerStyle: { backgroundColor: "#FBDABB" },
             headerShown: false,
@@ -74,13 +76,13 @@ export default function App() {
           <Stack.Screen name="BreathingHome" component={BreathingHome} />
 
           <Stack.Screen
-            name="MedicalIncidentHomeScreen"
-            component={MedicalIncidentHomeScreen}
+            name="NewMedicalRecordScreen"
+            component={NewMedicalRecordScreen}
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="MedicalIncidentDetailScreen"
-            component={MedicalIncidentDetailScreen}
+            name="MedicalIncidentHomeScreen"
+            component={MedicalIncidentHomeScreen}
             options={{ headerShown: false }}
           />
 

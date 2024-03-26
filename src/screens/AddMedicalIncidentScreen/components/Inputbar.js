@@ -8,6 +8,7 @@ const Inputbar = ({ text1, placeholder }) => {
       <TextInput
         style={styles.input}
         placeholder={placeholder}
+       
       ></TextInput>
     </View>
   );
@@ -18,13 +19,13 @@ export default Inputbar;
 const styles = StyleSheet.create({
   inputcontainer:{
     // flex: 0.4,
-    paddingTop:20,
+    paddingTop:'6%',
     justifyContent: 'center',
   },
   text1: {
     marginLeft: 28,
-    
-    fontSize: 20,
+    fontWeight:'500',
+    fontSize: 16,
     color: '#1e1e1e',
     // fontFamily: 'poppins regular,',
   },
@@ -35,9 +36,10 @@ const styles = StyleSheet.create({
     width: '88%',
     height: 38,
     margin: 20,
-    marginTop: 10,
+    marginLeft:25,
+    // marginTop: 10,
     borderRadius: 10,
     fontSize: 16,
-    placeholderTextColor: '#8e8e8e',
+    
   },
 });

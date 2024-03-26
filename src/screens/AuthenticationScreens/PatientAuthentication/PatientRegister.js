@@ -25,7 +25,7 @@ const PatientRegister = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch(baseURL+'signup', {
+      const response = await fetch("http://10.10.8.227:4004/api/signup", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

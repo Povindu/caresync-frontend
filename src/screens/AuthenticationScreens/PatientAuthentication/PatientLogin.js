@@ -24,7 +24,7 @@ const PatientLogin = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(baseURL + "signin", {
+      const response = await fetch("http://10.10.8.227:4004/api/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

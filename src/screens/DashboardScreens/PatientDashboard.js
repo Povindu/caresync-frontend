@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 const PatientDashboard = ({navigation}) => {
     const navigateToMedicalHistory = () => {
         navigation.navigate('MedicalHistory');
     };
   return (
+    <ScrollView styles={styles.scrollviewstyle}>
     <View style={styles.container}>
       <View style={styles.topPanel}>
         <Text style={styles.titleMain}>CareSync</Text>
@@ -76,11 +77,15 @@ const PatientDashboard = ({navigation}) => {
 
       
     </View>
-
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+
+  scrollviewstyle:{
+    flex:1,
+  },
   container: {
     flex: 1,
     backgroundColor: "#F7FEFF",

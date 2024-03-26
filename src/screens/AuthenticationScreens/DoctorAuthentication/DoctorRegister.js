@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { BASE_URL } from '../../../../App';
+
+import { baseUrl } from "../../../constants/constants";
 
 const DoctorRegister = ({ navigation }) => {
   const [firstName, setFirstName] = useState('');
@@ -23,7 +24,7 @@ const DoctorRegister = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch(`${BASE_URL}doctors/signup`, {
+      const response = await fetch(`${baseUrl}doctors/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

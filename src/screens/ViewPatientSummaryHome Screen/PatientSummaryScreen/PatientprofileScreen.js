@@ -2,7 +2,8 @@ import PatientSummary from "../Components/PatientSummary";
 import { FlatList, View, StyleSheet, Button, TouchableOpacity, Text, Image } from 'react-native';
 import axios from 'axios';
 import { useState,useEffect} from 'react';
-import { BASE_URL } from "../../../../App";
+
+import { baseUrl } from "../../../constants/constants";
 
 
 function PatientProfileScreen({ route, navigation }) {
@@ -14,7 +15,7 @@ function PatientProfileScreen({ route, navigation }) {
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/patients`);
+      const response = await axios.get(`${baseUrl}/patients`);
       setPatients(response.data);
     } catch (error) {
       console.error("Error fetching patients:", error);

@@ -24,7 +24,7 @@ import PatientHistoryScreen from "./src/screens/ViewPatientSummaryHome Screen/Pa
 import DoctorDashboard from "./src/screens/DashboardScreens/DoctorDashboard";
 
 import SelectDocForAccessScreen from "./src/screens/GiveDocAccess/SelectDocForAccessScreen";
-import GiveDocAcessScreen from './src/screens/GiveDocAccess/GiveDocAccessScreen'
+import GiveDocAcessScreen from "./src/screens/GiveDocAccess/GiveDocAccessScreen";
 
 import CustomHeader from "./src/screens/ViewPatientSummaryHome Screen/Components/CustomHeader";
 import MedicalIdFalseScreen from "./src/screens/AuthenticationScreens/DoctorAuthentication/MedicalIdFalseScreen";
@@ -34,22 +34,25 @@ import MedicationView from "./src/screens/MedicationToCalendar/MedicationViewInC
 
 import MedicationsScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/MedicationsScreen";
 
-import AddMedication from "./src/screens/MedicationToCalendar/AddMedicationPage"
+import AddMedication from "./src/screens/MedicationToCalendar/AddMedicationPage";
 import ViewMedication from "./src/screens/MedicationToCalendar/ViewMedicationPage";
 
+import { baseUrl } from "./src/constants/constants";
 
+export const BASE_URL = baseUrl;
 
 const Stack = createNativeStackNavigator();
 
-export const BASE_URL=BASE_URL;
-
 export default function App() {
-
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="WelcomeScreen"
+          // initialRouteName="WelomeScreen"
+          // initialRouteName="DoctorDashboard"
+          initialRouteName="PatientDashboard"
+
+
           screenOptions={{
             headerStyle: { backgroundColor: "#FBDABB" },
             headerShown: false,
@@ -95,15 +98,15 @@ export default function App() {
             component={GiveDocAcessScreen}
             options={{ headerShown: false }}
           />
-            <Stack.Screen name="MedicationView" component={MedicationView}/>
-            <Stack.Screen name="AddMedication" component={AddMedication}/>
-            <Stack.Screen name="ViewMedication" component={ViewMedication}/>
+          <Stack.Screen name="MedicationView" component={MedicationView} />
+          <Stack.Screen name="AddMedication" component={AddMedication} />
+          <Stack.Screen name="ViewMedication" component={ViewMedication} />
 
-            <Stack.Screen
+          <Stack.Screen
             name="PatientsScreen"
             component={PatientsScreen}
             options={{
-              headerShown: false ,
+              headerShown: false,
             }}
           />
           <Stack.Screen
@@ -122,23 +125,23 @@ export default function App() {
             }}
           />
 
-            <Stack.Screen
+          <Stack.Screen
             name="MedicationsScreen"
             component={MedicationsScreen}
             options={{
-              headerShown: false ,
+              headerShown: false,
             }}
           />
 
           <Stack.Screen name="DoctorDashboard" component={DoctorDashboard} />
 
-            <Stack.Screen
-              name="MedicalIdFalseScreen"
-              component={MedicalIdFalseScreen}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
+          <Stack.Screen
+            name="MedicalIdFalseScreen"
+            component={MedicalIdFalseScreen}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }

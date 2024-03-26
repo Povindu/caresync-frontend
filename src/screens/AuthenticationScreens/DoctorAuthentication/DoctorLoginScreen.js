@@ -8,7 +8,8 @@ import {
   Image,
   Alert,
 } from "react-native";
-import { BASE_URL } from "../../../../App";
+
+import { baseUrl } from "../../../constants/constants";
 
 const DoctorLogin = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ const DoctorLogin = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/doctors/signin`, {
+      const response = await fetch(`${baseUrl}/doctors/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,35 +1,91 @@
-import { View, StyleSheet, Text, Pressable, SafeAreaView, Alert } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Pressable,
+  SafeAreaView,
+  Alert,
+} from "react-native";
+
 import Header from "../../components/Header";
 import axios from "axios";
-
-const baseUrl = "http://10.0.2.2:4000/api/doctors";
 import { useEffect, useState } from "react";
 
+import { baseUrl } from "../../constants/constants";
+
 function GiveDocAccess({ navigation, route }) {
+
   const [doc, setDoc] = useState("");
 
-  const showAlert = (name) =>
-  Alert.alert(
-    'Access Granted',
-    'Medical history access granted to '+ name + " successfully.",
-    [
+  const patientID = "65cde7e185ffe2b8d4a75879"
+
+  const giveAccess = () => {
+    console.log("Access Granted" + doc._id);
+    axios
+      .patch(`${baseUrl}/doctors/addPatientAccess/${doc._id}`, {
+        patientID: patientID,
+      })
+      .then((res) => {
+        if (res) {
+          // const userData = res.data;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        return error.response;
+      });
+  };
+
+
+  axios
+      .patch(`${baseUrl}/doctors/addDocAccess/${patientID}`, {
+        patientID: `${doc._id}`,
+      })
+      .then((res) => {
+        if (res) {
+          // const userData = res.data;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        return error.response;
+      });
+
+
+
+  };
+
+  
+
+  const showAlert = () => {
+
+    giveAccess();
+
+    Alert.alert(
+      "Access Granted",
+      "Medical history access granted to " +
+        doc.firstName +
+        " " +
+        doc._lastName+
+        " successfully.",
+      [
+        {
+          text: "Ok",
+          style: "ok",
+        },
+      ],
       {
-        text: 'Ok',
-        // onPress: () => Alert.alert('Access Granted'),
-        style: 'ok',
-      },
-    ],
-    {
-      cancelable: true,
-    },
-  );
+        cancelable: true,
+      }
+    );
+  };
 
   useEffect(() => {
     const fetchDoctor = async () => {
       try {
         const configurationObject = {
           method: "get",
-          url: `${baseUrl}/` + route.params.id,
+          url: `${baseUrl}/doctors/` + route.params.id,
         };
         // console.log(configurationObject.url);
         const response = await axios(configurationObject);
@@ -43,14 +99,18 @@ function GiveDocAccess({ navigation, route }) {
     fetchDoctor();
   }, []);
 
+
+
   return (
     <SafeAreaView>
       <Header name={"Grant Access"} />
       <View style={styles.background}>
         <View style={styles.card}>
-          <Text style={styles.cardText}>Doctors Name:   {doc.name}</Text>
-          <Text style={styles.cardText}>DoctorID:   {doc.doctorID}</Text>
-          <Text style={styles.cardText}>Specialization:  {doc.spec}</Text>
+          <Text style={styles.cardText}>
+            Doctors Name: {doc.firstName + " " + doc.lastName}
+          </Text>
+          <Text style={styles.cardText}>DoctorID: {doc.medicalId}</Text>
+          <Text style={styles.cardText}>Specialization: </Text>
           {/* <Text>Doctor Description:</Text> */}
         </View>
         <View style={styles.disclaimer}>
@@ -65,14 +125,15 @@ function GiveDocAccess({ navigation, route }) {
           </Text>
         </View>
         <View>
-          <Pressable onPress={() => showAlert(doc.name)}>
+          <Pressable onPress={() => showAlert()}>
             <Text style={styles.access_btn}>Grant Access</Text>
           </Pressable>
         </View>
       </View>
     </SafeAreaView>
   );
-}
+
+
 export default GiveDocAccess;
 
 const styles = StyleSheet.create({
@@ -84,7 +145,6 @@ const styles = StyleSheet.create({
   },
 
   card: {
-
     backgroundColor: "#FFFFFF",
     borderRadius: 20,
     padding: 20,
@@ -101,11 +161,10 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
 
-  cardText:{
-    fontSize:16,
-    textAlign:'auto'
-  },  
-  
+  cardText: {
+    fontSize: 16,
+    textAlign: "auto",
+  },
 
   access_btn: {
     textAlign: "center",
@@ -115,7 +174,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
     marginTop: 20,
     borderRadius: 10,
-    fontSize:18,
+    fontSize: 18,
   },
 
   disclaimer: {

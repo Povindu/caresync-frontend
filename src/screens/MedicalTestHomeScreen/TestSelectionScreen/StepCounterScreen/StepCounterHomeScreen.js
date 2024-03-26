@@ -4,6 +4,7 @@ import StepCountButton from "./StepCountButtonCom";
 
 const StepCounterHome=()=>{
     return(
+        //components in step counter home screen
         <View>
             <Header name={"Step Counter"}/>
             <StepCountButton/>

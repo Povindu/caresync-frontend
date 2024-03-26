@@ -1,3 +1,4 @@
+import React from "react";
 import {
   View,
   Text,
@@ -6,30 +7,26 @@ import {
   Alert,
   ScrollView,
   Modal,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import Header from "../MedicalTestHomeScreen/components/Header";
 import { TextInput, RadioButton } from "react-native-paper";
-import { EvilIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
+import { EvilIcons,Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 
 const AddMedication = () => {
-  const [chooseTime, setchooseTime] = useState("00:00 AM");
-  const [choosePeriod, setchoosePeriod] = useState("Morning");
-  const [isModalVisible, setisModalVisible] = useState(false);
-  const [isModalVisible2, setisModalVisible2] = useState(false);
-  const [checked, setChecked] = useState("before");
-
-  const padtoTwo = (number) => (number <= 9 ? `0${number}` : number);
-
+  const [chooseTime, setchooseTime] = useState("00:00 AM"); //to store selected time, default morning 00:00 AM
+  const [choosePeriod, setchoosePeriod] = useState("Morning"); //to store selected period, default Morning
+  const [isModalVisible, setisModalVisible] = useState(false); //modal visibility for time selection
+  const [isModalVisible2, setisModalVisible2] = useState(false); // modal visibility for period selection
+  const [checked, setChecked] = useState("before"); //check radio button selection
+  const padtoTwo = (number) => (number <= 9 ? `0${number}` : number); //pack to two digits 0-9
   var date = new Date().getDate(); //To get the Current Date
   var month = new Date().getMonth() + 1; //To get the Current Month
   var year = new Date().getFullYear(); //To get the Current Year
-  let sDate = `${padtoTwo(date)}/${padtoTwo(month)}/${year}`;
+  let sDate = `${padtoTwo(date)}/${padtoTwo(month)}/${year}`; //set date 29/07/2024 format
 
+  //show alert when press the add medication button
   const AlertBox = () => {
     Alert.alert(
       "Successful message",
@@ -42,63 +39,92 @@ const AddMedication = () => {
       ]
     );
   };
+  //function with modal visibility changing, parameter value boolean
+  const changeModalVisibility = (bool) => {
+    setisModalVisible(bool);
+  };
+  const changeModalVisibility2 = (bool) => {
+    setisModalVisible2(bool);
+  };
 
-  const changeModalVisibility = (bool) =>{
-    setisModalVisible(bool)
-  }
-  const changeModalVisibility2 = (bool) =>{
-    setisModalVisible2(bool)
-  }
-  const OPTIONS = ['00:00 AM','01:00 AM','02:00 AM','03:00 AM','04:00 AM','05:00 AM','06:00 AM','07:00 AM','08:00 AM','09:00 AM','10:00 AM','11:00 AM','12:00 PM','01:00 PM','02:00 PM','03:00 PM','04:00 PM','05:00 PM','06:00 PM','07:00 PM','08:00 PM','09:00 PM','10:00 PM','11:00 PM'];
-  const OPTIONS2 = ['Morning','Afternoon', 'Evening', 'Night']
-  const WIDTH = Dimensions.get('window').width;
-  const HEIGHT = Dimensions.get('window').height;
-
-  const onPressItem=(option)=>{
+  //time options
+  const OPTIONS = [
+    "00:00 AM",
+    "01:00 AM",
+    "02:00 AM",
+    "03:00 AM",
+    "04:00 AM",
+    "05:00 AM",
+    "06:00 AM",
+    "07:00 AM",
+    "08:00 AM",
+    "09:00 AM",
+    "10:00 AM",
+    "11:00 AM",
+    "12:00 PM",
+    "01:00 PM",
+    "02:00 PM",
+    "03:00 PM",
+    "04:00 PM",
+    "05:00 PM",
+    "06:00 PM",
+    "07:00 PM",
+    "08:00 PM",
+    "09:00 PM",
+    "10:00 PM",
+    "11:00 PM",
+  ]; 
+  const OPTIONS2 = ["Morning", "Afternoon", "Evening", "Night"]; //period options
+  const WIDTH = Dimensions.get("window").width;
+  const HEIGHT = Dimensions.get("window").height;
+  
+  const onPressItem = (option) => {
     changeModalVisibility(false);
     setchooseTime(option);
-  }
+  };
 
-  const onPressItem2=(option1)=>{
+  const onPressItem2 = (option1) => {
     changeModalVisibility2(false);
     setchoosePeriod(option1);
-  }
+  };
 
-  const option = OPTIONS.map((item, index)=>{
-    return(
+  //map time options with the modal items
+  const option = OPTIONS.map((item, index) => {
+    return (
       <TouchableOpacity
         style={styles.option}
         key={index}
-        onPress={()=>onPressItem(item)}
+        onPress={() => onPressItem(item)}
       >
         <Text style={styles.textItem}>{item}</Text>
       </TouchableOpacity>
-    )
-  })
+    );
+  });
 
-  const option2 = OPTIONS2.map((item, index)=>{
-    return(
+  //map period options with the modal items
+  const option2 = OPTIONS2.map((item, index) => {
+    return (
       <TouchableOpacity
         style={styles.option}
         key={index}
-        onPress={()=>onPressItem2(item)}
+        onPress={() => onPressItem2(item)}
       >
         <Text style={styles.textItem}>{item}</Text>
       </TouchableOpacity>
-    )
-  })
+    );
+  });
 
-  const circleButtonPress=()=>{
+  //function to reset time and period selection, add selection to below
+  const circleButtonPress = () => {
     setchooseTime("00:00 AM");
     setchoosePeriod("Morning");
-  }
+  };
 
   return (
     <View style={{ flex: 1 }}>
       <Header name="Add Medication" />
       <ScrollView>
         <View style={styles.container}>
-
           <Text style={styles.topics}>Name of Medicine</Text>
           <View style={styles.nameContainer}>
             <TextInput placeholder="Search" style={styles.textName} />
@@ -140,52 +166,68 @@ const AddMedication = () => {
             Add times when you need to take pills
           </Text>
           <View style={{ display: "flex", flexDirection: "row" }}>
-            <TouchableOpacity onPress={()=>changeModalVisibility(true)} style={styles.nameContainer3}>
-              <Text style={styles.textName3} >{chooseTime}</Text>
+            <TouchableOpacity
+              onPress={() => changeModalVisibility(true)}
+              style={styles.nameContainer3}
+            >
+              <Text style={styles.textName3}>{chooseTime}</Text>
             </TouchableOpacity>
 
             <Modal
               transparent={true}
               animationType="fade"
               visible={isModalVisible}
-              nRequestClose={()=>changeModalVisibility(false)}
+              nRequestClose={() => changeModalVisibility(false)}
             >
               <TouchableOpacity
-                onPress={()=>changeModalVisibility(false)}
+                onPress={() => changeModalVisibility(false)}
                 style={styles.modalContainer}
               >
-                <View style={[styles.modal, {width:WIDTH-230,height:HEIGHT-300}]}>
-                <ScrollView>
-                  {option}
-                </ScrollView>
+                <View
+                  style={[
+                    styles.modal,
+                    { width: WIDTH - 230, height: HEIGHT - 300 },
+                  ]}
+                >
+                  <ScrollView>{option}</ScrollView>
                 </View>
               </TouchableOpacity>
             </Modal>
 
             <Text style={{ marginTop: 15, marginRight: 12 }}>or</Text>
-            <TouchableOpacity onPress={()=>changeModalVisibility2(true)} style={styles.nameContainer3}>
-              <Text style={styles.textName3} >{choosePeriod}</Text>
+            <TouchableOpacity
+              onPress={() => changeModalVisibility2(true)}
+              style={styles.nameContainer3}
+            >
+              <Text style={styles.textName3}>{choosePeriod}</Text>
             </TouchableOpacity>
 
             <Modal
               transparent={true}
               animationType="fade"
               visible={isModalVisible2}
-              nRequestClose={()=>changeModalVisibility2(false)}
+              nRequestClose={() => changeModalVisibility2(false)}
             >
               <TouchableOpacity
-                onPress={()=>changeModalVisibility2(false)}
+                onPress={() => changeModalVisibility2(false)}
                 style={styles.modalContainer2}
               >
-                <View style={[styles.modal2, {width:WIDTH-230,height:HEIGHT-570}]}>
-                 {option2}
+                <View
+                  style={[
+                    styles.modal2,
+                    { width: WIDTH - 230, height: HEIGHT - 570 },
+                  ]}
+                >
+                  {option2}
                 </View>
               </TouchableOpacity>
             </Modal>
 
-            <TouchableOpacity onPress={() => {
-              circleButtonPress();
-            }}>
+            <TouchableOpacity
+              onPress={() => {
+                circleButtonPress();
+              }}
+            >
               <Ionicons
                 name="add-circle"
                 size={40}
@@ -194,6 +236,7 @@ const AddMedication = () => {
               />
             </TouchableOpacity>
           </View>
+
           <View
             style={{
               display: "flex",
@@ -247,7 +290,6 @@ const AddMedication = () => {
               <Text style={styles.buttontext}>Add Medication</Text>
             </TouchableOpacity>
           </View>
-          
         </View>
       </ScrollView>
     </View>
@@ -316,13 +358,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginRight: 8,
-    justifyContent:"center"
+    justifyContent: "center",
   },
   textName3: {
     backgroundColor: "white",
     height: 30,
-    marginTop:10,
-    fontSize:16
+    marginTop: 10,
+    fontSize: 16,
   },
   nameContainer4: {
     marginTop: 5,
@@ -363,35 +405,35 @@ const styles = StyleSheet.create({
     fontSize: 17,
     marginRight: 18,
   },
-  modalContainer:{
-    flex:1,
-    marginLeft:20,
-    marginTop:250
+  modalContainer: {
+    flex: 1,
+    marginLeft: 20,
+    marginTop: 250,
   },
-  modal:{
-    backgroundColor:"lightgray",
-    borderRadius:10,
-    marginBottom:100
+  modal: {
+    backgroundColor: "lightgray",
+    borderRadius: 10,
+    marginBottom: 100,
   },
-  modalContainer2:{
-    flex:1,
-    marginLeft:170,
-    marginTop:360
+  modalContainer2: {
+    flex: 1,
+    marginLeft: 170,
+    marginTop: 360,
   },
-  modal2:{
-    backgroundColor:"lightgray",
-    borderRadius:10
+  modal2: {
+    backgroundColor: "lightgray",
+    borderRadius: 10,
   },
-  option:{
-    alignItems:"flex-start"
+  option: {
+    alignItems: "flex-start",
   },
-  textItem:{
-    margin:10,
-    marginBottom:5,
-    fontSize:14,
-    fontWeight:"bold",
-    alignSelf:"center"
-  }
+  textItem: {
+    margin: 10,
+    marginBottom: 5,
+    fontSize: 14,
+    fontWeight: "bold",
+    alignSelf: "center",
+  },
 });
 
 export default AddMedication;

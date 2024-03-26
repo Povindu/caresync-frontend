@@ -11,6 +11,7 @@
   "dependencies": {
     "@ant-design/icons-react-native": "^2.3.2",
     "@expo/webpack-config": "^19.0.0",
+    "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-picker/picker": "^2.6.1",
     "@react-navigation/native": "^6.1.9",
@@ -26,7 +27,6 @@
     "mongoose": "^8.1.1",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
-    "react-native-calendars": "^1.1304.0",
     "react-native": "0.72.10",
     "react-native-calendars": "^1.1304.0",
     "react-native-circular-progress-indicator": "^4.4.2",

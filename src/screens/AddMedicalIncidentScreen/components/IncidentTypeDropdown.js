@@ -55,37 +55,9 @@ const IncidentTypeDropdown = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
+  const [selectedStartDate, setSelectedStartDate] = useState("");
+  const [selectedIncidentType,setSelectedIncidentType]=useState("");
 
-  const saveIncident = async () => {
-    try {
-      if (!selectedDate) {
-        throw new Error("Date is required.");
-      }
-  
-      const res = await fetch("http://10.10.8.227:4003/api/medicalIncident", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          incidentType: selectedOption,
-          date: selectedDate,
-        }),
-      });
-  
-      console.log("Response status:", res.status);
-  
-      const responseData = await res.json(); // Parse response body as JSON
-  
-      if (!res.ok) {
-        throw new Error(`Failed to save incident. Server response: ${JSON.stringify(responseData)}`);
-      }
-  
-      console.log("Success:", responseData);
-    } catch (error) {
-      console.error("Error saving incident:", error.message);
-    }
-  };
   
   
   const handleSelect = (item) => {
@@ -104,37 +76,45 @@ const IncidentTypeDropdown = () => {
     // Render modal content based on selected option
     switch (selectedOption) {
       case 'TEST':
-        return <TestModal onClose={handleCloseModal} />;
+        return <TestModal selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
       case 'SYMPTOM':
-        return <SymptomModal onClose={handleCloseModal} />;
+        return <SymptomModal selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
       case 'PRESCRIPTION':
-        return <PrescriptionModal onClose={handleCloseModal} />;
+        return <PrescriptionModal selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
       case 'MEDICATION':
-        return <MedicationModal onClose={handleCloseModal} />;
+        return <MedicationModal selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
       case 'APPOINTMENT':
-        return <AppointmentModal onClose={handleCloseModal} />;
+        return <AppointmentModal selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
       default:
         return null;
     }
   };
+  // console.log(selectedStartDate);
 
   const handleCombinedPress = () => {
     handleNextPress(); // Open the modal
-    saveIncident(); // Save the incident
+   // Save the incident
   };
 
   const handleDateChange = (date) => {
     setSelectedDate(date); // Update selected date
   };
+  // console.log(selectedStartDate)
+
+
+
+
 
   return (
     <View style={styles.container}>
-      <Calendar onDateChange={handleDateChange} />
+      <Calendar selectedStartDate={selectedStartDate} setSelectedStartDate={setSelectedStartDate} onDateChange={handleDateChange} />
       <Inputbar
         text1="Incident Type"
         placeholder="Select Incident type"
         dropdownItems={dropdownItems}
         onSelect={handleSelect}
+        selectedIncidentType={selectedIncidentType}
+        setSelectedIncidentType={setSelectedIncidentType}
       />
       <TouchableOpacity style={styles.btn} onPress={handleCombinedPress}>
         <Text style={styles.btntext}>Next</Text>

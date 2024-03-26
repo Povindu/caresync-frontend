@@ -5,11 +5,11 @@ import DatePicker from 'react-native-modern-datepicker';
 import { getFormatedDate } from 'react-native-modern-datepicker';
 
 
-function Calendar({ onDateChange }) {
+function Calendar({ selectedStartDate,setSelectedStartDate,onDateChange }) {
 
   const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
-  const [selectedStartDate, setSelectedStartDate] = useState('');
-  const [startedDate, setStartedDate] = useState('12/12/2023');
+  // const [selectedStartDate, setSelectedStartDate] = useState('');
+  const [startedDate, setStartedDate] = useState('');
 
   const today = new Date();
   const startDate = getFormatedDate(today.setDate(), 'YYYY/MM/DD');

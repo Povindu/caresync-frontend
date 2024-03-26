@@ -1,13 +1,64 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { View, Text, Button, StyleSheet,ScrollView} from 'react-native';
 import CustomDropdown from '../CustomDropdown';
+import TestProviderDropDown from '../TestProviderDropDown';
 
 
 
-const TestModal = ({ onClose }) => {
+const TestModal = ({ selectedStartDate,selectedOption,onClose }) => {
+  // const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption1, setSelectedOption1] = useState(null);
+    const [selectedOption2, setSelectedOption2] = useState(null);
+  
+
   const handleOKPress = () => {
 
   };
+  console.log(selectedStartDate);
+  console.log(selectedOption);
+  console.log(selectedOption1);
+  console.log(selectedOption2);
+
+
+  const saveIncident = async () => {
+    try {
+   
+  
+      const res = await fetch("http://10.10.8.227:4004/api/medicalIncident", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          incidentType: selectedOption,
+          date: selectedStartDate,
+          testType:selectedOption1,
+          testProvider:selectedOption2
+
+
+
+
+        }),
+      });
+  
+      console.log("Response status:", res.status);
+  
+      const responseData = await res.json(); // Parse response body as JSON
+  
+      if (!res.ok) {
+        throw new Error(`Failed to save incident. Server response: ${JSON.stringify(responseData)}`);
+      }
+  
+      console.log("Success:", responseData);
+    } catch (error) {
+      console.error("Error saving incident:", error.message);
+    }
+  };
+  
+
+
+
+
 
   return (
     <View style={styles.modalContainer}>
@@ -16,11 +67,11 @@ const TestModal = ({ onClose }) => {
       <View style={styles.contentContainer}>
         <Text style={styles.label}>Test Type:</Text>
         <View style={styles.dropdowncontainer}>
-          <CustomDropdown options={['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other']} placeholderText="Select from the list" />
+          <CustomDropdown selectedOption1={selectedOption1} setSelectedOption1={setSelectedOption1} options={['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other']} placeholderText="Select from the list" />
         </View>
         <Text style={styles.label}>Test Provider:</Text>
         <View style={styles.dropdowncontainer}>
-          <CustomDropdown options={['HOSPITAL', 'LAB', 'CLINIC', 'Other']} placeholderText="Select from the list" />
+          <TestProviderDropDown selectedOption2={selectedOption2} setSelectedOption2={setSelectedOption2} options={['HOSPITAL', 'LAB', 'CLINIC', 'Other']} placeholderText="Select from the list" />
         </View>
         </View>
         {/* </ScrollView> */}
@@ -31,7 +82,7 @@ const TestModal = ({ onClose }) => {
             <Button title="Close" onPress={onClose} color="#00567D" />
           </View>
           <View style={styles.buttonWrapper}>
-            <Button title="OK" onPress={onClose} color="#00567D" />
+            <Button title="OK" onPress={saveIncident} color="#00567D" />
           </View>
         </View>
       </View>

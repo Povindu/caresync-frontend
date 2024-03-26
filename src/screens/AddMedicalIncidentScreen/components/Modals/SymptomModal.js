@@ -30,7 +30,7 @@ const TestModal = ({ onClose }) => {
           <CustomDropdown options={['Single time a day', 'Once in two days', 'Once in a week', 'Other']} placeholderText="Select from the list" />
         </View>
         <Text style={styles.label}>Severity: Out of 10</Text>
-        <PainRating/>
+        <PainRating text="Pain level" icon="thermometer-half"/>
         <Text style={styles.label}>Duration:</Text>
         <View style={styles.dropdowncontainer}>
           <CustomDropdown options={['Immediate', 'about a second', 'less than a minute', 'more than a minute', 'other']} placeholderText="Select from the list" />
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
    
 
   },
+  
 
 });
 

@@ -6,7 +6,7 @@ import Search from "../Components/Search";
 import CustomHeader from "../Components/CustomHeader";
 import axios from "axios";
 
-import { baseUrl } from "../../../constants/constants";
+import { baseUrl } from '../../../constants/constants';
 
 function PatientsScreen({ navigation }) {
   const [patients, setPatients] = useState([]);
@@ -17,9 +17,10 @@ function PatientsScreen({ navigation }) {
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}patients`);
+      const response = await axios.get(`${baseUrl}/patients`);
 
       setPatients(response.data);
+      console.log("Response from backend:", response.data);
     } catch (error) {
       console.error("Error fetching patients:", error);
     }

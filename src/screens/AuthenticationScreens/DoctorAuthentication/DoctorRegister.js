@@ -24,7 +24,7 @@ const DoctorRegister = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch(`${baseUrl}doctors/signup`, {
+      const response = await fetch(`${baseUrl}/doctors/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +39,8 @@ const DoctorRegister = ({ navigation }) => {
           medicalIdVerify: false,
         }),
       });
-      const data = await response.json();
+      const data = await response;
+      
       if (response.ok) {
         Alert.alert('Success', 'Registration successful.', [
           {

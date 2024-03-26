@@ -26,7 +26,7 @@ const DoctorLogin = ({ navigation }) => {
       });
       const data = await response.json();
       if (response.ok) {
-        if (data.medicalIdVerify) {
+        if (data.medicalId) {
           navigation.navigate("DoctorDashboard");
         } else {
           navigation.navigate("MedicalIdFalseScreen");

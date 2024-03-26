@@ -26,8 +26,8 @@ const PatientRegister = ({ navigation }) => {
     }
 
     try {
-      console.log(baseURL +'signup')
-      const response = await fetch(baseURL +'signup', {
+      console.log(baseURL +'/signup')
+      const response = await fetch(baseURL +'/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +40,9 @@ const PatientRegister = ({ navigation }) => {
           password,
         }),
       });
-      const data = await response.json();
+      const data = await response;
+      // console.log(data);
+      
       if (response.ok) {
         // Handle successful registration here
         Alert.alert('Success', 'Registration successful.', [
@@ -54,7 +56,7 @@ const PatientRegister = ({ navigation }) => {
         Alert.alert('Error', data.error);
       }
     } catch (error) {
-      console.error('Error registering:', error);
+      console.log('Error registering:', error);
       Alert.alert('Error', 'An error occurred while registering. Please try again.');
     }
   };

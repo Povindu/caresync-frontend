@@ -14,10 +14,9 @@ import { useEffect, useState } from "react";
 import { baseUrl } from "../../constants/constants";
 
 function GiveDocAccess({ navigation, route }) {
-
   const [doc, setDoc] = useState("");
 
-  const patientID = "65cde7e185ffe2b8d4a75879"
+  const patientID = "65cde7e185ffe2b8d4a75879";
 
   const giveAccess = () => {
     console.log("Access Granted" + doc._id);
@@ -36,29 +35,21 @@ function GiveDocAccess({ navigation, route }) {
       });
   };
 
-
   axios
-      .patch(`${baseUrl}/doctors/addDocAccess/${patientID}`, {
-        patientID: `${doc._id}`,
-      })
-      .then((res) => {
-        if (res) {
-          // const userData = res.data;
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        return error.response;
-      });
-
-
-
-  };
-
-  
+    .patch(`${baseUrl}/doctors/addDocAccess/${patientID}`, {
+      patientID: `${doc._id}`,
+    })
+    .then((res) => {
+      if (res) {
+        // const userData = res.data;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      return error.response;
+    });
 
   const showAlert = () => {
-
     giveAccess();
 
     Alert.alert(
@@ -66,7 +57,7 @@ function GiveDocAccess({ navigation, route }) {
       "Medical history access granted to " +
         doc.firstName +
         " " +
-        doc._lastName+
+        doc._lastName +
         " successfully.",
       [
         {
@@ -99,8 +90,6 @@ function GiveDocAccess({ navigation, route }) {
     fetchDoctor();
   }, []);
 
-
-
   return (
     <SafeAreaView>
       <Header name={"Grant Access"} />
@@ -132,7 +121,7 @@ function GiveDocAccess({ navigation, route }) {
       </View>
     </SafeAreaView>
   );
-
+}
 
 export default GiveDocAccess;
 

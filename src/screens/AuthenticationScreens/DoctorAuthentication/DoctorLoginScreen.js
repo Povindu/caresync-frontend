@@ -8,8 +8,9 @@ import {
   Image,
   Alert,
 } from "react-native";
-import { BASE_URL } from "../../../../App";
+// import { BASE_URL } from "../../../../App";
 
+const BASE_URL = "http://192.168.8.102:4001/api";
 const DoctorLogin = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

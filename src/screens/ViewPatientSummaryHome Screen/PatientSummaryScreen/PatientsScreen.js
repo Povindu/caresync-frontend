@@ -1,5 +1,5 @@
-import { useState,useEffect} from 'react';
-import { BASE_URL } from '../../../../App';
+import { useState, useEffect } from "react";
+import { BASE_URL } from "../../../../App";
 import { FlatList, View, ScrollView, Text } from "react-native";
 import { LIST } from "../Data/dummy-data";
 import PatientGridTile from "../Components/PatientGridTile";
@@ -16,7 +16,9 @@ function PatientsScreen({ navigation }) {
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}patients`);
+      const response = await axios.get(
+        "http://192.168.8.102:4001/api/patients"
+      );
 
       setPatients(response.data);
     } catch (error) {
@@ -49,10 +51,7 @@ function PatientsScreen({ navigation }) {
   }
   return (
     <View style={{ flex: 1 }}>
-
       <CustomHeader />
-
- 
 
       <FlatList
         data={patients}

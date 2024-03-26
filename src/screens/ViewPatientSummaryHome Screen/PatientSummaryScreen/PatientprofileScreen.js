@@ -1,9 +1,16 @@
 import PatientSummary from "../Components/PatientSummary";
-import { FlatList, View, StyleSheet, Button, TouchableOpacity, Text, Image } from 'react-native';
-import axios from 'axios';
-import { useState,useEffect} from 'react';
+import {
+  FlatList,
+  View,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  Text,
+  Image,
+} from "react-native";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { BASE_URL } from "../../../../App";
-
 
 function PatientProfileScreen({ route, navigation }) {
   const [patients, setPatients] = useState([]);
@@ -14,7 +21,9 @@ function PatientProfileScreen({ route, navigation }) {
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/patients`);
+      const response = await axios.get(
+        "http://192.168.8.102:4001/api/patients"
+      );
       setPatients(response.data);
     } catch (error) {
       console.error("Error fetching patients:", error);
@@ -57,11 +66,7 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-
-            
-
               onPress={() => navigation.navigate("PatientHistoryScreen")}
-
             >
               <Image
                 style={styles.img}
@@ -81,10 +86,7 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-
               onPress={() => navigation.navigate("MedicationsScreen")}
-
-        
             >
               <Image
                 style={styles.img}
@@ -111,30 +113,9 @@ function PatientProfileScreen({ route, navigation }) {
                 style={styles.img}
                 source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")}
               />
-              <Text style={styles.text}>Past Appointments </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.tile1}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "white",
-                height: 120,
-                width: 160,
-                borderRadius: 15,
-                marginLeft: 20,
-                marginTop: 20,
-              }}
-              onPress={() => navigation.navigate}
-            >
-              <Image
-                style={styles.img}
-                source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")}
-              />
               <Text style={styles.text}>Test Results</Text>
             </TouchableOpacity>
           </View>
-        </View>
-        <View style={styles.row1}>
           <View style={styles.tile1}>
             <TouchableOpacity
               style={{
@@ -154,6 +135,27 @@ function PatientProfileScreen({ route, navigation }) {
               <Text style={styles.text}>Contact Patient</Text>
             </TouchableOpacity>
           </View>
+        </View>
+        <View style={styles.row1}>
+          {/* <View style={styles.tile1}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "white",
+                height: 120,
+                width: 160,
+                borderRadius: 15,
+                marginLeft: 20,
+                marginTop: 20,
+              }}
+              onPress={() => navigation.navigate}
+            >
+              <Image
+                style={styles.img}
+                source={require("../../ViewPatientSummaryHome Screen/Images/doc.png")}
+              />
+              <Text style={styles.text}>Contact Patient</Text>
+            </TouchableOpacity>
+          </View> */}
           <View style={styles.tile1}>
             {/* <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
                                 <Text style={styles.text} >Patient History</Text>

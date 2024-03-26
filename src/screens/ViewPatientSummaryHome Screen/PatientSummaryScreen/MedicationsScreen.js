@@ -12,6 +12,7 @@ import {
 import { Calendar } from "react-native-calendars";
 
 import Header2 from "../../AddMedicalIncidentScreen/components/Header2";
+import Inputbar from "../../AddMedicalIncidentScreen/components/Inputbar";
 
 const MedicationScreen = () => {
   const [medications, setMedications] = useState([]);
@@ -36,15 +37,18 @@ const MedicationScreen = () => {
 
   const fetchMedications = async () => {
     try {
-      const response = await fetch("http://192.168.8.102:4000/medications", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          patientId: "65cde7c585ffe2b8d4a75878",
-        }),
-      });
+      const response = await fetch(
+        "http://192.168.8.102:4001/api/medications",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            patientId: "65cde7c585ffe2b8d4a75878",
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch medications");
@@ -89,7 +93,7 @@ const MedicationScreen = () => {
 
   const saveMedication = async () => {
     try {
-      const res = await fetch("http://192.168.8.102:4000/medications/add", {
+      const res = await fetch("http://192.168.8.102:4001/api/medications/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,16 +162,19 @@ const MedicationScreen = () => {
       };
       console.log(formatDate);
 
-      const res = await fetch("http://192.168.8.102:4000/medications/delete", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          formatDate,
-          medicalDetails,
-        }),
-      });
+      const res = await fetch(
+        "http://192.168.8.102:4001/api/medications/delete",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            formatDate,
+            medicalDetails,
+          }),
+        }
+      );
 
       console.log("Response status:", res.status);
 
@@ -240,19 +247,22 @@ const MedicationScreen = () => {
               style={styles.input}
               editable={false}
             />
-            <TextInput
-              placeholder="Medical Details"
-              value={medicalDetails}
-              onChangeText={setMedicalDetails}
-              style={[styles.input, { height: 100 }]}
-              multiline
-            />
+
+            <Text style={styles.topics}>Name of Medicine</Text>
+            <View style={styles.nameContainer}>
+              <TextInput
+                placeholder="Medical Details"
+                value={medicalDetails}
+                onChangeText={setMedicalDetails}
+                style={styles.textName}
+              />
+            </View>
+
             <TextInput
               placeholder="Doctor"
               value={doctor}
               onChangeText={setDoctor}
               style={[styles.input, { height: 100 }]}
-              multiline
             />
 
             <View style={styles.buttonContainer}>
@@ -516,6 +526,26 @@ const styles = StyleSheet.create({
     marginTop: "2%",
     marginLeft: "2%",
     padding: "1%",
+  },
+  nameContainer: {
+    marginTop: 5,
+    marginBottom: 5,
+    width: "100%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  textName: {
+    backgroundColor: "#d4cdbc",
+    height: 40,
+    width: "82%",
+
+    marginRight: 10,
+    paddingLeft: 10,
+    borderRadius: 10,
   },
   // medicationItemCon2: {
   //   width: "95%",

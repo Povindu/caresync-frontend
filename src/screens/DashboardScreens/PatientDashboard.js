@@ -1,90 +1,141 @@
 import React from "react";
-import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-const PatientDashboard = ({navigation}) => {
-    const navigateToMedicalHistory = () => {
-        navigation.navigate('MedicalHistory');
-    };
+import {
+  ScrollView,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+
+import { useLogout } from "../../hooks/useLogout";
+
+const PatientDashboard = ({ navigation }) => {
+
+  const { logout } = useLogout();
+
+  const navigateToMedicalHistory = () => {
+    navigation.navigate("MedicalHistory");
+  };
+
   return (
     <ScrollView styles={styles.scrollviewstyle}>
-    <View style={styles.container}>
-      <View style={styles.topPanel}>
-        <Text style={styles.titleMain}>CareSync</Text>
-        <TouchableOpacity style={styles.profileButton}>
-          <View style={styles.profileImageContainer}>
+      <View style={styles.container}>
+        <View style={styles.topPanel}>
+          <Text style={styles.titleMain}>CareSync</Text>
+          <TouchableOpacity style={styles.profileButton}>
+            <View style={styles.profileImageContainer}>
+              <Image
+                source={require("../../../assets/Person.png")}
+                style={styles.profileImage}
+              />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.bellIcon}>
             <Image
-              source={require("../../../assets/Person.png")}
-              style={styles.profileImage}
+              source={require("../../../assets/Notification.png")}
+              style={styles.bellImage}
             />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.bellIcon}>
-          <Image
-            source={require("../../../assets/Notification.png")}
-            style={styles.bellImage}
-          />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.dashboardContainer}>
+          <TouchableOpacity
+            style={styles.dashboardButton}
+            onPress={navigateToMedicalHistory}
+          >
+            <Image
+              source={require("../../../assets/DocImage.png")}
+              style={styles.dashboardImage}
+            />
+            <Text style={styles.dashboardButtonText}>View Medical History</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.dashboardButton}
+            onPress={() => {
+              navigation.navigate("TestSelection");
+            }}
+          >
+            <Image
+              source={require("../../../assets/DocImage.png")}
+              style={styles.dashboardImage}
+            />
+            <Text style={styles.dashboardButtonText}>
+              Perform Medical Tests
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.dashboardButton}
+            onPress={() => {
+              navigation.navigate("MedicationView");
+            }}
+          >
+            <Image
+              source={require("../../../assets/DocImage.png")}
+              style={styles.dashboardImage}
+            />
+            <Text style={styles.dashboardButtonText}>
+              View Medication Plans
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.dashboardButton}
+            onPress={() => {
+              navigation.navigate("MedicalIncidentHomeScreen");
+            }}
+          >
+            <Image
+              source={require("../../../assets/DocImage.png")}
+              style={styles.dashboardImage}
+            />
+            <Text style={styles.dashboardButtonText}>Add Medical Incident</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.dashboardButton}
+            onPress={() => {
+              navigation.navigate("SelectDocForAccessScreen");
+            }}
+          >
+            <Image
+              source={require("../../../assets/DocImage.png")}
+              style={styles.dashboardImage}
+            />
+            <Text style={styles.dashboardButtonText}>
+              Give Access to Doctors
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.dashboardButton}
+            onPress={() => {
+              logout();
+              navigation.navigate("PatientLogin");
+            }}
+          >
+            <Image
+              source={require("../../../assets/DocImage.png")}
+              style={styles.dashboardImage}
+            />
+            <Text style={styles.dashboardButtonText}>
+              LogOut
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity style={styles.roundedPlusButton}>
+          <Text style={styles.plusButtonText}>+</Text>
         </TouchableOpacity>
       </View>
-
-      <View style={styles.dashboardContainer}>
-        <TouchableOpacity style={styles.dashboardButton}  onPress={navigateToMedicalHistory}>
-          <Image
-            source={require("../../../assets/DocImage.png")}
-            style={styles.dashboardImage}
-           
-          />
-          <Text style={styles.dashboardButtonText}>View Medical History</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('TestSelection')}}>
-          <Image
-            source={require("../../../assets/DocImage.png")}
-            style={styles.dashboardImage}
-          />
-          <Text style={styles.dashboardButtonText}>Perform Medical Tests</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('MedicationView')}}>
-          <Image
-            source={require("../../../assets/DocImage.png")}
-            style={styles.dashboardImage}
-          />
-          <Text style={styles.dashboardButtonText}>View Medication Plans</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('MedicalIncidentHomeScreen')}}>
-          <Image
-            source={require("../../../assets/DocImage.png")}
-            style={styles.dashboardImage}
-          />
-          <Text style={styles.dashboardButtonText}>Add Medical Incident</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.dashboardButton} onPress={()=> {navigation.navigate('SelectDocForAccessScreen')}}>
-          <Image
-            source={require("../../../assets/DocImage.png")}
-            style={styles.dashboardImage}
-          />
-          <Text style={styles.dashboardButtonText}>Give Access to Doctors</Text>
-        </TouchableOpacity>
-
-
-
-      </View>
-
-      <TouchableOpacity style={styles.roundedPlusButton}>
-        <Text style={styles.plusButtonText}>+</Text>
-      </TouchableOpacity>
-
-      
-    </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-
-  scrollviewstyle:{
-    flex:1,
+  scrollviewstyle: {
+    flex: 1,
   },
   container: {
     flex: 1,

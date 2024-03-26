@@ -1,8 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import styles from "./homeStyles";
 
+import { useAuthContext } from "../../hooks/useAuthContext";
+
 const WelcomeScreen = ({ navigation }) => {
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    console.log("User:", user);
+    if (user) {
+      if (user.roles === "doctor") {
+        navigation.navigate("DoctorDashboard");
+      } else if (user.roles === "patient") {
+        navigation.navigate("PatientDashboard");
+      }
+    }
+  }, [user]);
+
   const [selectedAccountType, setSelectedAccountType] = useState(null);
 
   const handleSelectAccountType = (accountType) => {

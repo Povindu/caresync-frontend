@@ -51,7 +51,6 @@ function SelectDocForAccess({ navigation }) {
       <Header name={"Select Doctor"} />
       <View style={{ flex: 1 }}>
         <View style={styles.container}>
-          {console.log(DocList)}
           {DocList && (
             <FlatList
               data={DocList}

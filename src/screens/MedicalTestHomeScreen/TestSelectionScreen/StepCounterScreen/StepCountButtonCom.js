@@ -12,6 +12,8 @@ import StepCountDataStore from "./StepCountDataStore";
 import { Pedometer } from "expo-sensors";
 import axios from "axios";
 import CircularProgress from "react-native-circular-progress-indicator";
+import { baseUrl } from "../../../../constants/constants";
+
 
 const StepCountButton = () => {
   //run when loading the app 
@@ -44,7 +46,7 @@ const StepCountButton = () => {
   //API integration for get results
   const getResults = () => {
     axios
-      .get("http://192.168.43.192:4000/api/stepCounterTests")
+      .get(`${baseUrl}/stepCounterTests`)
       .then((response) => {
         setResult(response.data || []);
       })
@@ -62,7 +64,7 @@ const StepCountButton = () => {
       distance: data.distance,
     };
     axios
-      .post("http://192.168.43.192:4000/api/stepCounterTests", payload)
+      .post(`${baseUrl}/stepCounterTests`, payload)
       .then(() => {
         getResults();
       })
@@ -74,7 +76,7 @@ const StepCountButton = () => {
   //API integration for delete all results
   const deleteResults = () => {
     axios
-      .delete("http://192.168.43.192:4000/api/stepCounterTests")
+      .delete(`${baseUrl}/stepCounterTests`)
       .then(() => {
         getResults();
       })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
 import Calendar from './Calendar'; // Assuming this is the path to your Calendar component
 import TestModal from './Modals/TestModal';
@@ -6,6 +6,7 @@ import SymptomModal from './Modals/SymptomModal';
 import PrescriptionModal from './Modals/PrescriptionModal';
 import MedicationModal from './Modals/MedicationModal';
 import AppointmentModal from './Modals/AppointmentModal';
+import axios from "axios";
 
 const Inputbar = ({ text1, placeholder, dropdownItems, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,6 +58,27 @@ const IncidentTypeDropdown = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedStartDate, setSelectedStartDate] = useState("");
   const [selectedIncidentType,setSelectedIncidentType]=useState("");
+  const [test,setTest]=useState("");
+  
+
+
+
+
+  useEffect(() => {
+    fetchTest();
+  }, []);
+
+  const fetchTest = async () => {
+    try {
+      const response = await axios.get("http://10.10.8.227:4009/api/medicalIncident"
+        
+      );
+      console.log("Response from backend:", response.data);
+      setTest(response.data);
+    } catch (error) {
+      console.error("Error fetching Test:", error);
+    }
+  };
 
   
 
@@ -118,6 +140,10 @@ const IncidentTypeDropdown = () => {
         selectedIncidentType={selectedIncidentType}
         setSelectedIncidentType={setSelectedIncidentType}
       />
+
+ 
+
+      
       <TouchableOpacity style={styles.btn} onPress={handleCombinedPress}>
         <Text style={styles.btntext}>Next</Text>
       </TouchableOpacity>

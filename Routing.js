@@ -44,10 +44,10 @@ export default function Routing() {
       {user ? console.log(user._id) : console.log("User is not logged in")}
 
       <Stack.Navigator
-        initialRouteName="WelomeScreen"
+      
         // initialRouteName="DoctorDashboard"
-        // initialRouteName="PatientDashboard"
-
+        initialRouteName="PatientDashboard"
+  // initialRouteName="WelomeScreen"
         screenOptions={{
           headerStyle: { backgroundColor: "#FBDABB" },
           headerShown: false,

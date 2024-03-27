@@ -44,7 +44,7 @@ const StepCountButton = () => {
   //API integration for get results
   const getResults = () => {
     axios
-      .get("http://192.168.43.192:4000/api/stepCounterTests")
+      .get("http://10.10.14.139:4000/api/stepCounterTests")
       .then((response) => {
         setResult(response.data || []);
       })
@@ -62,7 +62,7 @@ const StepCountButton = () => {
       distance: data.distance,
     };
     axios
-      .post("http://192.168.43.192:4000/api/stepCounterTests", payload)
+      .post("http://10.10.14.139:4000/api/stepCounterTests", payload)
       .then(() => {
         getResults();
       })
@@ -74,7 +74,7 @@ const StepCountButton = () => {
   //API integration for delete all results
   const deleteResults = () => {
     axios
-      .delete("http://192.168.43.192:4000/api/stepCounterTests")
+      .delete("http://10.10.14.139:4000/api/stepCounterTests")
       .then(() => {
         getResults();
       })

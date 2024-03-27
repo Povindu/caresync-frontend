@@ -34,7 +34,7 @@ const HoldButton = () => {
   //integrate get result API
   const getResults = () => {
     axios
-      .get("http://192.168.43.192:4000/api/breathingTests")
+      .get("http://10.10.14.139:4000/api/breathingTests")
       .then((response) => {
         setResult(response.data || []);
       })
@@ -50,7 +50,7 @@ const HoldButton = () => {
       stopwatchTime : data.stopwatchTime,
     }
     axios
-      .post('http://192.168.43.192:4000/api/breathingTests', payload)
+      .post('http://10.10.14.139:4000/api/breathingTests', payload)
       .then(() => {
         getResults();
       })
@@ -62,7 +62,7 @@ const HoldButton = () => {
   //delete all results API integration
   const deleteResults = ()=> {
     axios
-      .delete('http://192.168.43.192:4000/api/breathingTests')
+      .delete('http://10.10.14.139:4000/api/breathingTests')
       .then(() => {
         getResults();
       })

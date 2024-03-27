@@ -3,10 +3,12 @@ import { View, StyleSheet, Text } from "react-native";
 import { DataTable } from "react-native-paper";
 
 const BreathingTestDataStore = ({ sampleData }) => {
+  //no data return null
   if (!sampleData) {
     return null;
   }
   return (
+    //table which store breathing test result, map to relevant data
     <View style={styles.container}>
       <Text style={styles.headtext}>Past Results</Text>
       <DataTable>

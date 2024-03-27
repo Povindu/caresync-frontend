@@ -13,29 +13,25 @@ import BreathingTestDataStore from "./BreathingTestDataStore";
 import axios from "axios";
 
 const HoldButton = () => {
-  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number);
+  const padtoTwo =(number) =>(number<=9 ? `0${number}` : number); //display two digits 0-9
   
   var date = new Date().getDate(); //To get the Current Date
   var month = new Date().getMonth() + 1; //To get the Current Month
   var year = new Date().getFullYear(); //To get the Current Year
-  let sDate = `${padtoTwo(date)}/${padtoTwo(month)}/${year}`;
+  let sDate = `${padtoTwo(date)}/${padtoTwo(month)}/${year}`; //set date 29/04/2024 format
+  const [isPressing, setIsPressing] = useState(false); //press the button or not, default not
+  const [result, setResult] = useState([]); //store breathing test results
+  const [time, setTime] = useState({ s: 0, m: 0, h: 0 }); 
+  const intervalRef = useRef(null); //get interval reference in time
 
-  const [isPressing, setIsPressing] = useState(false);
+  var updatedS = time.s, updatedM = time.m, updatedH = time.h;
 
-  const [result, setResult] = useState([]);
-
-  const [time, setTime] = useState({ s: 0, m: 0, h: 0 });
-
-  const intervalRef = useRef(null);
-
-  var updatedS = time.s,
-    updatedM = time.m,
-    updatedH = time.h;
-
+  //load when start
   useEffect(() => {
     getResults();
   }, []);
 
+  //integrate get result API
   const getResults = () => {
     axios
       .get("http://192.168.43.192:4000/api/breathingTests")
@@ -47,6 +43,7 @@ const HoldButton = () => {
       });
   };
 
+  //post result API integration
   const addResults = (data) => {
     const payload = {
       date: data.date,
@@ -62,6 +59,7 @@ const HoldButton = () => {
       });
   };
 
+  //delete all results API integration
   const deleteResults = ()=> {
     axios
       .delete('http://192.168.43.192:4000/api/breathingTests')
@@ -73,12 +71,14 @@ const HoldButton = () => {
       });
   };
 
+  //when button press and hold
   const handlePressIn = () => {
     setIsPressing(true);
     intervalRef.current = setInterval(run, 1000);
     console.log("Button pressed and held!");
   };
 
+  //when button release
   const handlePressOut = () => {
     if (isPressing) {
       setIsPressing(false);
@@ -87,9 +87,9 @@ const HoldButton = () => {
       clearInterval(intervalRef.current);
     }
   };
-  const sTime = `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}`;
-
+  const sTime = `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}`; //set time 00:00:00 format
   
+  //alert when release the button
   const showDecisionBox = () => {
     Alert.alert("Save Details", "Do you want to save your test result?", [
       {
@@ -108,6 +108,26 @@ const HoldButton = () => {
     ]);
   };
 
+  //confirmation to delete table
+  const deleteTableAlert = () => {
+    Alert.alert("Delete Details", "Do you want to delete your test result?", [
+      {
+        text: "Cancel",
+        onPress: () => {
+          console.log("Cancel deletion");
+        },
+      },
+      {
+        text: "Delete",
+        onPress: () => {
+          deleteResults();
+          console.log("Delete Table");
+        },
+      },
+    ]);
+  }
+
+  //stopwatch
   const run = () => {
     if (updatedS === 60) {
       updatedS = 0;
@@ -150,7 +170,7 @@ const HoldButton = () => {
           <BreathingTestDataStore sampleData={result} />
         </View>
         <View style={styles.resetTable}>
-        <TouchableOpacity onPress={deleteResults} style={{paddingBottom:100}}>
+        <TouchableOpacity onPress={deleteTableAlert} style={{paddingBottom:100}}>
           <Text style={{ color: "#990000" }}>Reset</Text>
         </TouchableOpacity>
         </View>

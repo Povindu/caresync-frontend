@@ -1,24 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TextInput } from 'react-native';
 
-const Inputbar = ({ text1, placeholder }) => {
+const Record_nameInputbar = ({text1, placeholder }) => {
+  // State to store the user input
+  
+
+  // Function to handle text input change
+  const handleInputChange = (text) => {
+    setRecName(text); // Update the inputValue state with the user input
+  };
+
   return (
     <View style={styles.inputcontainer}>
       <Text style={styles.text1}>{text1}</Text>
       <TextInput
         style={styles.input}
         placeholder={placeholder}
-       
+        value={RecName} // Set the value of the input to the state value
+        onChangeText={handleInputChange} // Call handleInputChange when the text changes
       ></TextInput>
     </View>
   );
 };
 
-export default Inputbar;
+export default Record_nameInputbar;
 
 const styles = StyleSheet.create({
   inputcontainer:{
-    // flex: 0.4,
     paddingTop:'6%',
     justifyContent: 'center',
   },
@@ -27,7 +35,6 @@ const styles = StyleSheet.create({
     fontWeight:'500',
     fontSize: 16,
     color: '#1e1e1e',
-    // fontFamily: 'poppins regular,',
   },
   input: {
     borderColor: '#8e8e8e',
@@ -37,9 +44,7 @@ const styles = StyleSheet.create({
     height: 38,
     margin: 20,
     marginLeft:25,
-    // marginTop: 10,
     borderRadius: 10,
     fontSize: 16,
-    
   },
 });

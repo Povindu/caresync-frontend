@@ -14,6 +14,8 @@ import { Calendar } from "react-native-calendars";
 import Header2 from "../../AddMedicalIncidentScreen/components/Header2";
 import Inputbar from "../../AddMedicalIncidentScreen/components/Inputbar";
 import Dropdown from "../Components/Dropdown";
+import DropDown2 from "../Components/DropDown2";
+import DropDown3 from "../Components/DropDown3";
 
 const MedicationScreen = () => {
   const [medications, setMedications] = useState([]);
@@ -26,6 +28,9 @@ const MedicationScreen = () => {
     []
   );
   const [viewCalender, setViewCalender] = useState(false);
+  const [selectedOption1, setSelectedOption1] = useState(null);
+  const [selectedOption2, setSelectedOption2] = useState(null);
+  const [selectedOption3, setSelectedOption3] = useState(null);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -69,6 +74,10 @@ const MedicationScreen = () => {
           selectedDate: formattedDate,
           medicalDetails: item.medicalDetails,
           doctor: item.doctor,
+          morininDos: item.selectedOption1,
+          afternoonDos: item.selectedOption2,
+
+          nightDos: item.selectedOption3,
         };
       });
 
@@ -82,6 +91,7 @@ const MedicationScreen = () => {
   useEffect(() => {
     fetchMedications();
   }, []);
+  // console.log(morininDos, afternoonDos, nightDos);
 
   const handleDayPress = (day) => {
     setSelectedDate(day.dateString);
@@ -104,6 +114,10 @@ const MedicationScreen = () => {
           selectedDate: selectedDate,
           medicalDetails: medicalDetails,
           doctor: doctor,
+          morininDos: selectedOption1,
+          afternoonDos: selectedOption2,
+
+          nightDos: selectedOption3,
         }),
       });
       if (!res.ok) {
@@ -192,6 +206,9 @@ const MedicationScreen = () => {
   };
 
   const renderMedicationsModal = () => {
+    console.log("selectedOption1:", morininDos);
+    console.log("selectedOption2:", selectedOption2);
+    console.log("selectedOption3:", selectedOption3);
     return (
       <Modal
         visible={modalVisible}
@@ -220,6 +237,18 @@ const MedicationScreen = () => {
                     <Text style={styles.medicationItem1}>
                       {medication.medicalDetails}
                     </Text>
+
+                    <Text style={styles.medicationItem1}>
+                      Morning : {medication.morininDos}
+                    </Text>
+                    <Text style={styles.medicationItem1}>
+                      Afternoon : {medication.afternoonDos}
+                    </Text>
+
+                    <Text style={styles.medicationItem1}>
+                      Night : {medication.nightDos}
+                    </Text>
+
                     <Text style={styles.medicationItem1}>
                       By : Dr. {medication.doctor}
                     </Text>
@@ -263,30 +292,37 @@ const MedicationScreen = () => {
             <View style={styles.view2}>
               <View style={styles.view1}>
                 <Text style={styles.text1}>Morning</Text>
-                <Dropdown options={["1/2", "1", "2", "3"]} />
+                <Dropdown
+                  selectedOption1={selectedOption1}
+                  setSelectedOption1={setSelectedOption1}
+                  options={["1/2", "1", "2", "3"]}
+                />
               </View>
               <View style={styles.view1}>
                 <Text style={styles.text1}>Afternoon</Text>
-                <Dropdown options={["1/2", "1", "2", "3"]} />
+                <DropDown2
+                  selectedOption2={selectedOption2}
+                  setSelectedOption2={setSelectedOption2}
+                  options={["1/2", "1", "2", "3"]}
+                />
               </View>
 
               <View style={styles.view1}>
                 <Text style={styles.text1}>Night</Text>
-                <Dropdown options={["1/2", "1", "2", "3"]} />
+                <DropDown3
+                  selectedOption3={selectedOption3}
+                  setSelectedOption3={setSelectedOption3}
+                  options={["1/2", "1", "2", "3"]}
+                />
               </View>
-            </View>
-
-            <Text style={styles.topics}>Duration</Text>
-            <View style={styles.view1}>
-              <Dropdown options={["1/2", "1", "2", "3"]} />
             </View>
 
             <Text style={styles.topics}>Doctor</Text>
             <View style={styles.nameContainer}>
               <TextInput
                 placeholder="Doctor"
-                value={medicalDetails}
-                onChangeText={setMedicalDetails}
+                value={doctor}
+                onChangeText={setDoctor}
                 style={styles.textName}
               />
             </View>
@@ -386,7 +422,12 @@ const MedicationScreen = () => {
                 <Text style={styles.month}>{date.split(" ")[1]}</Text>
               </View>
 
-              {renderMedications(medicationsForDate)}
+              {renderMedications(
+                medicationsForDate,
+                selectedOption1,
+                selectedOption2,
+                selectedOption3
+              )}
             </View>
           ))
         ) : (
@@ -399,7 +440,12 @@ const MedicationScreen = () => {
   );
 };
 
-const renderMedications = (medicationsForDate) => {
+const renderMedications = (
+  medicationsForDate,
+  selectedOption1,
+  selectedOption2,
+  selectedOption3
+) => {
   return (
     <View style={{ flexDirection: "column", width: "90%" }}>
       {medicationsForDate.map((medication, index) => (
@@ -420,6 +466,17 @@ const renderMedications = (medicationsForDate) => {
           <View style={styles.medicationItemCon1}>
             <Text style={styles.medicationItem1}>
               {medication.medicalDetails}
+            </Text>
+          </View>
+          <View style={styles.medicationItemCon2}>
+            <Text style={styles.medicationItem2}>
+              Morning : {medication.selectedOption1} Tablets
+            </Text>
+            <Text style={styles.medicationItem2}>
+              Afternoon : {medication.selectedOption2} Tablets
+            </Text>
+            <Text style={styles.medicationItem2}>
+              Night : {medication.selectedOption3} Tablets
             </Text>
           </View>
           <View style={styles.medicationItemCon2}>

@@ -3,13 +3,13 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 
-const Dropdown = ({ selectedOption1,setSelectedOption1,options, setInputValue, placeholderText }) => {
+const DropDown3 = ({ selectedOption3,setSelectedOption3,options, setInputValue, placeholderText }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOtherSelected, setIsOtherSelected] = useState(false);
 
   const handleItemPress = (item) => {
-    setSelectedOption1(item);
+    setSelectedOption3(item);
     setIsOpen(false); // Close dropdown
   };
 
@@ -20,7 +20,7 @@ const Dropdown = ({ selectedOption1,setSelectedOption1,options, setInputValue, p
         style={styles.dropdownTrigger}
       >
         <Text style={styles.selectedItem}>
-          {selectedOption1 || placeholderText}
+          {selectedOption3 || placeholderText}
         </Text>
       </TouchableOpacity>
       {isOpen && (
@@ -84,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Dropdown;
+export default DropDown3;

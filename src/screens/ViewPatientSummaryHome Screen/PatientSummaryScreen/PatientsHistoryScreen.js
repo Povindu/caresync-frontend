@@ -15,7 +15,7 @@ function PatientsHistoryScreen() {
   const fetchPatientsHistory = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.8.102:4001/api/patientsHistory"
+        "http://10.10.0.25:4001/api/patientsHistory"
       );
       console.log("Response from backend:", response.data);
       setPatientsHistory(response.data);

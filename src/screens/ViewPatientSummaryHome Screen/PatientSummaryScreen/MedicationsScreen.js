@@ -43,18 +43,15 @@ const MedicationScreen = () => {
 
   const fetchMedications = async () => {
     try {
-      const response = await fetch(
-        "http://192.168.8.102:4001/api/medications",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            patientId: "65cde7c585ffe2b8d4a75878",
-          }),
-        }
-      );
+      const response = await fetch("http://10.10.0.25:4001/api/medications", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          patientId: "65cde7c585ffe2b8d4a75878",
+        }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to fetch medications");
@@ -104,7 +101,7 @@ const MedicationScreen = () => {
 
   const saveMedication = async () => {
     try {
-      const res = await fetch("http://192.168.8.102:4001/api/medications/add", {
+      const res = await fetch("http://10.10.0.25:4001/api/medications/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -114,10 +111,6 @@ const MedicationScreen = () => {
           selectedDate: selectedDate,
           medicalDetails: medicalDetails,
           doctor: doctor,
-          morininDos: selectedOption1,
-          afternoonDos: selectedOption2,
-
-          nightDos: selectedOption3,
         }),
       });
       if (!res.ok) {
@@ -177,19 +170,16 @@ const MedicationScreen = () => {
       };
       console.log(formatDate);
 
-      const res = await fetch(
-        "http://192.168.8.102:4001/api/medications/delete",
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            formatDate,
-            medicalDetails,
-          }),
-        }
-      );
+      const res = await fetch("http://10.10.0.25:4001/api/medications/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          formatDate,
+          medicalDetails,
+        }),
+      });
 
       console.log("Response status:", res.status);
 
@@ -206,9 +196,6 @@ const MedicationScreen = () => {
   };
 
   const renderMedicationsModal = () => {
-    console.log("selectedOption1:", morininDos);
-    console.log("selectedOption2:", selectedOption2);
-    console.log("selectedOption3:", selectedOption3);
     return (
       <Modal
         visible={modalVisible}
@@ -236,17 +223,6 @@ const MedicationScreen = () => {
                   >
                     <Text style={styles.medicationItem1}>
                       {medication.medicalDetails}
-                    </Text>
-
-                    <Text style={styles.medicationItem1}>
-                      Morning : {medication.morininDos}
-                    </Text>
-                    <Text style={styles.medicationItem1}>
-                      Afternoon : {medication.afternoonDos}
-                    </Text>
-
-                    <Text style={styles.medicationItem1}>
-                      Night : {medication.nightDos}
                     </Text>
 
                     <Text style={styles.medicationItem1}>
@@ -288,35 +264,6 @@ const MedicationScreen = () => {
               />
             </View>
 
-            <Text style={styles.topics}>Dosage (Tablets)</Text>
-            <View style={styles.view2}>
-              <View style={styles.view1}>
-                <Text style={styles.text1}>Morning</Text>
-                <Dropdown
-                  selectedOption1={selectedOption1}
-                  setSelectedOption1={setSelectedOption1}
-                  options={["1/2", "1", "2", "3"]}
-                />
-              </View>
-              <View style={styles.view1}>
-                <Text style={styles.text1}>Afternoon</Text>
-                <DropDown2
-                  selectedOption2={selectedOption2}
-                  setSelectedOption2={setSelectedOption2}
-                  options={["1/2", "1", "2", "3"]}
-                />
-              </View>
-
-              <View style={styles.view1}>
-                <Text style={styles.text1}>Night</Text>
-                <DropDown3
-                  selectedOption3={selectedOption3}
-                  setSelectedOption3={setSelectedOption3}
-                  options={["1/2", "1", "2", "3"]}
-                />
-              </View>
-            </View>
-
             <Text style={styles.topics}>Doctor</Text>
             <View style={styles.nameContainer}>
               <TextInput
@@ -326,13 +273,6 @@ const MedicationScreen = () => {
                 style={styles.textName}
               />
             </View>
-
-            {/* <TextInput
-              placeholder="Doctor"
-              value={doctor}
-              onChangeText={setDoctor}
-              style={[styles.input, { height: 100 }]}
-            /> */}
 
             <View style={styles.buttonContainer}>
               <TouchableOpacity
@@ -424,9 +364,7 @@ const MedicationScreen = () => {
 
               {renderMedications(
                 medicationsForDate,
-                selectedOption1,
-                selectedOption2,
-                selectedOption3
+                
               )}
             </View>
           ))
@@ -440,12 +378,7 @@ const MedicationScreen = () => {
   );
 };
 
-const renderMedications = (
-  medicationsForDate,
-  selectedOption1,
-  selectedOption2,
-  selectedOption3
-) => {
+const renderMedications = (medicationsForDate) => {
   return (
     <View style={{ flexDirection: "column", width: "90%" }}>
       {medicationsForDate.map((medication, index) => (
@@ -468,17 +401,7 @@ const renderMedications = (
               {medication.medicalDetails}
             </Text>
           </View>
-          <View style={styles.medicationItemCon2}>
-            <Text style={styles.medicationItem2}>
-              Morning : {medication.selectedOption1} Tablets
-            </Text>
-            <Text style={styles.medicationItem2}>
-              Afternoon : {medication.selectedOption2} Tablets
-            </Text>
-            <Text style={styles.medicationItem2}>
-              Night : {medication.selectedOption3} Tablets
-            </Text>
-          </View>
+
           <View style={styles.medicationItemCon2}>
             <Text style={styles.medicationItem2}>
               By : Dr.{medication.doctor}

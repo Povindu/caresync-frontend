@@ -16,9 +16,7 @@ function PatientsScreen({ navigation }) {
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get(
-        "http://192.168.8.102:4001/api/patients"
-      );
+      const response = await axios.get("http://10.10.0.25:4001/api/patients");
 
       setPatients(response.data);
     } catch (error) {

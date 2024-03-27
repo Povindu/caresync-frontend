@@ -17,7 +17,7 @@ The project emphasizes real-time collaboration, quick data retrieval, and string
 Installation:
 
 To install and set up CareSync locally, follow these steps:
-Ensure you have Node.js and MongoDB installed on your system.
+Ensure you have Node.js installed on your system.
 Clone the CareSync repository from GitHub.
 Navigate to the project directory in your terminal.
 Run npm install to install project dependencies.

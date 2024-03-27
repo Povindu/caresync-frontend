@@ -5,7 +5,7 @@ const StepCounterSelection = ({navigation}) => {
   return (
     <View style={styles.view}>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('StepCounterHome')}>
-        <Image source={require("../../../../assets/MedicalTest/foot.png")} style={styles.image} />
+        <Image source={require("../images/foot.png")} style={styles.image} />
         <Text style={styles.text}>Step Counter</Text>
       </TouchableOpacity>
     </View>

@@ -6,7 +6,6 @@ import Header from "../../components/Header";
 const MedicalIncidentDetailScreen = () => {
     return (
         <>
-
             <Header name="Add Details" />
             <View style={styles.background}>
                 <View style={styles.container}>
@@ -36,8 +35,6 @@ const MedicalIncidentDetailScreen = () => {
                     </View>
 
                 </View>
-
-
 
             </View>
 

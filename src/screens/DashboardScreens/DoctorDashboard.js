@@ -11,14 +11,14 @@ const DoctorDashboard = ({navigation}) => {
         <TouchableOpacity style={styles.profileButton}>
           <View style={styles.profileImageContainer}>
             <Image
-              source={require("../../assets/Person.png")}
+              source={require("../../../assets/Person.png")}
               style={styles.profileImage}
             />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.bellIcon}>
           <Image
-            source={require("../../assets/Notification.png")}
+            source={require("../../../assets/Notification.png")}
             style={styles.bellImage}
           />
         </TouchableOpacity>
@@ -27,7 +27,7 @@ const DoctorDashboard = ({navigation}) => {
       <View style={styles.dashboardContainer}>
         <TouchableOpacity style={styles.dashboardButton}  onPress={navigateToMedicalHistory}>
           <Image
-            source={require("../../assets/DocImage.png")}
+            source={require("../../../assets/DocImage.png")}
             style={styles.dashboardImage}
            
           />

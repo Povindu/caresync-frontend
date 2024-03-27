@@ -30,6 +30,7 @@ import MedicationView from "./src/screens/MedicationToCalendar/MedicationViewInC
 import MedicationsScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/MedicationsScreen";
 import AddMedication from "./src/screens/MedicationToCalendar/AddMedicationPage";
 import ViewMedication from "./src/screens/MedicationToCalendar/ViewMedicationPage";
+import NewMedicalRecordScreen from "./src/screens/AddMedicalRecordScreen/NewMedicalRecordScreen";
 
 import { baseUrl } from "./src/constants/constants";
 import { useAuthContext } from "./src/hooks/useAuthContext";
@@ -46,9 +47,9 @@ export default function Routing() {
       {user ? console.log(user._id) : console.log("User is not logged in")}
       
       <Stack.Navigator
-        initialRouteName="WelomeScreen"
+        // initialRouteName="WelomeScreen"
         // initialRouteName="DoctorDashboard"
-        // initialRouteName="PatientDashboard"
+        initialRouteName="PatientDashboard"
 
         screenOptions={{
           headerStyle: { backgroundColor: "#FBDABB" },
@@ -75,16 +76,17 @@ export default function Routing() {
         <Stack.Screen name="StepCounterHome" component={StepCounterHome} />
         <Stack.Screen name="BreathingHome" component={BreathingHome} />
 
+      
         <Stack.Screen
-          name="MedicalIncidentHomeScreen"
-          component={MedicalIncidentHomeScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="MedicalIncidentDetailScreen"
-          component={MedicalIncidentDetailScreen}
-          options={{ headerShown: false }}
-        />
+            name="NewMedicalRecordScreen"
+            component={NewMedicalRecordScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MedicalIncidentHomeScreen"
+            component={MedicalIncidentHomeScreen}
+            options={{ headerShown: false }}
+          />
 
         <Stack.Screen
           name="SelectDocForAccessScreen"

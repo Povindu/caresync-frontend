@@ -31,12 +31,10 @@ import MedicationsScreen from "./src/screens/ViewPatientSummaryHome Screen/Patie
 import AddMedication from "./src/screens/MedicationToCalendar/AddMedicationPage";
 import ViewMedication from "./src/screens/MedicationToCalendar/ViewMedicationPage";
 
-import { baseUrl } from "./src/constants/constants";
 import { useAuthContext } from "./src/hooks/useAuthContext";
 
 const Stack = createNativeStackNavigator();
 
-// export const BASE_URL = baseUrl;
 
 export default function Routing() {
   const { user } = useAuthContext();
@@ -45,8 +43,8 @@ export default function Routing() {
       {user ? console.log(user._id) : console.log("User is not logged in")}
 
       <Stack.Navigator
-        // initialRouteName="WelomeScreen"
-        initialRouteName="DoctorDashboard"
+        initialRouteName="WelomeScreen"
+        // initialRouteName="DoctorDashboard"
         // initialRouteName="PatientDashboard"
 
         screenOptions={{

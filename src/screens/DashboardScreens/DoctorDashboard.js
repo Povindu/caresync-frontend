@@ -1,9 +1,16 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-const DoctorDashboard = ({navigation}) => {
-    const navigateToMedicalHistory = () => {
-        navigation.navigate('PatientsScreen');
-    };
+import { useLogout } from "../../hooks/useLogout";
+
+const DoctorDashboard = ({ navigation }) => {
+
+  const { logout } = useLogout();
+
+  const navigateToMedicalHistory = () => {
+    navigation.navigate("PatientsScreen");
+  };
+
+
   return (
     <View style={styles.container}>
       <View style={styles.topPanel}>
@@ -25,17 +32,32 @@ const DoctorDashboard = ({navigation}) => {
       </View>
 
       <View style={styles.dashboardContainer}>
-        <TouchableOpacity style={styles.dashboardButton}  onPress={navigateToMedicalHistory}>
+        <TouchableOpacity
+          style={styles.dashboardButton}
+          onPress={navigateToMedicalHistory}
+        >
           <Image
             source={require("../../../assets/DocImage.png")}
             style={styles.dashboardImage}
-           
           />
           <Text style={styles.dashboardButtonText}>View Patient Summary</Text>
         </TouchableOpacity>
-
-        
+        <TouchableOpacity
+        style={styles.dashboardButton}
+        onPress={() => {
+          logout();
+          navigation.navigate("WelcomeScreen");
+        }}
+      >
+        <Image
+          source={require("../../../assets/DocImage.png")}
+          style={styles.dashboardImage}
+        />
+        <Text style={styles.dashboardButtonText}>LogOut</Text>
+      </TouchableOpacity>
       </View>
+
+      
 
       <TouchableOpacity style={styles.roundedPlusButton}>
         <Text style={styles.plusButtonText}>+</Text>

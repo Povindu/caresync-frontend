@@ -112,7 +112,8 @@ const PatientDashboard = ({ navigation }) => {
             style={styles.dashboardButton}
             onPress={() => {
               logout();
-              navigation.navigate("PatientLogin");
+              navigation.popToTop();
+              navigation.navigate("WelcomeScreen");
             }}
           >
             <Image

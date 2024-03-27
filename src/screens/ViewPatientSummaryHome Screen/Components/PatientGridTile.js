@@ -1,7 +1,5 @@
 import { Pressable, View, Text, StyleSheet, Image } from "react-native";
-import CustomHeader from "./CustomHeader";
-import axios from "axios";
-import { useState, useEffect } from "react";
+
 function PatientGridTile({
   id,
   firstName,
@@ -63,7 +61,6 @@ const styles = StyleSheet.create({
     paddingLeft: 50,
     fontWeight: "bold",
     fontSize: 18,
-
   },
 
   content: {

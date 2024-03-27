@@ -33,9 +33,7 @@ function PatientsScreen({ navigation }) {
 
     return (
       <View>
-        {/* {patients.map(patient => (
-        <PatientGridTile id={patient.patientId} title={patient.title} color={patient.color} age={patient.age} gender={patient.gender} imageUrl={patient.imageUrl} onPress={presshandler}/>
-      ))} */}
+     
 
         <PatientGridTile
           id={item.patientId}
@@ -44,7 +42,9 @@ function PatientsScreen({ navigation }) {
           nic={item.nic}
           email={item.email}
           onPress={presshandler}
+          
         />
+           {/* export data to PatientGridTile page */}
       </View>
     );
   }
@@ -58,6 +58,7 @@ function PatientsScreen({ navigation }) {
         renderItem={renderCategoryItem}
         style={{ flex: 1 }}
       />
+      {/* Flatlist to display the patients */}
     </View>
   );
 }

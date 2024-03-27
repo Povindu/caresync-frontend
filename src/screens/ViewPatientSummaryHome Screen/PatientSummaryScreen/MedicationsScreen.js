@@ -78,7 +78,7 @@ const MedicationScreen = () => {
 
   useEffect(() => {
     fetchMedications();
-  }, []);
+  }, []); //fetching the medications details from the backend
 
   const handleDayPress = (day) => {
     setSelectedDate(day.dateString);
@@ -97,14 +97,13 @@ const MedicationScreen = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          // patientId: "65cde7c585ffe2b8d4a75878",
-          patientId: id,
+          patientId: "65cde7c585ffe2b8d4a75878",
 
           selectedDate: selectedDate,
           medicalDetails: medicalDetails,
           doctor: doctor,
         }),
-      });
+      }); //saving the medication details
       if (!res.ok) {
         throw new Error("Something went wrong");
       }
@@ -115,85 +114,13 @@ const MedicationScreen = () => {
     }
   };
 
-  const removeMedication = async (selectedDate, medicalDetails) => {
-    try {
-      // Convert selectedDate to ISO format
-      // const isoDate = new Date(selectedDate).toISOString();
-      console.log(selectedDate, medicalDetails);
-      const formatDate = (selectedDate) => {
-        if (!selectedDate) {
-          return "Invalid Date";
-        }
-
-        const date = new Date(selectedDate);
-
-        const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-        const months = [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ];
-
-        const day = days[date.getDay()];
-        const month = months[date.getMonth()];
-        const dayOfMonth = date.getDate();
-        const year = date.getFullYear();
-        const hours = ("0" + date.getHours()).slice(-2);
-        const minutes = ("0" + date.getMinutes()).slice(-2);
-        const seconds = ("0" + date.getSeconds()).slice(-2);
-        const timeZone = date.toString().match(/\(([^)]+)\)$/)[1];
-
-        return `${day} ${month} ${dayOfMonth} ${year} ${hours}:${minutes}:${seconds} GMT${
-          date.getTimezoneOffset() > 0 ? "-" : "+"
-        }${Math.abs(date.getTimezoneOffset() / 60)
-          .toString()
-          .padStart(2, "0")}${Math.abs(date.getTimezoneOffset() % 60)
-          .toString()
-          .padStart(2, "0")} (${timeZone})`;
-      };
-      console.log(formatDate);
-
-      const res = await fetch(`${baseUrl}/medications/delete`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          formatDate,
-          medicalDetails,
-        }),
-      });
-
-      console.log("Response status:", res.status);
-
-      if (!res.ok) {
-        throw new Error("Failed to delete medication");
-      }
-
-      // Refresh medication list after successful deletion
-      fetchMedications();
-    } catch (error) {
-      console.error("Error deleting medication:", error);
-      // Handle error: Show a message to the user or perform any other action
-    }
-  };
-
   const renderMedicationsModal = () => {
     return (
       <Modal
         visible={modalVisible}
         transparent={true}
         animationType="slide"
-        onRequestClose={() => setModalVisible(false)}
+        onRequestClose={() => setModalVisible(false)} //closing the medication details
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -220,15 +147,7 @@ const MedicationScreen = () => {
                       By : Dr. {medication.doctor}
                     </Text>
 
-                    <TouchableOpacity
-                      style={styles.deleteButton}
-                      onPress={() =>
-                        removeMedication(
-                          medication.selectedDate,
-                          medication.medicalDetails
-                        )
-                      }
-                    >
+                    <TouchableOpacity style={styles.deleteButton}>
                       <Text style={styles.deleteButtonText}>Delete</Text>
                     </TouchableOpacity>
                   </View>
@@ -274,7 +193,7 @@ const MedicationScreen = () => {
                   width: 70,
                   alignItems: "center",
                 }}
-                onPress={() => setModalVisible(false)}
+                onPress={() => setModalVisible(false)} //closing the medication details
               >
                 <Text style={{ color: "white" }}>Close</Text>
               </TouchableOpacity>
@@ -286,7 +205,7 @@ const MedicationScreen = () => {
                   width: 70,
                   alignItems: "center",
                 }}
-                onPress={saveMedication}
+                onPress={saveMedication} //saving the medication details
               >
                 <Text style={{ color: "white" }}>Save</Text>
               </TouchableOpacity>

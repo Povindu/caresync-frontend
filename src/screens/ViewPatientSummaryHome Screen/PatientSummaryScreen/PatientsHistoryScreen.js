@@ -25,9 +25,7 @@ function PatientsHistoryScreen() {
     }
   };
   function renderCategoryItem({ item }) {
-    // function presshandler(){
 
-    // }
 
     return (
       <View>
@@ -40,6 +38,7 @@ function PatientsHistoryScreen() {
           symptom={item.symptom}
           presId={item.presId}
         />
+          {/* export data to PatientHistoryGrid page */}
       </View>
     );
   }
@@ -52,6 +51,7 @@ function PatientsHistoryScreen() {
         renderItem={renderCategoryItem}
         style={{ flex: 1 }}
       />
+         {/* Flatlist to display the patients details */}
     </View>
   );
 }

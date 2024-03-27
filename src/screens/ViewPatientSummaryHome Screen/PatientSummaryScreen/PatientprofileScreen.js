@@ -27,7 +27,7 @@ function PatientProfileScreen({ route, navigation }) {
     } catch (error) {
       console.error("Error fetching patients:", error);
     }
-  };
+  };//fetching the patients details from the backend
 
   const pId = route.params.ptid;
   const dispalyedpatient = patients.filter((patient) => {
@@ -152,11 +152,6 @@ function PatientProfileScreen({ route, navigation }) {
               <Text style={styles.text}>Contact Patient</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.tile1}>
-            {/* <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
-                                <Text style={styles.text} >Patient History</Text>
-                            </TouchableOpacity> */}
-          </View>
         </View>
       </View>
     );
@@ -170,14 +165,13 @@ function PatientProfileScreen({ route, navigation }) {
         style={{ flex: 1 }}
       />
     </View>
-  );
+  );//displaying the patient details
 }
 export default PatientProfileScreen;
 const styles = StyleSheet.create({
   con: {
     flex: 1,
     backgroundColor: "#D0F1FF",
-    
   },
   subcon: {
     width: "100%",

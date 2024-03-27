@@ -33,7 +33,7 @@ const TestModal = ({ onClose }) => {
         <PainRating text="Pain level" icon="thermometer-half"/>
         <Text style={styles.label}>Duration:</Text>
         <View style={styles.dropdowncontainer}>
-          <CustomDropdown options={['Immediate', 'about a second', 'less than a minute', 'more than a minute', 'other']} placeholderText="Select from the list" />
+          <CustomDropdown options={['Immediate', 'about 1,2 minutes', 'more that 2 minutes', 'about half of hour', 'other']} placeholderText="Select from the list" />
         </View>
         </View>
         

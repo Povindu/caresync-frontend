@@ -57,7 +57,7 @@ const IncidentTypeDropdown = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedStartDate, setSelectedStartDate] = useState("");
   const [selectedIncidentType,setSelectedIncidentType]=useState("");
-  const [RecName,setRecName]=useState(null);
+
   
 
   
@@ -78,15 +78,15 @@ const IncidentTypeDropdown = () => {
     // Render modal content based on selected option
     switch (selectedOption) {
       case 'TEST':
-        return <TestModal RecName={RecName} selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
+        return <TestModal  selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
       case 'SYMPTOM':
-        return <SymptomModal RecName={RecName} selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
+        return <SymptomModal  selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
       case 'PRESCRIPTION':
-        return <PrescriptionModal RecName={RecName} selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
+        return <PrescriptionModal  selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
       case 'MEDICATION':
-        return <MedicationModal RecName={RecName}  selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
+        return <MedicationModal  selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
       case 'APPOINTMENT':
-        return <AppointmentModal RecName={RecName}  selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
+        return <AppointmentModal  selectedStartDate={selectedStartDate}  selectedOption={selectedOption} onClose={handleCloseModal} />;
       default:
         return null;
     }

@@ -8,7 +8,7 @@ import PainRating from "../AddMedicalIncidentScreen/components/PainRating";
 
 
 const NewMedicalRecordScreen = ({}) => {
-  const [RecName,setRecName]=useState(null);
+ 
   const navigation = useNavigation();
 
   const handleAddNew = () => {

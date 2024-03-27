@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TextInput } from 'react-native';
 
-const Record_nameInputbar = ({RecName, setRecName,text1, placeholder }) => {
+const Record_nameInputbar = ({text1, placeholder }) => {
   // State to store the user input
   
 

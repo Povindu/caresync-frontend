@@ -15,6 +15,7 @@ import { EvilIcons,Ionicons, MaterialIcons, AntDesign } from "@expo/vector-icons
 import { useState } from "react";
 
 const AddMedication = () => {
+  //const [medicine, setMedicine] = useState("")
   const [chooseTime, setchooseTime] = useState("00:00 AM"); //to store selected time, default morning 00:00 AM
   const [choosePeriod, setchoosePeriod] = useState("Morning"); //to store selected period, default Morning
   const [isModalVisible, setisModalVisible] = useState(false); //modal visibility for time selection
@@ -24,7 +25,23 @@ const AddMedication = () => {
   var date = new Date().getDate(); //To get the Current Date
   var month = new Date().getMonth() + 1; //To get the Current Month
   var year = new Date().getFullYear(); //To get the Current Year
-  let sDate = `${padtoTwo(date)}/${padtoTwo(month)}/${year}`; //set date 29/07/2024 format
+  let sDate = `${year}-${padtoTwo(month)}-${padtoTwo(date)}`; //set date 29/07/2024 format
+
+  //post result API integration
+  // const addForm = (data) => {
+  //   const payload = {
+  //     selectedDate : data.selectedDate,
+  //     medicalDetails : data.medicalDetails,
+  //   }
+  //   axios
+  //     .post('http://192.168.43.192:4000/api/add', payload)
+  //     .then(() => {
+  //       console.error("Saved in database successfully");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Axios Error : ", error);
+  //     });
+  // };
 
   //show alert when press the add medication button
   const AlertBox = () => {
@@ -34,7 +51,9 @@ const AddMedication = () => {
       [
         {
           text: "ok",
-          onPress: () => {},
+          onPress: () => {
+            //addForm({selectedDate: sDate, medicalDetails:medicine});
+          },
         },
       ]
     );

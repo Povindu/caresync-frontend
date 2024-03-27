@@ -3,11 +3,13 @@ import Header from "../MedicalTestHomeScreen/components/Header";
 import { Calendar } from "react-native-calendars";
 import { Ionicons } from '@expo/vector-icons';
 
+//navigate to medication adding form
 const MedicationView = ({navigation}) => {
   const addMedication=()=>{
     navigation.navigate("AddMedication");
   };
   
+  //navigate to medication view
   const viewMedication =()=>{
     navigation.navigate("ViewMedication");
   };

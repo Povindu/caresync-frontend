@@ -1,48 +1,52 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, TouchableOpacity, StyleSheet, Text, ScrollView } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  ScrollView,
+  Alert,
+} from "react-native";
 import DisplayTime from "../../components/StopwatchDisplay";
 import StepCountDataStore from "./StepCountDataStore";
 import { Pedometer } from "expo-sensors";
 import axios from "axios";
 import CircularProgress from "react-native-circular-progress-indicator";
+import { baseUrl } from "../../../../constants/constants";
+
 
 const StepCountButton = () => {
+  //run when loading the app 
   useEffect(() => {
     subscribe();
     getResults();
   }, []);
 
-  const padtoTwo = (number) => (number <= 9 ? `0${number}` : number);
+  const padtoTwo = (number) => (number <= 9 ? `0${number}` : number); //show two digits 0-9
 
   var date = new Date().getDate(); //To get the Current Date
   var month = new Date().getMonth() + 1; //To get the Current Month
   var year = new Date().getFullYear(); //To get the Current Year
-  let sDate = `${padtoTwo(date)}/${padtoTwo(month)}/${year}`;
+  let sDate = `${padtoTwo(date)}/${padtoTwo(month)}/${year}`; // set date 29/04/2024 structure
+  const [result, setResult] = useState([]); //store step counter results
+  const [isStarted, setIsStarted] = useState(false); //press button or not, default not
+  const [time, setTime] = useState({ s: 0, m: 0, h: 0 }); //to set time, default seconds minutes and hours zero
+  const intervalRef = useRef(null); //to identify interval
+  const [pedoAvailability, setpedoAvailability] = useState(""); //cheack pedometer available or not
+  const [stepcount, setstepcount] = useState(0); //count steps
 
-  const [result, setResult] = useState([]);
+  //get distance using step count
+  var dist = stepcount / 1300;
+  var distance = dist.toFixed(4); //round off for 4 decimal places
+  //get prop values to variables
+  var updatedS = time.s, updatedM = time.m, updatedH = time.h;
 
-  const [isStarted, setIsStarted] = useState(false);
+  const sTime = `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}`; //set time to 00:00:00 format
 
-  const [time, setTime] = useState({ s: 0, m: 0, h: 0 });
-
-  const intervalRef = useRef(null);
-
-  const [pedoAvailability, setpedoAvailability] = useState("");
-
-  const [stepcount, setstepcount] = useState(0);
-
-  var dist = stepcount/ 1300;
-  var distance = dist.toFixed(4);
-  
-    var updatedS = time.s,
-    updatedM = time.m,
-    updatedH = time.h;
-
-  const sTime = `${padtoTwo(updatedH)}:${padtoTwo(updatedM)}:${padtoTwo(updatedS)}`;
-
+  //API integration for get results
   const getResults = () => {
     axios
-      .get("http://192.168.43.192:4000/api/stepCounterTests")
+      .get(`${baseUrl}/stepCounterTests`)
       .then((response) => {
         setResult(response.data || []);
       })
@@ -51,6 +55,7 @@ const StepCountButton = () => {
       });
   };
 
+  //API integration for post result
   const addResults = (data) => {
     const payload = {
       date: data.date,
@@ -59,7 +64,7 @@ const StepCountButton = () => {
       distance: data.distance,
     };
     axios
-      .post("http://192.168.43.192:4000/api/stepCounterTests", payload)
+      .post(`${baseUrl}/stepCounterTests`, payload)
       .then(() => {
         getResults();
       })
@@ -68,9 +73,10 @@ const StepCountButton = () => {
       });
   };
 
+  //API integration for delete all results
   const deleteResults = () => {
     axios
-      .delete("http://192.168.43.192:4000/api/stepCounterTests")
+      .delete(`${baseUrl}/stepCounterTests`)
       .then(() => {
         getResults();
       })
@@ -82,17 +88,23 @@ const StepCountButton = () => {
   const handleButtonClick = () => {
     if (isStarted) {
       clearInterval(intervalRef.current);
-      addResults({date: sDate, stopwatchTime: sTime ,steps: stepcount,distance: distance});
+      addResults({
+        date: sDate,
+        stopwatchTime: sTime,
+        steps: stepcount,
+        distance: distance,
+      });
       resetTime();
       setstepcount(0);
       console.log("Stoped");
     } else {
-      intervalRef.current = setInterval(run, 1000);
+      intervalRef.current = setInterval(run, 1000); //get miliseconds in seconds 
       console.log("Started");
     }
     setIsStarted(!isStarted);
   };
 
+  //stopwatch senario
   const run = () => {
     if (updatedS === 60) {
       updatedS = 0;
@@ -111,6 +123,7 @@ const StepCountButton = () => {
     setTime({ s: 0, m: 0, h: 0 });
   };
 
+  //function to pedometer actions
   subscribe = () => {
     const subscription = Pedometer.watchStepCount((result) => {
       setstepcount(result.steps);
@@ -125,39 +138,61 @@ const StepCountButton = () => {
     );
   };
 
+  //alert to confirmation delete table
+  const showDecisionBox = () => {
+    Alert.alert("Delete Details", "Do you want to delete your test result?", [
+      {
+        text: "Cancel",
+        onPress: () => {
+          console.log("Cancel deletion");
+        },
+      },
+      {
+        text: "Delete",
+        onPress: () => {
+          deleteResults();
+          console.log("Delete Table");
+        },
+      },
+    ]);
+  };
+
   return (
     <ScrollView>
-    <View style={styles.container}>
-      <Text style={styles.pedotext}>
-        Is Pedometer available on the device : {pedoAvailability}
-      </Text>
-      <DisplayTime time={time} />
-      <View>
-        <CircularProgress
-        value={stepcount}
-        maxValue={13000}
-        radius={80}
-        activeStrokeColor={'#00567D'}
-        inActiveStrokeColor={'#DEFFFB'}
-        inActiveStrokeWidth={20}
-        activeStrokeWidth={20}
-        title={"Step Count"}
-        titleStyle={{fontWeight:"bold"}}
-        />
+      <View style={styles.container}>
+        <Text style={styles.pedotext}>
+          Is Pedometer available on the device : {pedoAvailability}
+        </Text>
+        <DisplayTime time={time} />
+        <View>
+          <CircularProgress
+            value={stepcount}
+            maxValue={13000}
+            radius={80}
+            activeStrokeColor={"#00567D"}
+            inActiveStrokeColor={"#DEFFFB"}
+            inActiveStrokeWidth={20}
+            activeStrokeWidth={20}
+            title={"Step Count"}
+            titleStyle={{ fontWeight: "bold" }}
+          />
+        </View>
+        <TouchableOpacity
+          style={[styles.button, isStarted && styles.buttonClicked]}
+          onPress={handleButtonClick}
+        >
+          <Text style={styles.buttonText}>{isStarted ? "Stop" : "Start"}</Text>
+        </TouchableOpacity>
+        <View style={styles.table}>
+          <StepCountDataStore sampleData={result} />
+        </View>
+        <TouchableOpacity
+          onPress={showDecisionBox}
+          style={{ paddingBottom: 120 }}
+        >
+          <Text style={{ color: "#990000" }}>Reset</Text>
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={[styles.button, isStarted && styles.buttonClicked]}
-        onPress={handleButtonClick}
-      >
-        <Text style={styles.buttonText}>{isStarted ? "Stop" : "Start"}</Text>
-      </TouchableOpacity>
-      <View style={styles.table}>
-        <StepCountDataStore sampleData={result} />
-      </View>
-      <TouchableOpacity onPress={deleteResults} style={{paddingBottom:120}}>
-        <Text style={{ color: "#990000" }}>Reset</Text>
-      </TouchableOpacity>
-    </View>
     </ScrollView>
   );
 };
@@ -174,7 +209,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#D5FFCA",
     borderRadius: 5,
     borderRadius: 10,
-    marginTop:10
+    marginTop: 10,
   },
   buttonClicked: {
     backgroundColor: "#FFCACA",

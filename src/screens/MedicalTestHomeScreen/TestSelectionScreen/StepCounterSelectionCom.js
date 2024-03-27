@@ -3,6 +3,7 @@ import { TouchableOpacity, Image, Text, View, StyleSheet } from "react-native";
 
 const StepCounterSelection = ({navigation}) => {
   return (
+    //stepcounter selection button which navigate to step counter home screen
     <View style={styles.view}>
       <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('StepCounterHome')}>
         <Image source={require("../images/foot.png")} style={styles.image} />
@@ -12,6 +13,7 @@ const StepCounterSelection = ({navigation}) => {
   );
 };
 
+//stylesheet for stepcounter selection button
 const styles = StyleSheet.create({
   view: {
     alignItems: "center",

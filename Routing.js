@@ -43,21 +43,21 @@ export default function Routing() {
   const { user } = useAuthContext();
   return (
     <NavigationContainer>
-
       {user ? console.log(user._id) : console.log("User is not logged in")}
-      
+
       <Stack.Navigator
         // initialRouteName="WelomeScreen"
+
         // initialRouteName="DoctorDashboard"
         initialRouteName="PatientDashboard"
+
+
 
         screenOptions={{
           headerStyle: { backgroundColor: "#FBDABB" },
           headerShown: false,
         }}
       >
-
-
         <Stack.Screen
           name="WelcomeScreen"
           component={WelcomeScreen}

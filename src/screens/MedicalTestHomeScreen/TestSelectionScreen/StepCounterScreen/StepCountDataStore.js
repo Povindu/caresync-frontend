@@ -3,10 +3,12 @@ import { View, StyleSheet, Text } from "react-native";
 import { DataTable } from "react-native-paper";
 
 const StepCountDataStore = ({sampleData}) => {
+  //no data return null
   if(!sampleData){
     return null;
   }
   return (
+    //step counter test details table map with the relevant data 
     <View>
     <View style={styles.container}>
       <Text style={styles.headtext}>Past Results</Text>
@@ -25,7 +27,7 @@ const StepCountDataStore = ({sampleData}) => {
             Distance (km)
           </DataTable.Title>
         </DataTable.Header>
-
+        
         {sampleData.map((data, index) => (
           <DataTable.Row key={index}>
             <DataTable.Cell style={{ justifyContent: "center" }}>

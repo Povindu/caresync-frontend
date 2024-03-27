@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Calendar } from "react-native-calendars";
+import { baseUrl } from "../../../constants/constants";
 
 import Header2 from "../../AddMedicalIncidentScreen/components/Header2";
 
@@ -34,15 +35,15 @@ const MedicationScreen = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const fetchMedications = async () => {
+  const fetchMedications = async (id) => {
     try {
-      const response = await fetch("http://192.168.8.102:4000/medications", {
+      const response = await fetch(`${baseUrl}/medications`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          patientId: "65cde7c585ffe2b8d4a75878",
+          patientId: id,
         }),
       });
 
@@ -61,6 +62,7 @@ const MedicationScreen = () => {
           dots: [{ color: "blue" }],
         };
         return {
+          patient: id,
           selectedDate: formattedDate,
           medicalDetails: item.medicalDetails,
           doctor: item.doctor,
@@ -87,15 +89,17 @@ const MedicationScreen = () => {
     setModalVisible(true);
   };
 
-  const saveMedication = async () => {
+  const saveMedication = async (id) => {
     try {
-      const res = await fetch("http://192.168.8.102:4000/medications/add", {
+      const res = await fetch(`${baseUrl}/medications/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          patientId: "65cde7c585ffe2b8d4a75878",
+          // patientId: "65cde7c585ffe2b8d4a75878",
+          patientId: id,
+
           selectedDate: selectedDate,
           medicalDetails: medicalDetails,
           doctor: doctor,
@@ -158,7 +162,7 @@ const MedicationScreen = () => {
       };
       console.log(formatDate);
 
-      const res = await fetch("http://192.168.8.102:4000/medications/delete", {
+      const res = await fetch(`${baseUrl}/medications/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -240,20 +244,26 @@ const MedicationScreen = () => {
               style={styles.input}
               editable={false}
             />
-            <TextInput
-              placeholder="Medical Details"
-              value={medicalDetails}
-              onChangeText={setMedicalDetails}
-              style={[styles.input, { height: 100 }]}
-              multiline
-            />
-            <TextInput
-              placeholder="Doctor"
-              value={doctor}
-              onChangeText={setDoctor}
-              style={[styles.input, { height: 100 }]}
-              multiline
-            />
+
+            <Text style={styles.topics}>Name of Medicine</Text>
+            <View style={styles.nameContainer}>
+              <TextInput
+                placeholder="Medicine"
+                value={medicalDetails}
+                onChangeText={setMedicalDetails}
+                style={styles.textName}
+              />
+            </View>
+
+            <Text style={styles.topics}>Doctor</Text>
+            <View style={styles.nameContainer}>
+              <TextInput
+                placeholder="Doctor"
+                value={doctor}
+                onChangeText={setDoctor}
+                style={styles.textName}
+              />
+            </View>
 
             <View style={styles.buttonContainer}>
               <TouchableOpacity
@@ -290,30 +300,13 @@ const MedicationScreen = () => {
   return (
     <View style={styles.container}>
       <Header2 text="Medications" />
-      {/* {viewCalender && ( */}
+
       <Calendar
         markedDates={markedDates}
         onDayPress={handleDayPress}
         style={styles.calendar}
         visible={viewCalender}
       />
-      {/* )} */}
-      {/* <TouchableOpacity
-        style={{
-          backgroundColor: "white",
-          height: 40,
-          width: "90%",
-          borderRadius: 15,
-          marginLeft: 20,
-          marginTop: 8,
-          marginBottom: 8,
-          borderColor: "#00567D", 
-          borderWidth: 1, 
-        }}
-        onPress={() => setViewCalender(!viewCalender)}
-      >
-        <Text style={styles.calendarButton}>Calendar</Text>
-      </TouchableOpacity> */}
 
       <ScrollView style={styles.medicationsContainer}>
         {medications && medications.length > 0 ? (
@@ -439,7 +432,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   scrollContainer: {
-    maxHeight: 100, // Set max height for scrolling
+    maxHeight: 100,
   },
   input: {
     borderBottomWidth: 1,
@@ -502,8 +495,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   medicationItemContainer: {
-    // Your existing styles for medicationItemContainer
-    marginBottom: 10, // Add margin between medication items
+    marginBottom: 10,
   },
   calendarButton: {
     textAlign: "center",
@@ -517,10 +509,19 @@ const styles = StyleSheet.create({
     marginLeft: "2%",
     padding: "1%",
   },
-  // medicationItemCon2: {
-  //   width: "95%",
-  //   backgroundColor: "#E3FFFC",
-
-  //   marginLeft: "2%",
-  // },
+  topics: {
+    marginTop: 10,
+  },
+  nameContainer: {
+    marginTop: 5,
+    marginLeft: 10,
+    marginBottom: 5,
+    paddingLeft: 10,
+    width: 220,
+    backgroundColor: "#b9ba99",
+    borderRadius: 10,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
 });

@@ -4,6 +4,7 @@ import { LIST1 } from "../Data/dummy2";
 import PatientHistoryGrid from "../Components/PatientHistoryGrid";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { baseUrl } from "../../../constants/constants";
 
 function PatientsHistoryScreen() {
   const [patientsHistory, setPatientsHistory] = useState([]);
@@ -15,7 +16,7 @@ function PatientsHistoryScreen() {
   const fetchPatientsHistory = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.8.104:4000/patientsHistory"
+        `${baseUrl}/patientsHistory`
       );
       console.log("Response from backend:", response.data);
       setPatientsHistory(response.data);

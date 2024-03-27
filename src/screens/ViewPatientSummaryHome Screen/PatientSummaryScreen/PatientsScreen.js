@@ -1,4 +1,4 @@
-import { useState,useEffect} from 'react';
+import { useState, useEffect } from "react";
 import { FlatList, View, ScrollView, Text } from "react-native";
 import { LIST } from "../Data/dummy-data";
 import PatientGridTile from "../Components/PatientGridTile";
@@ -6,7 +6,7 @@ import Search from "../Components/Search";
 import CustomHeader from "../Components/CustomHeader";
 import axios from "axios";
 
-import { baseUrl } from '../../../constants/constants';
+import { baseUrl } from "../../../constants/constants";
 
 function PatientsScreen({ navigation }) {
   const [patients, setPatients] = useState([]);
@@ -39,11 +39,10 @@ function PatientsScreen({ navigation }) {
 
         <PatientGridTile
           id={item.patientId}
-          title={item.title}
-          color={item.color}
-          age={item.age}
-          gender={item.gender}
-          imageUrl={item.imageUrl}
+          firstName={item.firstName}
+          lastName={item.lastName}
+          nic={item.nic}
+          email={item.email}
           onPress={presshandler}
         />
       </View>
@@ -51,10 +50,7 @@ function PatientsScreen({ navigation }) {
   }
   return (
     <View style={{ flex: 1 }}>
-
       <CustomHeader />
-
- 
 
       <FlatList
         data={patients}

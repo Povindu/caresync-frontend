@@ -1,10 +1,17 @@
 import PatientSummary from "../Components/PatientSummary";
-import { FlatList, View, StyleSheet, Button, TouchableOpacity, Text, Image } from 'react-native';
-import axios from 'axios';
-import { useState,useEffect} from 'react';
+import {
+  FlatList,
+  View,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  Text,
+  Image,
+} from "react-native";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 import { baseUrl } from "../../../constants/constants";
-
 
 function PatientProfileScreen({ route, navigation }) {
   const [patients, setPatients] = useState([]);
@@ -36,13 +43,10 @@ function PatientProfileScreen({ route, navigation }) {
           <View style={styles.grid}>
             <PatientSummary
               id={item.patientId}
-              title={item.title}
-              age={item.age}
-              gender={item.gender}
-              imageUrl={item.imageUrl}
-              weight={item.weight}
-              height={item.height}
-              blood={item.blood}
+              firstName={item.firstName}
+              lastName={item.lastName}
+              nic={item.nic}
+              email={item.email}
             />
           </View>
         </View>
@@ -58,11 +62,7 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-
-            
-
               onPress={() => navigation.navigate("PatientHistoryScreen")}
-
             >
               <Image
                 style={styles.img}
@@ -82,10 +82,7 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-
               onPress={() => navigation.navigate("MedicationsScreen")}
-
-        
             >
               <Image
                 style={styles.img}
@@ -180,6 +177,7 @@ const styles = StyleSheet.create({
   con: {
     flex: 1,
     backgroundColor: "#D0F1FF",
+    
   },
   subcon: {
     width: "100%",

@@ -67,7 +67,7 @@ const TestModal = ({ selectedStartDate,selectedOption,onClose }) => {
       <View style={styles.contentContainer}>
         <Text style={styles.label}>Test Type:</Text>
         <View style={styles.dropdowncontainer}>
-          <CustomDropdown selectedOption1={selectedOption1} setSelectedOption1={setSelectedOption1} options={['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Other']} placeholderText="Select from the list" />
+          <CustomDropdown selectedOption1={selectedOption1} setSelectedOption1={setSelectedOption1} options={['Cough', 'Wheeze', 'Chest Pain', 'Fever', 'Other']} placeholderText="Select from the list" />
         </View>
         <Text style={styles.label}>Test Provider:</Text>
         <View style={styles.dropdowncontainer}>

@@ -1,10 +1,17 @@
 import PatientSummary from "../Components/PatientSummary";
-import { FlatList, View, StyleSheet, Button, TouchableOpacity, Text, Image } from 'react-native';
-import axios from 'axios';
-import { useState,useEffect} from 'react';
+import {
+  FlatList,
+  View,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  Text,
+  Image,
+} from "react-native";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 import { baseUrl } from "../../../constants/constants";
-
 
 function PatientProfileScreen({ route, navigation }) {
   const [patients, setPatients] = useState([]);
@@ -20,7 +27,7 @@ function PatientProfileScreen({ route, navigation }) {
     } catch (error) {
       console.error("Error fetching patients:", error);
     }
-  };
+  };//fetching the patients details from the backend
 
   const pId = route.params.ptid;
   const dispalyedpatient = patients.filter((patient) => {
@@ -36,13 +43,10 @@ function PatientProfileScreen({ route, navigation }) {
           <View style={styles.grid}>
             <PatientSummary
               id={item.patientId}
-              title={item.title}
-              age={item.age}
-              gender={item.gender}
-              imageUrl={item.imageUrl}
-              weight={item.weight}
-              height={item.height}
-              blood={item.blood}
+              firstName={item.firstName}
+              lastName={item.lastName}
+              nic={item.nic}
+              email={item.email}
             />
           </View>
         </View>
@@ -58,11 +62,7 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-
-            
-
               onPress={() => navigation.navigate("PatientHistoryScreen")}
-
             >
               <Image
                 style={styles.img}
@@ -82,10 +82,7 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-
               onPress={() => navigation.navigate("MedicationsScreen")}
-
-        
             >
               <Image
                 style={styles.img}
@@ -155,11 +152,6 @@ function PatientProfileScreen({ route, navigation }) {
               <Text style={styles.text}>Contact Patient</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.tile1}>
-            {/* <TouchableOpacity style={{backgroundColor:'white',height:120,width:160,borderRadius:15,marginLeft: 20,marginTop: 20,}} onPress={()=>navigation.navigate("PatientHistoryScreen")}>
-                                <Text style={styles.text} >Patient History</Text>
-                            </TouchableOpacity> */}
-          </View>
         </View>
       </View>
     );
@@ -173,7 +165,7 @@ function PatientProfileScreen({ route, navigation }) {
         style={{ flex: 1 }}
       />
     </View>
-  );
+  );//displaying the patient details
 }
 export default PatientProfileScreen;
 const styles = StyleSheet.create({

@@ -3,6 +3,8 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+
+// Components & Pages Import
 import WelcomeScreen from "./src/screens/WelcomeScreen/WelcomeScreen";
 import ContactUs from "./src/screens/ContactUs";
 import DoctorRegister from "./src/screens/AuthenticationScreens/DoctorAuthentication/DoctorRegister";
@@ -34,7 +36,9 @@ import NewMedicalRecordScreen from "./src/screens/AddMedicalRecordScreen/NewMedi
 
 import { useAuthContext } from "./src/hooks/useAuthContext";
 
+
 const Stack = createNativeStackNavigator();
+
 
 
 export default function Routing() {
@@ -71,17 +75,16 @@ export default function Routing() {
         <Stack.Screen name="StepCounterHome" component={StepCounterHome} />
         <Stack.Screen name="BreathingHome" component={BreathingHome} />
 
-      
         <Stack.Screen
-            name="NewMedicalRecordScreen"
-            component={NewMedicalRecordScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="MedicalIncidentHomeScreen"
-            component={MedicalIncidentHomeScreen}
-            options={{ headerShown: false }}
-          />
+          name="NewMedicalRecordScreen"
+          component={NewMedicalRecordScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="MedicalIncidentHomeScreen"
+          component={MedicalIncidentHomeScreen}
+          options={{ headerShown: false }}
+        />
 
         <Stack.Screen
           name="SelectDocForAccessScreen"

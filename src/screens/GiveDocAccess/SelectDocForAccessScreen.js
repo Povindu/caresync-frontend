@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+// Importing Components
 import DocCardComp from "./Components/DocCardComp";
 import Header from "../../components/Header";
 
@@ -18,6 +19,8 @@ import { baseUrl } from "../../constants/constants";
 
 function SelectDocForAccess({ navigation }) {
   const [DocList, setDocList] = useState([]);
+
+  // Fetching Doctors from the backend
   const fetchDoctors = async () => {
     try {
       const configurationObject = {
@@ -37,16 +40,18 @@ function SelectDocForAccess({ navigation }) {
     fetchDoctors();
   }, []);
 
+  // Rendering the Doctor List Component
   const renderItem = ({ item }) => (
     <DocCardComp
       navigation={navigation}
-      name={item.firstName + " "+  item.lastName}
+      name={item.firstName + " " + item.lastName}
       DocID={item.medicalId}
       id={item._id}
     />
   );
 
   return (
+
     <SafeAreaView style={{ flex: 1 }}>
       <Header name={"Select Doctor"} />
       <View style={{ flex: 1 }}>
@@ -61,8 +66,10 @@ function SelectDocForAccess({ navigation }) {
         </View>
       </View>
     </SafeAreaView>
+
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     paddingTop: 15,

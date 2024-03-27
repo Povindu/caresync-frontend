@@ -14,13 +14,11 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import { baseUrl } from "../../constants/constants";
 
 function GiveDocAccess({ navigation, route }) {
-
   const { user } = useAuthContext();
 
   const [doc, setDoc] = useState("");
 
   const patientID = user._id;
-
 
   useEffect(() => {
     const fetchDoctor = async () => {
@@ -49,7 +47,6 @@ function GiveDocAccess({ navigation, route }) {
       })
       .then((res) => {
         if (res) {
-          // const userData = res.data;
         }
       })
       .catch((error) => {
@@ -63,7 +60,6 @@ function GiveDocAccess({ navigation, route }) {
       })
       .then((res) => {
         if (res) {
-          // const userData = res.data;
         }
       })
       .catch((error) => {
@@ -93,11 +89,10 @@ function GiveDocAccess({ navigation, route }) {
     );
   };
 
-  
-
   return (
     <SafeAreaView>
       <Header name={"Grant Access"} />
+
       <View style={styles.background}>
         <View style={styles.card}>
           <Text style={styles.cardText}>
@@ -105,8 +100,8 @@ function GiveDocAccess({ navigation, route }) {
           </Text>
           <Text style={styles.cardText}>DoctorID: {doc.medicalId}</Text>
           <Text style={styles.cardText}>Specialization: </Text>
-          {/* <Text>Doctor Description:</Text> */}
         </View>
+
         <View style={styles.disclaimer}>
           <Text style={styles.dis_head}>Disclaimer</Text>
           <Text style={styles.dis_text}>
@@ -118,12 +113,14 @@ function GiveDocAccess({ navigation, route }) {
             of your data and adhere to strict privacy guidelines.
           </Text>
         </View>
+
         <View>
           <Pressable onPress={() => showAlert()}>
             <Text style={styles.access_btn}>Grant Access</Text>
           </Pressable>
         </View>
       </View>
+      
     </SafeAreaView>
   );
 }

@@ -1,42 +1,36 @@
-import { View, StyleSheet ,Text, Pressable, SafeAreaView} from "react-native";
+import { View, StyleSheet, Text, Pressable, SafeAreaView } from "react-native";
 
-
-
-function DocCard({navigation,name,DocID,id}){
-    
-  function onPressHandler(){
-    navigation.navigate('GiveDocAccessScreen', {name,DocID,id})
+function DocCard({ navigation, name, DocID, id }) {
+  function onPressHandler() {
+    navigation.navigate("GiveDocAccessScreen", { name, DocID, id });
   }
-  
-  return (
 
-    <SafeAreaView >
-        <View style={styles.background}>
-          <View style={styles.card}>
-            <Pressable onPress={onPressHandler}>
-                <Text style={styles.cardIn}>Doctor Name: {name}</Text>
-                <Text style={styles.cardIn}>Doc ID: {DocID}</Text>
-            </Pressable>
-          </View>
+  return (
+    <SafeAreaView>
+      <View style={styles.background}>
+        <View style={styles.card}>
+          <Pressable onPress={onPressHandler}>
+            <Text style={styles.cardIn}>Doctor Name: {name}</Text>
+            <Text style={styles.cardIn}>Doc ID: {DocID}</Text>
+          </Pressable>
         </View>
-      </SafeAreaView>
-    
+      </View>
+    </SafeAreaView>
   );
 }
 export default DocCard;
 
 const styles = StyleSheet.create({
-
-  background:{
+  background: {
     // backgroundColor:'#00567D'
   },
 
-  card:{
+  card: {
     borderRadius: 20,
     padding: 5,
-    marginHorizontal:15,
+    marginHorizontal: 15,
     textAlign: "center",
-    marginBottom:10,
+    marginBottom: 10,
     backgroundColor: "#FFFFFF",
     shadowColor: "#000000",
     shadowOffset: {
@@ -46,19 +40,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.17,
     shadowRadius: 2.54,
     elevation: 3,
-
   },
-  cardIn:{
+  cardIn: {
     // backgroundColor: '#D9F8FF',
     borderRadius: 20,
     padding: 5,
-    marginHorizontal:15,
+    marginHorizontal: 15,
     textAlign: "center",
-    marginBottom:10,
+    marginBottom: 10,
   },
+});
 
-
-    }
-  );
-  
-  

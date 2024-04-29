@@ -31,7 +31,7 @@ export default function AddExternalTestResults() {
       return;
     }
     const data = await api
-      .post("/extTests/addLink", { link: link, patientID: user._id })
+      .post("/extTests/addLink", { name:TestName, link: link, patientID: user._id })
       .then((res) => {
         console.log(res.data);
       })

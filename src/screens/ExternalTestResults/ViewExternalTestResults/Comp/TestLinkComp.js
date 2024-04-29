@@ -1,4 +1,5 @@
 import { Link } from "@react-navigation/native";
+import { IconButton, MD3Colors } from "react-native-paper";
 import {
   View,
   StyleSheet,
@@ -8,11 +9,19 @@ import {
   Linking,
 } from "react-native";
 
-function DocCard({ navigation, link }) {
+function DocCard({ navigation, item }) {
+  // console.log("Link: ", item.link.toString());
+  const name = `https:` + item.link.toString();
 
-  console.log("Link: ", link.toString());
-  const name = link.toString()
+  const openUrl = () => {
+    try {
+      Linking.openURL(name);
+    } catch {
+      console.log("Error");
+    }
+  };
 
+  // console.log("Name: ", name)
   function onPressHandler() {
     // navigation.navigate("GiveDocAccessScreen", { name, DocID, id });
   }
@@ -22,18 +31,16 @@ function DocCard({ navigation, link }) {
       <View style={styles.background}>
         <View style={styles.card}>
           <Pressable onPress={onPressHandler}>
-            <Text
-              onPress={(name) => {
-                try {
-                  Linking.openURL(name);
-                } catch (e) {
-                  console.log(e);
-                }
-              }}
-              style={styles.cardIn}
-            >
-              Link: {link}
+            <Text onPress={openUrl} style={styles.cardIn}>
+              Link: {item.TestName}
             </Text>
+            <IconButton
+            style={styles.icon}
+              icon="delete"
+              iconColor={MD3Colors.error50}
+              size={30}
+              onPress={() => console.log("Pressed")}
+            />
           </Pressable>
         </View>
       </View>
@@ -66,10 +73,18 @@ const styles = StyleSheet.create({
   },
   cardIn: {
     // backgroundColor: '#D9F8FF',
+    height: 50,
+    width: "85%",
     borderRadius: 20,
     padding: 5,
     marginHorizontal: 15,
+    paddingTop:15,
     textAlign: "center",
     marginBottom: 10,
+  },
+  icon: {
+    // alignItems: "center",
+    position: "absolute",
+    right: 0,
   },
 });

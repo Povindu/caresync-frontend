@@ -13,6 +13,7 @@ import { Calendar } from "react-native-calendars";
 import { baseUrl } from "../../../constants/constants";
 
 import Header2 from "../../AddMedicalIncidentScreen/components/Header2";
+import DosageDropdown from "../../ViewPatientSummaryHome Screen/Components/DosageDropdown";
 
 const MedicationScreen = () => {
   const [medications, setMedications] = useState([]);
@@ -25,6 +26,11 @@ const MedicationScreen = () => {
     []
   );
   const [viewCalender, setViewCalender] = useState(false);
+  const [dosage, setDosage] = useState("");
+
+  const handleDosageSelect = (selectedDosage) => {
+    setDosage(selectedDosage);
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -97,7 +103,7 @@ const MedicationScreen = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          patientId: "65cde7c585ffe2b8d4a75878",
+          patientId: "662e930c4c0bf9f41d0da56a",
 
           selectedDate: selectedDate,
           medicalDetails: medicalDetails,
@@ -183,6 +189,8 @@ const MedicationScreen = () => {
                 style={styles.textName}
               />
             </View>
+            <Text style={styles.label}>Dosage</Text>
+            <DosageDropdown onSelect={handleDosageSelect} />
 
             <View style={styles.buttonContainer}>
               <TouchableOpacity

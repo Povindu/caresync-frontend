@@ -5,24 +5,104 @@ import {
   Pressable,
   Image,
   Animated,
-
 } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 import ToochableIconDown from "../../ViewPatientSummaryHome Screen/Components/TouchableIconDown";
 import React, { useState, useRef } from "react";
+// function MedicalRecordGrid({
+
+//   recordName,
+//   date,
+//   recordDescription,
+//   incidentType,
+//   testType,
+
+// })
+
+// {
+//   const [expanded, setExpanded] = useState(false);
+//   const heightAnim = useRef(new Animated.Value(100)).current;
+//   const handlePress = () => {
+//     const newHeight = expanded ? 110 : 320; // Target height
+//     Animated.timing(heightAnim, {
+//       toValue: newHeight,
+//       duration: 300, // Duration of the animation
+//       useNativeDriver: false,
+//     }).start();
+//     setExpanded(!expanded);
+//   };
+//   const navigation = useNavigation();
+//   const handleAddNew = () => {
+//     navigation.navigate('MedicalIncidentHomeScreen',{
+//       recordName,
+//       recordDescription,
+//     });
+
+// }
+
+//   return (
+
+//     <Animated.View
+//       style={[
+//         styles.tile,
+//         expanded && styles.expandedContainer,
+//         { height: heightAnim },
+//       ]}
+//     >
+//       <View style={styles.titleGrid}>
+//         <Text style={styles.title}>{recordName}</Text>
+//       </View>
+//       <View style={styles.icon}>
+//         <ToochableIconDown
+//           onPress={handlePress}
+//           iconName={expanded ? "up" : "down"}
+//           iconSize={30}
+//           iconColor="grey"
+//         />
+//       </View>
+//       <View>
+//         <Text style={styles.description}>{recordDescription}</Text>
+//       </View>
+
+//       {expanded && (
+//         <View>
+//           <View style={styles.subtile1}>
+//             <View style={styles.subcom1}>
+//               <View style={styles.innertile1}>
+
+//               <Text style={styles.innertext1}>{incidentType}</Text>
+//               </View>
+//               <Text style={styles.innertext1}>Test Type</Text>
+//               <Text style={styles.subtext1}>
+//               {testType}</Text>
+//             </View>
+//             <Text style={styles.date1}>{date}</Text>
+//             <View style={styles.btn}>
+//             <Pressable style={styles.btn}
+//             onPress={handleAddNew}>
+//             <Text style={styles.btntext}>+ incident</Text>
+//           </Pressable>
+
+//         </View>
+
+//           </View>
+
+//         </View>
+//       )}
+//     </Animated.View>
+//   );
+// }
+// export default MedicalRecordGrid;
+
 function MedicalRecordGrid({
- 
   recordName,
   date,
   recordDescription,
-  incidentType,
-  testType,
-  
-}) 
-
-{
+  incidents = [], // Array of incidents containing incidentType, date, testType, and testProvider
+}) {
   const [expanded, setExpanded] = useState(false);
   const heightAnim = useRef(new Animated.Value(100)).current;
+
   const handlePress = () => {
     const newHeight = expanded ? 110 : 320; // Target height
     Animated.timing(heightAnim, {
@@ -32,19 +112,17 @@ function MedicalRecordGrid({
     }).start();
     setExpanded(!expanded);
   };
+
   const navigation = useNavigation();
+
   const handleAddNew = () => {
-    navigation.navigate('MedicalIncidentHomeScreen',{
+    navigation.navigate("MedicalIncidentHomeScreen", {
       recordName,
       recordDescription,
     });
-   
-}
+  };
 
-
-   
   return (
-    
     <Animated.View
       style={[
         styles.tile,
@@ -69,27 +147,23 @@ function MedicalRecordGrid({
 
       {expanded && (
         <View>
-          <View style={styles.subtile1}>
-            <View style={styles.subcom1}>
-              <View style={styles.innertile1}>
-             
-              <Text style={styles.innertext1}>{incidentType}</Text>
+          {incidents.map((incident, index) => (
+            <View key={index} style={styles.subtile1}>
+              <View style={styles.subcom1}>
+                <View style={styles.innertile1}>
+                  <Text style={styles.innertext1}>{incident.incidentType}</Text>
+                </View>
+                <Text style={styles.innertext1}>Test Type</Text>
+                <Text style={styles.subtext1}>{incident.testType}</Text>
               </View>
-              <Text style={styles.innertext1}>Test Type</Text>
-              <Text style={styles.subtext1}>
-              {testType}</Text>
+              <Text style={styles.date1}>{incident.date}</Text>
             </View>
-            <Text style={styles.date1}>{date}</Text>
-            <View style={styles.btn}>
-            <Pressable style={styles.btn} 
-            onPress={handleAddNew}>
-            <Text style={styles.btntext}>+ incident</Text>
-          </Pressable>
-         
-        </View>
-
+          ))}
+          <View style={styles.btn}>
+            <Pressable style={styles.btn} onPress={handleAddNew}>
+              <Text style={styles.btntext}>+ Incident</Text>
+            </Pressable>
           </View>
-    
         </View>
       )}
     </Animated.View>
@@ -119,20 +193,18 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
   },
-  btn:{
-    backgroundColor:'#00567D',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius:10,
-    maxWidth:'100%',
-    padding:2,
-
+  btn: {
+    backgroundColor: "#00567D",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    maxWidth: "100%",
+    padding: 2,
   },
- btntext:{
-    color: '#FFF',
-    padding:8,
-    fontSize:16,
-    
+  btntext: {
+    color: "#FFF",
+    padding: 8,
+    fontSize: 16,
   },
 
   title: {

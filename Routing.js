@@ -52,21 +52,14 @@ export default function Routing() {
       {user?.roles === "doctor" ? console.log("Doctor") : console.log("Patient")} */}
 
       <Stack.Navigator
-
-      
-
         //initialRouteName="WelomeScreen"
         // initialRouteName="DoctorDashboard"
 
-
-        initialRouteName="WelomeScreen"
+        // initialRouteName="WelomeScreen"
 
         // initialRouteName="DoctorDashboard"
 
-
-
-        // initialRouteName="PatientDashboard"
-
+        initialRouteName="PatientDashboard"
         screenOptions={{
           headerStyle: { backgroundColor: "#FBDABB" },
           headerShown: false,
@@ -136,7 +129,6 @@ export default function Routing() {
           options={{ headerShown: false }}
         />
 
-
         <Stack.Screen name="MedicationView" component={MedicationView} />
         <Stack.Screen name="AddMedication" component={AddMedication} />
         <Stack.Screen name="ViewMedication" component={ViewMedication} />
@@ -158,7 +150,6 @@ export default function Routing() {
           component={ViewExternalTestResults}
           options={{ headerShown: false }}
         />
-
 
         {/* Doctor Screens */}
         <Stack.Screen name="DoctorDashboard" component={DoctorDashboard} />

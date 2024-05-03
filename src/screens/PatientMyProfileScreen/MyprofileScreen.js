@@ -108,14 +108,13 @@ const MyprofileScreen = () => {
                     <DetailRow
                       name="weight-hanging"
                       textLineOne="Weight"
-                      textLineTwo={data.weight}
-                      kg
+                      textLineTwo={`${data.weight} kg`}
                       category="weight"
                     />
                     <DetailRow
                       name="arrows-alt-v"
                       textLineOne="Height"
-                      textLineTwo={data.height}
+                      textLineTwo={`${data.height} cm`}
                       category="height"
                     />
                     <DetailRow

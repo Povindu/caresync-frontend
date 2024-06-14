@@ -12,6 +12,8 @@ import { useState, useEffect } from "react";
 import api from "../../../Services/AuthService";
 import { baseUrl } from "../../../constants/constants";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 const ViewPastEntries = ({ navigation }) => {
   useEffect(() => {
@@ -135,13 +137,12 @@ const ViewPastEntries = ({ navigation }) => {
                       updateMedication(item._id);
                     }}
                   >
-                    <Text
-                      style={[
-                        item.addedBy !== "patient" && styles.editext,
-                      ]}
-                    >
-                      Edit
-                    </Text>
+                    <Feather
+                      style={[item.addedBy !== "patient" && styles.editext]}
+                      name="edit-2"
+                      size={16}
+                      color="black"
+                    />
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
@@ -152,7 +153,11 @@ const ViewPastEntries = ({ navigation }) => {
                       }
                     }}
                   >
-                    <Text>Delete</Text>
+                    <MaterialIcons
+                      name="delete-outline"
+                      size={16}
+                      color="black"
+                    />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -195,7 +200,7 @@ const styles = StyleSheet.create({
   medicineNametext: {
     fontWeight: "bold",
     fontSize: 20,
-    color: "#00567D"
+    color: "#00567D",
   },
   daystext: {
     marginTop: -20,
@@ -231,11 +236,11 @@ const styles = StyleSheet.create({
   bytext: {
     marginTop: 10,
     color: "gray",
-    fontSize: 11
+    fontSize: 11,
   },
   editdeleteContainer: {
     Positions: "absolute",
-    marginLeft:50,
+    marginLeft: 150,
     display: "flex",
     flexDirection: "row",
     alignItems: "right",

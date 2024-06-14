@@ -33,8 +33,10 @@ const StepCountDataStore = ({sampleData, deleteOne}) => {
           </DataTable.Title>
           <DataTable.Title>    </DataTable.Title>
         </DataTable.Header>
-        
-        {sampleData.map((data, index) => (
+        {sampleData.length === 0 ? (
+            <Text style={styles.textnoResults}>No past results</Text>
+            ) : (
+        sampleData.map((data, index) => (
           <DataTable.Row key={index}>
             <DataTable.Cell style={styles.cellsStyle}>
               {data.date}
@@ -62,7 +64,7 @@ const StepCountDataStore = ({sampleData, deleteOne}) => {
                 </TouchableOpacity>
             </DataTable.Cell>
           </DataTable.Row>
-        ))}
+        )))}
       </DataTable>
       </ScrollView>
     </View>
@@ -123,6 +125,10 @@ const styles = StyleSheet.create({
   headcellsStyle3:{
     marginLeft:30,
     marginRight:10
+  },
+  textnoResults:{
+    padding:5,
+    marginLeft:20
   }
 });
 

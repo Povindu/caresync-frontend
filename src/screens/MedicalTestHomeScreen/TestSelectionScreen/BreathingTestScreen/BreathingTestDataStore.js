@@ -30,7 +30,10 @@ const BreathingTestDataStore = ({ sampleData, deleteOne }) => {
             </DataTable.Title>
             <DataTable.Title>      </DataTable.Title>
           </DataTable.Header>
-          {sampleData.map((data, id) => (
+          {sampleData.length === 0 ? (
+            <Text style={styles.textnoResults}>No past results</Text>
+            ) : (
+          sampleData.map((data, id) => (
             <DataTable.Row key={id}>
               <DataTable.Cell style={styles.cellsStyle}>
                 {data.date}
@@ -48,11 +51,11 @@ const BreathingTestDataStore = ({ sampleData, deleteOne }) => {
                     deleteOne(data._id);
                   }}
                 >
-                  <MaterialCommunityIcons name="delete-outline" color="red" />
+                  <MaterialCommunityIcons name="delete-outline" />
                 </TouchableOpacity>
               </DataTable.Cell>
             </DataTable.Row>
-          ))}
+          )))}
         </DataTable>
       </ScrollView>
     </View>
@@ -82,6 +85,10 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     paddingLeft: 20,
   },
+  textnoResults:{
+    padding:5,
+    marginLeft:20
+  }
 });
 
 export default BreathingTestDataStore;

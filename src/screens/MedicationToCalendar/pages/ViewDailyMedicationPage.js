@@ -72,14 +72,6 @@ const ViewMedication = ({ route }) => {
     );
   }
 
-  if (!loading && medidetail.length === 0) {
-    return (
-      <View style={styles.centered}>
-        <Text>No Medications for {dayOfWeekFull}</Text>
-      </View>
-    );
-  }
-
   return (
     <View>
       {console.log("medidetail ", medidetail)}
@@ -91,6 +83,10 @@ const ViewMedication = ({ route }) => {
         <Text style={styles.dateWeekDay}>{month}</Text>
         <Text style={styles.dateWeekDay}>{year}</Text>
       </View>
+      {(!loading && medidetail.length === 0)?(
+        <Text style={styles.noMediText}>No Medications</Text>
+      ):(
+        <>
       {console.log(Array.isArray(medidetail))}
       {medidetail && (
         <FlatList
@@ -108,12 +104,14 @@ const ViewMedication = ({ route }) => {
                 <Text style={styles.bawtext}>{item.baw} meal</Text>
               </View>
               {item.description !== null && item.description !== "" && (
-                <Text style={styles.descriptiontext}>{item.description}</Text>
+                <Text>{item.description}</Text>
               )}
-              <Text style={styles.bytext}>By {item.addedBy}</Text>
+              <Text style={styles.bytext}>added by : {item.addedBy}</Text>
             </View>
           )}
         ></FlatList>
+      )}
+      </>
       )}
     </View>
   );
@@ -141,17 +139,17 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: "90%",
-    marginBottom: 10,
-    backgroundColor: "#87CEEB",
+    marginBottom: 5,
+    backgroundColor: "#dedee0",
     borderRadius: 10,
     alignSelf: "center",
-    marginTop: 10,
+    marginTop: 5,
     padding: 10,
   },
   medicineNametext: {
     fontWeight: "bold",
     fontSize: 20,
-    marginLeft: 10,
+    color: "#00567D",
   },
   detailContainer: {
     display: "flex",
@@ -175,9 +173,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   bytext: {
-    fontWeight: "bold",
-    fontSize: 15,
     marginTop: 10,
+    color: "gray",
+    fontSize: 11,
   },
+  noMediText: {
+    alignSelf: "center",
+    marginTop: 200,
+  }
 });
 export default ViewMedication;

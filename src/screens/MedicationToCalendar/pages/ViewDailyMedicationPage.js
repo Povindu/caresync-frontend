@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   dateWeekDay: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: "bold",
     padding: 5,
     color: "gray",

@@ -3,7 +3,8 @@ import Header2 from "../Components/Header2";
 import BreathingTest from "../Components/BreathingTest";
 import StepCounterTest from "../Components/StepCounterTest";
 
-function TestResultScreen() {
+function TestResultScreen({ route }) {
+  const pId = route.params.pId; // Get pId from route parameters
   return (
     <View style={styles.container}>
       <Header2 text="Test Results" />

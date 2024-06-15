@@ -10,6 +10,7 @@ import { baseUrl } from "../../../constants/constants";
 
 function PatientsScreen({ navigation }) {
   const [patients, setPatients] = useState([]);
+  const [filteredPatients, setFilteredPatients] = useState([]);
 
   useEffect(() => {
     fetchPatients();
@@ -20,14 +21,15 @@ function PatientsScreen({ navigation }) {
       const response = await axios.get(`${baseUrl}/patients`);
 
       setPatients(response.data);
-      
+
       console.log("Response from backend:", response.data);
     } catch (error) {
       console.error("Error fetching patients:", error);
     }
   };
-
-  
+  const handleSearch = (filteredData) => {
+    setFilteredPatients(filteredData);
+  };
 
   function renderCategoryItem({ item }) {
     function presshandler() {
@@ -43,7 +45,6 @@ function PatientsScreen({ navigation }) {
           nic={item.nic}
           email={item.email}
           profileImage={item.profileImage}
-    
           onPress={presshandler}
         />
         {/* export data to PatientGridTile page */}
@@ -52,10 +53,11 @@ function PatientsScreen({ navigation }) {
   }
   return (
     <View style={{ flex: 1 }}>
-      <CustomHeader />
+      <CustomHeader patients={patients} onSearch={handleSearch} />
+      {/* <Search patients={patients}  /> */}
 
       <FlatList
-        data={patients}
+        data={filteredPatients.length > 0 ? filteredPatients : patients}
         keyExtractor={(item) => item._id}
         renderItem={renderCategoryItem}
         style={{ flex: 1 }}

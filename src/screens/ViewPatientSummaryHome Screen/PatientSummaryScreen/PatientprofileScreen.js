@@ -51,7 +51,6 @@ function PatientProfileScreen({ route, navigation }) {
               weight={item.weight}
               height={item.height}
               gender={item.gender}
-              
             />
           </View>
         </View>

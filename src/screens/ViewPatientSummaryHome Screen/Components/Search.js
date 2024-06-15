@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import { View, TextInput, StyleSheet } from "react-native";
 
 function Search({ patients, onSearch }) {
   const [input, setInput] = useState("");

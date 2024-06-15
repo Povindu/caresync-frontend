@@ -8,7 +8,7 @@ import {
   Text,
   Image,
 } from "react-native";
-import axios from "axios";
+import api from "../../../Services/AuthService";
 import { useState, useEffect } from "react";
 
 import { baseUrl } from "../../../constants/constants";
@@ -20,19 +20,25 @@ function PatientProfileScreen({ route, navigation }) {
     fetchPatients();
   }, []);
 
-  const fetchPatients = async () => {
-    try {
-      const response = await axios.get(`${baseUrl}/patients`);
-      setPatients(response.data);
-    } catch (error) {
-      console.error("Error fetching patients:", error);
-    }
-  }; //fetching the patients details from the backend
+  const fetchPatients = () => {
+    api
+      .get(`${baseUrl}/patients`)
+      .then((response) => {
+        setPatients(response.data);
+
+        console.log("Response from backend:", response.data);
+      })
+
+      .catch((error) => {
+        console.error("Error fetching patients:", error);
+      });
+  };
 
   const pId = route.params.ptid;
   const dispalyedpatient = patients.filter((patient) => {
     return patient._id.indexOf(pId) >= 0;
   });
+  console.log("Patient ID:", pId);
 
   function renderCategoryItem({ item }) {
     return (
@@ -107,7 +113,9 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-              onPress={() => navigation.navigate("ContactPatientScreen")}
+              onPress={() =>
+                navigation.navigate("ContactPatientScreen", { pId })
+              }
             >
               <Image
                 style={styles.img}

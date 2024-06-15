@@ -10,7 +10,6 @@ function PatientGridTile({
   blood,
   onPress,
   profileImage,
-  patients,
 }) {
   return (
     <View style={[styles.gridItem, { backgroundColor: "#E3F7FF" }]}>

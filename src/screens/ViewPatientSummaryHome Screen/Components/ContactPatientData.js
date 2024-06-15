@@ -1,37 +1,50 @@
-import { Text, StyleSheet, FlatList, View, ScrollView ,Linking,TouchableOpacity} from "react-native";
+import {
+  Text,
+  StyleSheet,
+  FlatList,
+  View,
+  ScrollView,
+  Linking,
+  TouchableOpacity,
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 function ContactPatientData({
   name,
   textLineOne,
   textLineTwo,
   backgroundColor,
-  color
+  color,
 }) {
-    const handleEmailPress = () => {
-        Linking.openURL(`mailto:${textLineTwo}`);
-      };
-      const handleCallPress = () => {
-        Linking.openURL(`tel:${textLineTwo}`);
-      };
-      const onPressAction = textLineOne === 'Email Address' ? handleEmailPress : textLineOne === 'Mobile Number' ? handleCallPress : null;
+  const { user } = useAuthContext();
+  const id = user ? user._id : null;
+  const handleEmailPress = () => {
+    Linking.openURL(`mailto:${textLineTwo}`);
+  };
+  const handleCallPress = () => {
+    Linking.openURL(`tel:${textLineTwo}`);
+  };
+  const onPressAction =
+    textLineOne === "Email Address"
+      ? handleEmailPress
+      : textLineOne === "Mobile Number"
+      ? handleCallPress
+      : null;
   return (
-    
     <View style={[styles.container, { backgroundColor }]}>
       <View style={styles.iconContainer}>
         <Icon name={name} size={30} color="black" />
       </View>
 
       <View style={styles.textcontainer}>
-      
         <Text style={styles.textLineOne}>{textLineOne}</Text>
         <TouchableOpacity onPress={onPressAction}>
-        <Text style={[styles.textLineTwo,{color}]}>{textLineTwo}</Text>
+          <Text style={[styles.textLineTwo, { color }]}>{textLineTwo}</Text>
         </TouchableOpacity>
         <View style={styles.horizontalLine} />
       </View>
     </View>
-   
   );
 }
 export default ContactPatientData;

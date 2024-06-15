@@ -21,7 +21,8 @@ const DoctorProfileScreen = ({ navigation }) => {
   const { user } = useAuthContext();
 
   const [details, setDetails] = useState([]);
-  const [_id, setId] = useState("6627c4c328a6a54a64fb544a");
+
+  const [id, setId] = useState();
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
@@ -29,12 +30,13 @@ const DoctorProfileScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setId(user._id);
     getDetails();
   }, []);
 
   const getDetails = () => {
     api
-      .get(`${baseUrl}/doctors`)
+      .get(`${baseUrl}/doctors/${user._id}`)
       .then((response) => {
         setDetails(response.data);
       })
@@ -123,60 +125,53 @@ const DoctorProfileScreen = ({ navigation }) => {
               />
             </View>
           </TouchableOpacity> */}
-             <ImagePickerDoctor picture={details.profileImage}/>
-
+          <ImagePickerDoctor picture={details.profileImage} />
           <Text style={styles.yourinfo}>Your Info</Text>
-          {details.map((data, index) => {
-            if (data._id === _id) {
-              return (
-                <React.Fragment key={index}>
-                  <DetailRowDoctor
-                    name="user-alt"
-                    textLineOne="Full Name"
-                    textLineTwo={`${data.firstName} ${data.lastName}`}
-                    category="fullName"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRowDoctor
-                    name="envelope"
-                    textLineOne="Email Address"
-                    textLineTwo={data.email}
-                    category="email"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRowDoctor
-                    name="id-card"
-                    textLineOne="NIC Number"
-                    textLineTwo={data.nic}
-                    category="nic"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRowDoctor
-                    name="mobile"
-                    textLineOne="Mobile Number"
-                    textLineTwo={data.mobileNumber}
-                    category="mobile"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRowDoctor
-                    name="user-md"
-                    textLineOne="Specialization"
-                    textLineTwo={data.specialization}
-                    category="specialization"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRowDoctor
-                    name="venus-mars"
-                    textLineOne="Gender"
-                    textLineTwo={data.gender}
-                    category="gender"
-                    refreshUserData={refreshUserData}
-                  />
-                </React.Fragment>
-              );
-            }
-            return null;
-          })}
+
+          <React.Fragment>
+            <DetailRowDoctor
+              name="user-alt"
+              textLineOne="Full Name"
+              textLineTwo={`${details.firstName} ${details.lastName}`}
+              category="fullName"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRowDoctor
+              name="envelope"
+              textLineOne="Email Address"
+              textLineTwo={details.email}
+              category="email"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRowDoctor
+              name="id-card"
+              textLineOne="NIC Number"
+              textLineTwo={details.nic}
+              category="nic"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRowDoctor
+              name="mobile"
+              textLineOne="Mobile Number"
+              textLineTwo={details.mobileNumber}
+              category="mobile"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRowDoctor
+              name="user-md"
+              textLineOne="Specialization"
+              textLineTwo={details.specialization}
+              category="specialization"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRowDoctor
+              name="venus-mars"
+              textLineOne="Gender"
+              textLineTwo={details.gender}
+              category="gender"
+              refreshUserData={refreshUserData}
+            />
+          </React.Fragment>
         </View>
 
         {/* Change Password Section */}

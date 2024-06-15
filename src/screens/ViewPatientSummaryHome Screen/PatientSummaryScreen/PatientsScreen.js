@@ -5,6 +5,7 @@ import PatientGridTile from "../Components/PatientGridTile";
 import Search from "../Components/Search";
 import CustomHeader from "../Components/CustomHeader";
 import axios from "axios";
+import api from "../../../Services/AuthService";
 
 import { baseUrl } from "../../../constants/constants";
 
@@ -16,16 +17,18 @@ function PatientsScreen({ navigation }) {
     fetchPatients();
   }, []);
 
-  const fetchPatients = async () => {
-    try {
-      const response = await axios.get(`${baseUrl}/patients`);
+  const fetchPatients = () => {
+    api
+      .get(`${baseUrl}/patients`)
+      .then((response) => {
+        setPatients(response.data);
 
-      setPatients(response.data);
+        console.log("Response from backend:", response.data);
+      })
 
-      console.log("Response from backend:", response.data);
-    } catch (error) {
-      console.error("Error fetching patients:", error);
-    }
+      .catch((error) => {
+        console.error("Error fetching patients:", error);
+      });
   };
   const handleSearch = (filteredData) => {
     setFilteredPatients(filteredData);
@@ -54,7 +57,6 @@ function PatientsScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <CustomHeader patients={patients} onSearch={handleSearch} />
-      {/* <Search patients={patients}  /> */}
 
       <FlatList
         data={filteredPatients.length > 0 ? filteredPatients : patients}

@@ -10,7 +10,17 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import MedicationScreen from "../PatientSummaryScreen/MedicationsScreen";
 
-function PatientSummary({ id, firstName, lastName, blood, email,weight,height,gender,nic }) {
+function PatientSummary({
+  id,
+  firstName,
+  lastName,
+  blood,
+  email,
+  weight,
+  height,
+  gender,
+  nic,
+}) {
   return (
     <View style={styles.innerContainer}>
       <View style={styles.first}>
@@ -84,16 +94,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     color: "#00567D",
     fontWeight: "bold",
-    
   },
   gender: {
     fontSize: 20,
     marginLeft: 60,
     color: "#00567D",
     fontWeight: "bold",
-    
   },
-
 
   id: {
     fontSize: 15,
@@ -115,7 +122,6 @@ const styles = StyleSheet.create({
   text1: {
     fontSize: 15,
     marginLeft: 60,
-
   },
   cat2: {
     flexDirection: "column",
@@ -124,8 +130,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 20,
     marginRight: "10%",
-    position:"relative"
-  
+    position: "relative",
   },
   cat3: {
     flexDirection: "column",
@@ -150,20 +155,13 @@ const styles = StyleSheet.create({
     marginLeft: 70,
   },
 
-
-
-
   text2: {
     fontSize: 15,
-    marginLeft:55,
- 
-   
+    marginLeft: 55,
   },
   text2: {
     fontSize: 15,
-    marginLeft:55,
- 
-   
+    marginLeft: 55,
   },
   text3: {
     fontSize: 15,
@@ -191,19 +189,16 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginLeft: 60,
   },
-  TextLineDownweight:{
+  TextLineDownweight: {
     fontSize: 15,
     marginLeft: 120,
-
   },
-  TextLineDownheight:{
+  TextLineDownheight: {
     fontSize: 15,
     marginLeft: 60,
-
   },
-  TextLineDownblood:{
+  TextLineDownblood: {
     fontSize: 15,
     marginLeft: 40,
-
-  }
+  },
 });

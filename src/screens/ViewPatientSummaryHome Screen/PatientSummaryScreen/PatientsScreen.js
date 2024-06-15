@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { FlatList, View, ScrollView, Text } from "react-native";
-import { LIST } from "../Data/dummy-data";
 import PatientGridTile from "../Components/PatientGridTile";
-import Search from "../Components/Search";
+// import Search from "../Components/Search";
 import CustomHeader from "../Components/CustomHeader";
-import axios from "axios";
+
 import api from "../../../Services/AuthService";
+
 
 import { baseUrl } from "../../../constants/constants";
 
@@ -16,6 +16,7 @@ function PatientsScreen({ navigation }) {
   useEffect(() => {
     fetchPatients();
   }, []);
+
 
   const fetchPatients = () => {
     api
@@ -39,6 +40,7 @@ function PatientsScreen({ navigation }) {
       navigation.navigate("PatientProfileScreen", { ptid: item._id });
     }
 
+
     return (
       <View>
         <PatientGridTile
@@ -53,7 +55,8 @@ function PatientsScreen({ navigation }) {
         {/* export data to PatientGridTile page */}
       </View>
     );
-  }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <CustomHeader patients={patients} onSearch={handleSearch} />

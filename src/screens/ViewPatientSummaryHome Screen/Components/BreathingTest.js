@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from "react-native";
-import axios from "axios";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+  Alert,
+} from "react-native";
+import api from "../../../Services/AuthService";
 import { baseUrl } from "../../../constants/constants";
 import { DataTable } from "react-native-paper";
 import { LineChart } from "react-native-chart-kit";
 
-function BreathingTest() {
+function BreathingTest({ PID }) {
+  console.log("PID: ", PID);
+
   const [testResult, setTestResult] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedTestData, setSelectedTestData] = useState([]);
@@ -16,7 +25,7 @@ function BreathingTest() {
 
   const fetchTestResults = async () => {
     try {
-      const response = await axios.get(`${baseUrl}/breathingTests`);
+      const response = await api.get(`${baseUrl}/breathingTests/${PID}`);
       console.log("Response from backend:", response.data);
       setTestResult(response.data);
     } catch (error) {
@@ -25,6 +34,13 @@ function BreathingTest() {
   };
 
   const testResultGraphModal = (data) => {
+    if (data.length === 0) {
+      Alert.alert(
+        "No test results to display",
+        "Patient hasn't performed any tests to view the graph"
+      );
+      return;
+    }
     // Sort the data based on date in ascending order
     const sortedData = data
       .slice()
@@ -71,33 +87,34 @@ function BreathingTest() {
         </View>
       </View>
       <DataTable>
-        {testResult.map((data, index) => (
-          <DataTable.Row key={index}>
-            <DataTable.Cell
-              style={{
-                justifyContent: "center",
-                backgroundColor: "#DEFFFB",
-                marginBottom: 5,
-                paddingRight: 10,
-                borderBottomLeftRadius: 10,
-                borderTopLeftRadius: 10,
-              }}
-            >
-              {data.date}
-            </DataTable.Cell>
-            <DataTable.Cell
-              style={{
-                justifyContent: "center",
-                backgroundColor: "#DEFFFB",
-                marginBottom: 5,
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 10,
-              }}
-            >
-              {data.stopwatchTime}
-            </DataTable.Cell>
-          </DataTable.Row>
-        ))}
+        {testResult &&
+          testResult.map((data, index) => (
+            <DataTable.Row key={index}>
+              <DataTable.Cell
+                style={{
+                  justifyContent: "center",
+                  backgroundColor: "#DEFFFB",
+                  marginBottom: 5,
+                  paddingRight: 10,
+                  borderBottomLeftRadius: 10,
+                  borderTopLeftRadius: 10,
+                }}
+              >
+                {data.date}
+              </DataTable.Cell>
+              <DataTable.Cell
+                style={{
+                  justifyContent: "center",
+                  backgroundColor: "#DEFFFB",
+                  marginBottom: 5,
+                  borderBottomRightRadius: 10,
+                  borderTopRightRadius: 10,
+                }}
+              >
+                {data.stopwatchTime}
+              </DataTable.Cell>
+            </DataTable.Row>
+          ))}
       </DataTable>
 
       <Modal

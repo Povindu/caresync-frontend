@@ -15,28 +15,50 @@ import { useEffect, useState } from "react";
 import api from "../../Services/AuthService";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
+import { useIsFocused } from "@react-navigation/native";
+
 //navigate to medication adding form
 const MedicationView = ({ navigation, route }) => {
-  
   const { user } = useAuthContext();
   const { refresh } = route.params ? route.params : { refresh: false };
-
-  useEffect(() => {
-    getmedication();
-    if (refresh) {
-      getmedication();
-    }
-  }, [refresh]);
-
+  const [currentUserID, setCurrentUserID] = useState(undefined);
   const [medidetail, setmedidetail] = useState([]);
   const [markedDates, setMarkedDates] = useState({});
   const [loading, setLoading] = useState(true);
+  const [docMode, setDocMode] = useState(false);
+
+  // console.log("Doc", docMode)
+
+  const updateUser = () => {
+    if (route.params?.PID === undefined) {
+      console.log("PID is undefined");
+      setCurrentUserID(user._id);
+    } else {
+      setCurrentUserID(route.params.PID);
+      setDocMode(true);
+      console.log("PID is defined", route.params.PID);
+    }
+  };
+
+  useEffect(() => {
+    updateUser();
+    if (currentUserID !== undefined) {
+      getmedication();
+    }
+  }, [useIsFocused()]);
+
+  useEffect(() => {
+    if (currentUserID !== undefined) {
+      getmedication();
+    }
+  }, [currentUserID]);
 
   //API integration for get results
   const getmedication = () => {
     setLoading(true);
+    console.log("Current User ID", currentUserID);
     api
-      .get(`${baseUrl}/medication/${user._id}`)
+      .get(`${baseUrl}/medication/${currentUserID}`)
       .then((response) => {
         setmedidetail(response.data);
         markDates(response.data);
@@ -46,21 +68,6 @@ const MedicationView = ({ navigation, route }) => {
         console.error("Axios Error : ", error);
         setLoading(false);
       });
-
-    // const URL = `${baseUrl}/medication`;
-    // fetch(URL)
-    //   .then((res) => {
-    //     return res.json();
-    //   })
-    //   .then((data) => {
-    //     setmedidetail(data);
-    //     markDates(data);
-    //     setLoading(false);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Axios Error : ", error);
-    //     setLoading(false);
-    //   });
   };
 
   //mark dates in calendar
@@ -134,7 +141,10 @@ const MedicationView = ({ navigation, route }) => {
   };
 
   const addMedication = () => {
-    navigation.navigate("AddMedication", { refreshMedicationView: true });
+    navigation.navigate("AddMedication", {
+      refreshMedicationView: true,
+      PID: docMode ? route.params.PID : null,
+    });
   };
 
   const updateMedication = (id) => {
@@ -142,12 +152,17 @@ const MedicationView = ({ navigation, route }) => {
     navigation.navigate("AddMedication", {
       refreshMedicationView: true,
       selectedItem,
+      PID: docMode ? route.params.PID : null,
     });
   };
 
   //navigate to medication view
   const viewMedication = (day) => {
-    navigation.navigate("ViewMedication", { selectedday: day });
+    console.log("Doc", docMode);
+    navigation.navigate("ViewMedication", {
+      selectedday: day,
+      PID: docMode ? route.params.PID : null,
+    });
   };
 
   return (
@@ -202,16 +217,22 @@ const MedicationView = ({ navigation, route }) => {
                 </View>
                 <View style={styles.editdeleteContainer}>
                   <TouchableOpacity
-                    disabled={item.addedBy !== "patient"}
+                    disabled={
+                      docMode
+                        ? item.addedBy !== user.fName
+                        : item.addedBy !== "patient"
+                    }
                     onPress={() => {
-                      //console.log(item._id);
                       updateMedication(item._id);
                     }}
                   >
                     <Text
                       style={[
                         styles.edittext,
-                        item.addedBy !== "patient" && styles.disabledButton,
+                        (docMode
+                          ? item.addedBy !== user.fName
+                          : item.addedBy !== "patient") &&
+                          styles.disabledButton,
                       ]}
                     >
                       Edit
@@ -219,7 +240,11 @@ const MedicationView = ({ navigation, route }) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      if (item.addedBy !== "patient") {
+                      if (
+                        docMode
+                          ? item.addedBy !== user.fName
+                          : item.addedBy !== "patient"
+                      ) {
                         confirmDelete(item._id);
                       } else {
                         deleteOneResult(item._id);

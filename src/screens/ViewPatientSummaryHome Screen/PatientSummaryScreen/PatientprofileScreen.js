@@ -10,15 +10,16 @@ import {
 } from "react-native";
 import api from "../../../Services/AuthService";
 import { useState, useEffect } from "react";
-
 import { baseUrl } from "../../../constants/constants";
 
 function PatientProfileScreen({ route, navigation }) {
   const [patients, setPatients] = useState([]);
+  const PID = route.params.PID;
 
   useEffect(() => {
     fetchPatients();
   }, []);
+
 
   const fetchPatients = () => {
     api
@@ -34,9 +35,9 @@ function PatientProfileScreen({ route, navigation }) {
       });
   };
 
-  const pId = route.params.ptid;
+
   const dispalyedpatient = patients.filter((patient) => {
-    return patient._id.indexOf(pId) >= 0;
+    return patient._id.indexOf(PID) >= 0;
   });
   console.log("Patient ID:", pId);
 
@@ -72,7 +73,9 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-              onPress={() => navigation.navigate("PatientHistoryScreen")}
+              // onPress={() =>
+              //   // navigation.navigate("PatientHistoryScreen", { PID: PID })
+              // }
             >
               <Image
                 style={styles.img}
@@ -92,7 +95,9 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-              onPress={() => navigation.navigate("MedicationHome")}
+              onPress={() =>
+                navigation.navigate("MedicationView", { PID: PID })
+              }
             >
               <Image
                 style={styles.img}
@@ -114,7 +119,9 @@ function PatientProfileScreen({ route, navigation }) {
                 marginTop: 20,
               }}
               onPress={() =>
+
                 navigation.navigate("ContactPatientScreen", { pId })
+
               }
             >
               <Image
@@ -134,7 +141,9 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
+
               onPress={() => navigation.navigate("TestResultScreen", { pId })}
+
             >
               <Image
                 style={styles.img}

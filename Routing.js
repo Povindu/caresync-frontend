@@ -34,23 +34,15 @@ import NewMedicalRecordScreen from "./src/screens/AddMedicalRecordScreen/NewMedi
 import MyprofileScreen from "./src/screens/PatientMyProfileScreen/MyprofileScreen";
 import DoctorProfileScreen from "./src/screens/DoctorMyProfileScreen/DoctorProfileScreen";
 import BodyCompositionScreen from "./src/screens/BodyComposition/BodyCompositionScreen";
-
 import TestResultScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/TestResultScreen";
-
 import AddExternalTestResults from "./src/screens/ExternalTestResults/AddExternalTestResults/AddExternalTestResults";
 import ViewExternalTestResults from "./src/screens/ExternalTestResults/ViewExternalTestResults/ViewExternalTestResult";
-
 import ForgotPassword from "./src/screens/AuthenticationScreens/FogotPassword";
 import ResetPasswordScreen from "./src/screens/AuthenticationScreens/ResetPassword";
 import OTPVerificationScreen from "./src/screens/AuthenticationScreens/OtpVerify";
-
 import DisplayMedicalRecords from "./src/screens/AddMedicalRecordScreen/DisplayMedicalRecords";
 import OtpVerifyScreen from "./src/screens/AuthenticationScreens/PatientAuthentication/OtpVerifyPatient";
 import ContactPatientScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/ContactPatientScreen";
-
-import MedicationHome from "./src/screens/DocSideMedicationView/MedicationHome";
-import AddMedicationByDoctor from "./src/screens/DocSideMedicationView/AddMedication";
-import ViewMedicationByDoctor from "./src/screens/DocSideMedicationView/ViewMedication";
 
 import { useAuthContext } from "./src/hooks/useAuthContext";
 
@@ -61,9 +53,6 @@ export default function Routing() {
 
   return (
     <NavigationContainer>
-      {/* {user ? console.log("User: ", user) : console.log("User is not logged in")}
-      {user?.roles === "doctor" ? console.log("Doctor") : console.log("Patient")} */}
-
       <Stack.Navigator
         initialRouteName="WelcomeScreen"
         // initialRouteName="DoctorDashboard"
@@ -138,18 +127,6 @@ export default function Routing() {
         <Stack.Screen name="AddMedication" component={AddMedication} />
         <Stack.Screen name="ViewMedication" component={ViewMedication} />
 
-        <Stack.Screen name="MedicationHome" component={MedicationHome} />
-          
-        <Stack.Screen
-          name="AddMedicationByDoctor"
-          component={AddMedicationByDoctor}
-        />
-        <Stack.Screen
-          name="ViewMedicationByDoctor"
-          component={ViewMedicationByDoctor}
-        />
-
-
         <Stack.Screen
           name="MyprofileScreen"
           component={MyprofileScreen}
@@ -182,7 +159,7 @@ export default function Routing() {
 
         {/* Doctor Screens */}
         <Stack.Screen name="DoctorDashboard" component={DoctorDashboard} />
-          
+
         <Stack.Screen
           name="PatientsScreen"
           component={PatientsScreen}

@@ -3,15 +3,17 @@ import Header2 from "../Components/Header2";
 import BreathingTest from "../Components/BreathingTest";
 import StepCounterTest from "../Components/StepCounterTest";
 
+
 function TestResultScreen({ route }) {
   const pId = route.params.pId; // Get pId from route parameters
+
   return (
     <View style={styles.container}>
       <Header2 text="Test Results" />
       <View style={styles.subcontainer}>
         <ScrollView>
-          <BreathingTest />
-          <StepCounterTest />
+          <BreathingTest PID={PID} />
+          <StepCounterTest PID={PID} />
         </ScrollView>
       </View>
     </View>

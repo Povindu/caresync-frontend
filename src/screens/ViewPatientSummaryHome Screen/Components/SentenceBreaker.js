@@ -1,14 +1,14 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React from "react";
+import { View, Text } from "react-native";
 
-const SentenceBreaker = ({ sentence}) => {
+const SentenceBreaker = ({ sentence }) => {
   // Split the sentence into words
-  const words = sentence.split(' ');
+  const words = sentence.split(" ");
 
   // Divide the words into groups of 4
   const dividedWords = [];
   for (let i = 0; i < words.length; i += 3) {
-    dividedWords.push(words.slice(i, i + 3).join(' '));
+    dividedWords.push(words.slice(i, i + 3).join(" "));
   }
 
   return (
@@ -19,7 +19,5 @@ const SentenceBreaker = ({ sentence}) => {
     </View>
   );
 };
-
-
 
 export default SentenceBreaker;

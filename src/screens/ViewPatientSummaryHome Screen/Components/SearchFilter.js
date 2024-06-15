@@ -1,5 +1,2 @@
-
-function SearchFilter({data,input,setInput}){
-
-}
+function SearchFilter({ data, input, setInput }) {}
 export default SearchFilter;

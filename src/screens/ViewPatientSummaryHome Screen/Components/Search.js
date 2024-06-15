@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 
@@ -41,7 +42,7 @@ function Search({ patients, onSearch }) {
       />
     </View>
   );
-}
+
 
 export default Search;
 const styles = StyleSheet.create({

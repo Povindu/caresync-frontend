@@ -17,8 +17,10 @@ function ContactPatientData({
   backgroundColor,
   color,
 }) {
+
   const { user } = useAuthContext();
   const id = user ? user._id : null;
+
   const handleEmailPress = () => {
     Linking.openURL(`mailto:${textLineTwo}`);
   };

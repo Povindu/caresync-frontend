@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Button, StyleSheet, ScrollView } from "react-native";
-import { useNavigation } from '@react-navigation/native'; // Import navigation hook
+import { useNavigation } from "@react-navigation/native"; // Import navigation hook
 import CustomDropdown from "../CustomDropdown";
 import TestProviderDropDown from "../TestProviderDropDown";
 import { baseUrl } from "../../../../constants/constants";
@@ -11,7 +11,6 @@ const TestModal = ({
   onClose,
   recordName,
   description,
-
 }) => {
   const [selectedOption1, setSelectedOption1] = useState(null);
   const [selectedOption2, setSelectedOption2] = useState(null);
@@ -47,12 +46,11 @@ const TestModal = ({
       }
 
       console.log("Success:", responseData);
-      navigation.navigate('DisplayMedicalRecords'); // Navigate to Display Medical Record page
+      navigation.navigate("DisplayMedicalRecords"); // Navigate to Display Medical Record page
     } catch (error) {
       console.error("Error saving incident:", error.message);
     }
   };
-
 
   return (
     <View style={styles.modalContainer}>
@@ -63,7 +61,15 @@ const TestModal = ({
           <CustomDropdown
             selectedOption1={selectedOption1}
             setSelectedOption1={setSelectedOption1}
-            options={["Spirometry", "Arterial Blood Gas (ABG) Test", "Bronchoscopy", "Chest X-ray", "CT Scan", "Peak Expiratory Flow (PEF) Test", "Other"]}
+            options={[
+              "Spirometry",
+              "Arterial Blood Gas (ABG) Test",
+              "Bronchoscopy",
+              "Chest X-ray",
+              "CT Scan",
+              "Peak Expiratory Flow (PEF) Test",
+              "Other",
+            ]}
             placeholderText="Select from the list"
           />
         </View>
@@ -92,7 +98,6 @@ const TestModal = ({
 
 const styles = StyleSheet.create({
   modalContainer: {
-
     justifyContent: "center",
     alignItems: "center",
     marginTop: "50%",

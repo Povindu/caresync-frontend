@@ -11,9 +11,8 @@ import {
 import Header from "../../components/Header";
 import MedicalRecordGrid from "../AddMedicalIncidentScreen/components/MedicalRecordGrid";
 import { baseUrl } from "../../constants/constants";
-import api from "../../Services/AuthService"
+import api from "../../Services/AuthService";
 import { ScrollView } from "react-native-gesture-handler";
-
 
 function DisplayMedicalRecords({ navigation }) {
   const [medicalRecords, setMedicalRecords] = useState([]);
@@ -62,14 +61,11 @@ function DisplayMedicalRecords({ navigation }) {
   }, []);
 
   return (
-
     <SafeAreaView>
-
       <Header name="Records History" />
 
       <View style={styles.background}>
         <View style={styles.container}>
-
           <FlatList
             data={medicalRecords}
             keyExtractor={(item) => item._id}
@@ -83,13 +79,9 @@ function DisplayMedicalRecords({ navigation }) {
               <Text style={styles.btntext}>Add New Record</Text>
             </Pressable>
           </View>
-
         </View>
       </View>
-
-
     </SafeAreaView>
-
   );
 }
 export default DisplayMedicalRecords;

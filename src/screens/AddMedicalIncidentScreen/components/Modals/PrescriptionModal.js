@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet, ScrollView, TextInput } from "react-native";
-import { useNavigation } from '@react-navigation/native'; // Import navigation hook
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native"; // Import navigation hook
 import { baseUrl } from "../../../../constants/constants";
-
 
 const PrescriptionModal = ({
   selectedStartDate,
@@ -10,14 +16,10 @@ const PrescriptionModal = ({
   onClose,
   recordName,
   description,
-
 }) => {
-
   const navigation = useNavigation(); // Get navigation object
-  const [presLink, setPresLink] = useState('');
-  const [prescriptionNote, setPrescriptionNote] = useState('');
-
-
+  const [presLink, setPresLink] = useState("");
+  const [prescriptionNote, setPrescriptionNote] = useState("");
 
   const saveIncident = async () => {
     try {
@@ -33,9 +35,7 @@ const PrescriptionModal = ({
           incidentType: selectedOption,
           date: selectedStartDate,
           pres_note: prescriptionNote,
-          link: presLink
-
-
+          link: presLink,
         }),
       });
 
@@ -51,12 +51,11 @@ const PrescriptionModal = ({
       }
 
       console.log("Success:", responseData);
-      navigation.navigate('DisplayMedicalRecords'); // Navigate to Display Medical Record page
+      navigation.navigate("DisplayMedicalRecords"); // Navigate to Display Medical Record page
     } catch (error) {
       console.error("Error saving incident:", error.message);
     }
   };
-
 
   return (
     <View style={styles.modalContainer}>
@@ -67,11 +66,9 @@ const PrescriptionModal = ({
           <TextInput
             style={styles.input}
             placeholder="max 30 characters"
-
             onChangeText={(text) => setPrescriptionNote(text)}
-
-
-          /></View>
+          />
+        </View>
         <Text style={styles.label}>Upload the link</Text>
         <View style={styles.container}>
           <TextInput
@@ -80,10 +77,7 @@ const PrescriptionModal = ({
             value={presLink}
             onChangeText={setPresLink}
           />
-
         </View>
-
-
       </View>
 
       <View style={styles.buttonContainer}>
@@ -100,7 +94,6 @@ const PrescriptionModal = ({
 
 const styles = StyleSheet.create({
   modalContainer: {
-
     justifyContent: "center",
     alignItems: "center",
     marginTop: "50%",
@@ -147,19 +140,16 @@ const styles = StyleSheet.create({
   label: {
     marginTop: 25,
     fontSize: 16,
-    fontWeight: '700',
-    marginLeft: '8%',
-
+    fontWeight: "700",
+    marginLeft: "8%",
   },
   inputcontainer: {
-    marginVertical: '-16%',
+    marginVertical: "-16%",
     marginTop: 2,
   },
 
-
-
   input: {
-    borderColor: '#8e8e8e',
+    borderColor: "#8e8e8e",
     borderWidth: 1,
     padding: 10,
 
@@ -169,10 +159,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 10,
     fontSize: 16,
-
-
   },
-
 });
 
 export default PrescriptionModal;

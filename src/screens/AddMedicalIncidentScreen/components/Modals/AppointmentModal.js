@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, TextInput } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, Button, StyleSheet, TextInput } from "react-native";
 import { baseUrl } from "../../../../constants/constants";
-import { useNavigation } from '@react-navigation/native';
-
-
+import { useNavigation } from "@react-navigation/native";
 
 const AppointmentModal = ({
   selectedStartDate,
   selectedOption,
   onClose,
   recordName,
-  description, }) => {
-
-  const [appointmentPurpose, setAppointmentPurpose] = useState('');
-  const [healthProName, setHealthProName] = useState('');
-  const [healthProContact, setHealthProContact] = useState('');
+  description,
+}) => {
+  const [appointmentPurpose, setAppointmentPurpose] = useState("");
+  const [healthProName, setHealthProName] = useState("");
+  const [healthProContact, setHealthProContact] = useState("");
 
   const navigation = useNavigation(); // Get navigation object
 
@@ -37,9 +35,7 @@ const AppointmentModal = ({
           date: selectedStartDate,
           appointmentPurpose: appointmentPurpose,
           health_pro_name: healthProName,
-          health_pro_contact: healthProContact
-
-
+          health_pro_contact: healthProContact,
         }),
       });
 
@@ -55,29 +51,25 @@ const AppointmentModal = ({
       }
 
       console.log("Success:", responseData);
-      navigation.navigate('DisplayMedicalRecords'); // Navigate to Display Medical Record page
+      navigation.navigate("DisplayMedicalRecords"); // Navigate to Display Medical Record page
     } catch (error) {
       console.error("Error saving incident:", error.message);
     }
   };
-
-
-
 
   return (
     <View style={styles.modalContainer}>
       <Text style={styles.modalText}>Add Appointment Details</Text>
       {/* <ScrollView style={styles.scrollview}> */}
       <View style={styles.contentContainer}>
-
         <View style={styles.inputcontainer}>
           <Text style={styles.label}>Purpose of the appoinment:</Text>
           <TextInput
             style={styles.input}
             placeholder="Type the purpose "
             onChangeText={(text) => setAppointmentPurpose(text)}
-
-          /></View>
+          />
+        </View>
 
         <Text style={styles.topic}>Helathcare provider's Details</Text>
 
@@ -87,8 +79,8 @@ const AppointmentModal = ({
             style={styles.input}
             placeholder="Type Healthcare provider's name"
             onChangeText={(text) => setHealthProName(text)}
-
-          /></View>
+          />
+        </View>
 
         <View style={styles.inputcontainer}>
           <Text style={styles.label}>Healthcare Center Name</Text>
@@ -96,106 +88,101 @@ const AppointmentModal = ({
             style={styles.input}
             placeholder="Type the Healthcare Center Name "
             onChangeText={(text) => setHealthProContact(text)}
-
-          /></View>
+          />
+        </View>
       </View>
 
-
       <View style={styles.buttonContainer}>
-
         <View style={styles.buttonWrapper}>
           <Button title="Close" onPress={onClose} color="#00567D" />
         </View>
         <View style={styles.buttonWrapper}>
-          <Button title="OK" onPress={saveAppointmentIncident} color="#00567D" />
+          <Button
+            title="OK"
+            onPress={saveAppointmentIncident}
+            color="#00567D"
+          />
         </View>
       </View>
     </View>
-
   );
 };
 
 const styles = StyleSheet.create({
   modalContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '54%',
-    position: 'absolute',
-    height: '75%',
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "54%",
+    position: "absolute",
+    height: "75%",
     left: 0,
     right: 0,
     bottom: 10,
-    marginLeft: '3%',
-    alignContent: 'center',
-    justifyContent: 'center',
+    marginLeft: "3%",
+    alignContent: "center",
+    justifyContent: "center",
     elevation: 4,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: "#f5f5f5",
     borderRadius: 10,
     padding: 15,
-    width: '94%',
+    width: "94%",
   },
 
   topic: {
     paddingTop: 30,
     fontSize: 18,
     paddingLeft: 15,
-    fontWeight: '800'
+    fontWeight: "800",
   },
   modalText: {
     fontSize: 23,
-    fontWeight: '900',
+    fontWeight: "900",
     top: 0,
-    position: 'absolute',
+    position: "absolute",
     padding: 10,
-    color: "#013d59"
-
+    color: "#013d59",
   },
   contentContainer: {
-    width: '100%',
+    width: "100%",
     top: 6,
-    position: 'absolute',
-    paddingTop: '6%',
+    position: "absolute",
+    paddingTop: "6%",
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    position: 'absolute',
-    width: '92%',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    position: "absolute",
+    width: "92%",
     left: 30,
     // right: 15,
     top: 580,
   },
   buttonWrapper: {
-    width: '40%', // Adjust as needed
+    width: "40%", // Adjust as needed
   },
   label: {
     marginTop: 25,
     fontSize: 16,
-    fontWeight: '700',
-    marginLeft: '8%',
-
+    fontWeight: "700",
+    marginLeft: "8%",
   },
   inputcontainer: {
-    marginVertical: '-16%',
+    marginVertical: "-16%",
     marginTop: 2,
   },
 
-
-
   input: {
-    borderColor: '#8e8e8e',
+    borderColor: "#8e8e8e",
     borderWidth: 1,
     padding: 10,
-    width: '88%',
+    width: "88%",
     height: 38,
     marginBottom: 40,
     marginLeft: 25,
     marginTop: 10,
     borderRadius: 10,
     fontSize: 16,
-
   },
-
 });
 
 export default AppointmentModal;

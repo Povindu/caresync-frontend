@@ -3,6 +3,7 @@ import Header2 from "../Components/Header2";
 import ContactPatientData from "../Components/ContactPatientData";
 import React, { useState, useEffect } from "react";
 import { baseUrl } from "../../../constants/constants";
+
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import api from "../../../Services/AuthService";
 
@@ -14,14 +15,18 @@ function ContactPatientScreen({ route }) {
 
   useEffect(() => {
     setId(user._id);
+
     getDetails();
   }, []);
 
   const getDetails = () => {
+
     console.log("User in ContactPatientScreen:", pId);
     api
       .get(`${baseUrl}/patients/${pId}`)
+
       .then((response) => {
+        console.log("Response from backend:", response.data);
         setDetails(response.data);
         console.log("Response from backend:", response.data);
       })
@@ -47,7 +52,7 @@ function ContactPatientScreen({ route }) {
             textLineTwo={`${details.firstName} ${details.lastName}`}
             category="fullName"
             backgroundColor="#FEFFE0"
-            refreshUserData={refreshUserData}
+
           />
           <ContactPatientData
             name="envelope"

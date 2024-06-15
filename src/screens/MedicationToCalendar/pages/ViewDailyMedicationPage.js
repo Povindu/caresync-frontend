@@ -24,18 +24,26 @@ const ViewMedication = ({ route }) => {
   const dayOfWeekFull = day.toLocaleDateString("en-US", { weekday: "long" });
   const dayOfWeek = dayOfWeekFull.split(" ")[0];
 
+  let currentUserID;
+
   useEffect(() => {
     getmedicationforDay(selectedday.dateString);
   }, [selectedday.dateString]);
 
   //get medication when touch calendar day
   const getmedicationforDay = (day) => {
+    if (route.params?.PID && route.params.PID != undefined) {
+      currentUserID = route.params.PID;
+    } else {
+      currentUserID = user._id;
+      console.log("PID is null");
+    }
     setLoading(true);
     console.log(day);
     api
       .get(`${baseUrl}/medication/date/${day}`, {
         params: {
-          patientID: user._id,
+          patientID: currentUserID,
         },
       })
       .then((response) => {
@@ -47,20 +55,6 @@ const ViewMedication = ({ route }) => {
         console.error("Axios Error : ", error);
         setLoading(false);
       });
-
-    // const URL = `${baseUrl}/medication/date/${day}`;
-    // fetch(URL)
-    //   .then((res) => {
-    //     return res.json();
-    //   })
-    //   .then((data) => {
-    //     setmedidetail(data.response);
-    //     setLoading(false);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //     setLoading(false);
-    //   });
   };
 
   if (loading) {

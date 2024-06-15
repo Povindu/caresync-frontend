@@ -9,6 +9,7 @@ import {
   Modal,
   Dimensions,
 } from "react-native";
+
 import Header from "../../MedicalTestHomeScreen/components/Header";
 import { TextInput, RadioButton } from "react-native-paper";
 import { EvilIcons, AntDesign } from "@expo/vector-icons";
@@ -30,11 +31,11 @@ const AddMedication = ({ navigation, route }) => {
   const [isModalVisible, setisModalVisible] = useState(false);
   const [checked, setChecked] = useState("before");
 
-  const padtoTwo = (number) => (number <= 9 ? `0${number}` : number);
-  var date = new Date().getDate();
-  var month = new Date().getMonth() + 1;
-  var year = new Date().getFullYear();
-  let sDate = `${year}-${padtoTwo(month)}-${padtoTwo(date)}`;
+  // const padtoTwo = (number) => (number <= 9 ? `0${number}` : number);
+  // var date = new Date().getDate();
+  // var month = new Date().getMonth() + 1;
+  // var year = new Date().getFullYear();
+  // let sDate = `${year}-${padtoTwo(month)}-${padtoTwo(date)}`;
 
   const [isEdit, setisEdit] = useState(false);
   const { selectedItem } = route.params;
@@ -42,8 +43,28 @@ const AddMedication = ({ navigation, route }) => {
   const today = new Date();
   const startingDate = format(new Date(today), "yyyy-MM-dd");
 
+  let currentUserID;
+  let DoctorMode = false;
+  let by = "Patient";
+
+  const updateUserID = () => {
+    if (route.params?.PID != undefined) {
+      currentUserID = route.params.PID;
+      DoctorMode = true;
+      by = user.fName;
+      console.log("PID is not null", route.params.PID);
+    } else {
+      currentUserID = user._id;
+      console.log("PID is null");
+    }
+  };
+
   useEffect(() => {
-    console.log(selectedItem);
+    updateUserID();
+  }, []);
+
+  useEffect(() => {
+    // console.log(selectedItem);
     if (selectedItem) {
       // Populate the form fields with selectedItem values
       setMedicineName(selectedItem.medicine);
@@ -59,7 +80,22 @@ const AddMedication = ({ navigation, route }) => {
 
   //refresh medications when add a new medication
   const refreshMedicationView = () => {
-    navigation.navigate("MedicationView", { refresh: true });
+    console.log(
+      "refresh",
+      route.params
+        ? route.params.PID
+          ? route.params.PID
+          : undefined
+        : undefined
+    );
+    navigation.navigate("MedicationView", {
+      refresh: true,
+      PID: route.params
+        ? route.params.PID
+          ? route.params.PID
+          : undefined
+        : undefined,
+    });
   };
 
   //generate and store all dates between start date and end date in an array
@@ -71,37 +107,53 @@ const AddMedication = ({ navigation, route }) => {
 
   const dayArray = generateDateRange(dateInput, noofdays);
 
-  const by = "patient";
-
   //add new medication to the database
   const addmedication = () => {
-    const payload = {
-      userID: user._id,
-      addedBy: by,
-      medicine: medicineName,
-      addedDate: dateInput,
-      pills: pillAmount,
-      days: noofdays,
-      dayArray: dayArray,
-      times: choosePeriod,
-      baw: checked,
-      description: description,
-    };
-    api
-      .post(`${baseUrl}/medication/add`, payload)
-      .then(() => {
-        console.log("add");
-        setisEdit(false);
-      })
-      .catch((error) => {
-        console.error("Axios Error : ", error);
-      });
+    updateUserID();
+
+    if (
+      !medicineName ||
+      !dateInput ||
+      !pillAmount ||
+      !noofdays ||
+      !choosePeriod ||
+      !checked
+    ) {
+      Alert.alert("All fields are required", "Please fill all fields");
+    } else if (dayArray.length === 0) {
+      Alert.alert("Please select the starting date and number of days", "");
+    } else {
+      const payload = {
+        userID: currentUserID,
+        addedBy: by,
+        medicine: medicineName,
+        addedDate: dateInput,
+        pills: pillAmount,
+        days: noofdays,
+        dayArray: dayArray,
+        times: choosePeriod,
+        baw: checked,
+        description: description,
+      };
+      api
+        .post(`${baseUrl}/medication/add`, payload)
+        .then(() => {
+          console.log("add");
+          refreshMedicationView();
+          AlertBox();
+          setisEdit(false);
+        })
+        .catch((error) => {
+          console.error("Axios Error : ", error);
+        });
+    }
   };
 
   //update existing medication in the database
   const updatemedication = (id) => {
+    updateUserID();
     const payload = {
-      userID: user._id,
+      userID: currentUserID,
       medicine: medicineName,
       addedDate: dateInput,
       pills: pillAmount,
@@ -115,7 +167,9 @@ const AddMedication = ({ navigation, route }) => {
       .put(`${baseUrl}/medication/update/${id}`, payload)
       .then((response) => {
         console.log("updated");
+        AlertBox();
         setisEdit(false);
+        refreshMedicationView();
       })
       .catch((error) => {
         console.error("Axios Error : ", error);
@@ -126,20 +180,7 @@ const AddMedication = ({ navigation, route }) => {
   const AlertBox = () => {
     Alert.alert(
       "Successful message",
-      `${isEdit ? "Update" : "Add"} medication to the calendar successfully.`,
-      [
-        {
-          text: "ok",
-          onPress: () => {
-            if (!isEdit) {
-              addmedication();
-            } else {
-              updatemedication(selectedItem._id);
-            }
-            refreshMedicationView();
-          },
-        },
-      ]
+      `${isEdit ? "Update" : "Add"} medication to the calendar successfully.`
     );
   };
 
@@ -345,7 +386,16 @@ const AddMedication = ({ navigation, route }) => {
             style={{ padding: 5, backgroundColor: "white", marginTop: 5 }}
           />
           <View style={{ alignItems: "center", padding: 10 }}>
-            <TouchableOpacity style={styles.button} onPress={AlertBox}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                if (!isEdit) {
+                  addmedication();
+                } else {
+                  updatemedication(selectedItem._id);
+                }
+              }}
+            >
               <Text style={styles.buttontext}>
                 {isEdit ? "Update Medication" : "Add Medication"}
               </Text>

@@ -7,7 +7,6 @@ import {
   Alert,
   ScrollView,
   Modal,
-  Dimensions,
 } from "react-native";
 import Header from "../../MedicalTestHomeScreen/components/Header";
 import { TextInput, RadioButton } from "react-native-paper";
@@ -18,6 +17,8 @@ import { baseUrl } from "../../../constants/constants";
 import { format, addDays, eachDayOfInterval } from "date-fns";
 import DatePicker from "react-native-modern-datepicker";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import { SelectList } from "react-native-dropdown-select-list";
+import { UsesNonExemptEncryption } from "@expo/config-plugins/build/ios";
 
 const AddMedication = ({ navigation, route }) => {
   const [medicineName, setMedicineName] = useState("");
@@ -27,8 +28,11 @@ const AddMedication = ({ navigation, route }) => {
   const [noofdays, setnoofDays] = useState("");
   const [choosePeriod, setchoosePeriod] = useState(1);
   const [description, setdescription] = useState("");
-  const [isModalVisible, setisModalVisible] = useState(false);
   const [checked, setChecked] = useState("before");
+  const [frequency, setfrequency] = useState("day");
+  const [mediType, setmediType] = useState("Tablet");
+  const [unit, setunit] = useState("mg");
+  const [duration, setDuration] = useState("days")
 
   const padtoTwo = (number) => (number <= 9 ? `0${number}` : number);
   var date = new Date().getDate();
@@ -41,6 +45,84 @@ const AddMedication = ({ navigation, route }) => {
   const { user } = useAuthContext();
   const today = new Date();
   const startingDate = format(new Date(today), "yyyy-MM-dd");
+
+  const frequencyList = [
+    {
+      key: "hour",
+      value: "hour",
+    },
+    {
+      key: "day",
+      value: "day",
+    },
+    {
+      key: "every other day",
+      value: "every other day",
+    },
+    {
+      key: "week",
+      value: "week",
+    },
+    {
+      key: "month",
+      value: "month",
+    },
+  ];
+
+  const mediTypeList = [
+    {
+      key: "Tablet",
+      value: "Tablet",
+    },
+    {
+      key: "Injection",
+      value: "Injection",
+    },
+    {
+      key: "Syrup",
+      value: "Syrup",
+    },
+  ];
+
+  const unitList = {
+    Tablet: [
+      {
+        key: "mg",
+        value: "mg",
+      },
+      {
+        key: "micrograme",
+        value: "micrograme",
+      },
+    ],
+    Injection: [
+      {
+        key: "ml",
+        value: "ml",
+      },
+    ],
+    Syrup: [
+      {
+        key: "ml",
+        value: "ml",
+      },
+    ],
+  };
+
+  const durationList = [
+    {
+      key: "days",
+      value: "days",
+    },
+    {
+      key: "weeks",
+      value: "weeks",
+    },
+    {
+      key: "months",
+      value: "months",
+    },
+  ];
 
   useEffect(() => {
     console.log(selectedItem);
@@ -90,7 +172,7 @@ const AddMedication = ({ navigation, route }) => {
     api
       .post(`${baseUrl}/medication/add`, payload)
       .then(() => {
-        console.log("add");
+        console.log("add", sDate, mediType, unit, frequency, duration);
         setisEdit(false);
       })
       .catch((error) => {
@@ -114,7 +196,7 @@ const AddMedication = ({ navigation, route }) => {
     api
       .put(`${baseUrl}/medication/update/${id}`, payload)
       .then((response) => {
-        console.log("updated");
+        console.log("add", sDate, mediType, unit, frequency, duration);
         setisEdit(false);
       })
       .catch((error) => {
@@ -143,42 +225,30 @@ const AddMedication = ({ navigation, route }) => {
     );
   };
 
-  //function with modal visibility changing, parameter value boolean
-  const changeModalVisibility = (bool) => {
-    setisModalVisible(bool);
-  };
-
-  const OPTIONS = [1, 2, 3, 4]; //period options
-  const WIDTH = Dimensions.get("window").width;
-  const HEIGHT = Dimensions.get("window").height;
-
-  const onPressItem = (option) => {
-    changeModalVisibility(false);
-    setchoosePeriod(option);
-  };
-
   const handleOnPressStartDate = () => {
     setOpenStartDatePicker(!openStartDatePicker);
   };
-
-  //map time options with the modal items
-  const option = OPTIONS.map((item, index) => {
-    return (
-      <TouchableOpacity
-        style={styles.option}
-        key={index}
-        onPress={() => onPressItem(item)}
-      >
-        <Text style={styles.textItem}>{item}</Text>
-      </TouchableOpacity>
-    );
-  });
 
   return (
     <View style={{ flex: 1 }}>
       <Header name={isEdit ? "Update Medications" : "Add Medications"} />
       <ScrollView>
         <View style={styles.container}>
+          <Text style={styles.topics}>Medication Strength</Text>
+          <View style={styles.strengthContainer}>
+            <SelectList
+              setSelected={setmediType}
+              data={mediTypeList}
+              placeholder="Tablet"
+              defaultOption={{ key: "Tablet", value: "Tablet" }}
+            />
+            <SelectList
+              setSelected={setunit}
+              data={unitList[mediType]}
+              placeholder="mg"
+              defaultOption={unitList[mediType][0]}
+            />
+          </View>
           <Text style={styles.topics}>Name of Medicine</Text>
           <View style={styles.nameContainer}>
             <TextInput
@@ -239,77 +309,62 @@ const AddMedication = ({ navigation, route }) => {
             </View>
           </Modal>
 
-          <Text style={styles.topics}>Dosage & Duration</Text>
+          <Text style={styles.topics}>Dosage</Text>
           <Text style={styles.subtopics}>
             How many pills need to take at once? & How long?
           </Text>
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <View style={styles.nameContainer2}>
+          <View style={styles.strengthContainer}>
+            <View style={styles.nametimeContainer}>
               <TextInput
-                placeholder="pills"
+                placeholder="dosage"
                 onChangeText={setPillAmount}
                 keyboardType="numeric"
-                style={styles.textName2}
+                style={styles.texttime}
               />
-              <TouchableOpacity onPress={() => {}}>
-                <AntDesign name="down" size={16} color="gray" />
-              </TouchableOpacity>
             </View>
-            <View style={styles.nameContainer2}>
-              <TextInput
-                placeholder="days"
-                onChangeText={setnoofDays}
-                keyboardType="numeric"
-                style={styles.textName2}
-              />
-              <TouchableOpacity onPress={() => {}}>
-                <AntDesign name="down" size={16} color="gray" />
-              </TouchableOpacity>
-            </View>
+            <Text>{unit}</Text>
           </View>
-
-          <Text style={styles.topics}>Time</Text>
-          <Text style={styles.subtopics}>
-            Add times per day when you need to take pills
-          </Text>
           <View style={{ display: "flex", flexDirection: "row" }}>
-            <TouchableOpacity
-              onPress={() => changeModalVisibility(true)}
-              style={styles.nameContainer3}
-            >
-              <Text style={styles.textName3}>{choosePeriod}</Text>
-            </TouchableOpacity>
-
-            <Modal
-              transparent={true}
-              animationType="fade"
-              visible={isModalVisible}
-              nRequestClose={() => changeModalVisibility(false)}
-            >
-              <TouchableOpacity
-                onPress={() => changeModalVisibility(false)}
-                style={styles.modalContainer2}
-              >
-                <View
-                  style={[
-                    styles.modal,
-                    { width: WIDTH - 230, height: HEIGHT - 570 },
-                  ]}
-                >
-                  {option}
-                </View>
-              </TouchableOpacity>
-            </Modal>
+            <View style={{ display: "flex", flexDirection: "column" }}>
+              <Text style={styles.topics}>Time</Text>
+              <View style={styles.nametimeContainer}>
+                <TextInput
+                  placeholder="times"
+                  onChangeText={setchoosePeriod}
+                  keyboardType="numeric"
+                  style={styles.texttime}
+                />
+              </View>
+            </View>
+            <View style={{ display: "flex", flexDirection: "column" }}>
+              <Text style={styles.topics}>Frequency</Text>
+              <View style={styles.freqdropdown}>
+                <SelectList
+                  setSelected={setfrequency}
+                  data={frequencyList}
+                  placeholder="day"
+                  defaultOption={{ label: "day", value: "day" }}
+                />
+              </View>
+            </View>
           </View>
-
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          ></View>
-
+          <Text style={styles.topics}>Duration</Text>
+          <View style={styles.strengthContainer}>
+          <View style={styles.nametimeContainer}>
+            <TextInput
+              placeholder="duration"
+              onChangeText={setnoofDays}
+              keyboardType="numeric"
+              style={styles.texttime}
+            />
+          </View>
+          <SelectList
+              setSelected={setDuration}
+              data={durationList}
+              placeholder="days"
+              defaultOption={{ key: "days", value: "days" }}
+            />
+            </View>
           <Text style={styles.topics}>Food & Pill</Text>
           <Text style={styles.subtopics}>
             What's the time you need to take pill?
@@ -358,6 +413,10 @@ const AddMedication = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  strengthContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
   centeredView: {
     flex: 1,
     alignItems: "center",
@@ -430,6 +489,24 @@ const styles = StyleSheet.create({
     width: "65%",
     marginLeft: 10,
     marginRight: 10,
+  },
+  texttime: {
+    backgroundColor: "white",
+    height: 40,
+    width: "80%",
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  nametimeContainer: {
+    marginTop: 5,
+    marginBottom: 5,
+    width: "55%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 30,
   },
   nameContainer3: {
     marginTop: 5,
@@ -512,6 +589,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     alignSelf: "center",
+  },
+  freqdropdown: {
+    width: "80%",
   },
 });
 

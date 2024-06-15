@@ -51,7 +51,7 @@ const BreathingTestDataStore = ({ sampleData, deleteOne }) => {
                     deleteOne(data._id);
                   }}
                 >
-                  <MaterialCommunityIcons name="delete-outline" />
+                  <MaterialCommunityIcons name="delete-outline" color="red" />
                 </TouchableOpacity>
               </DataTable.Cell>
             </DataTable.Row>

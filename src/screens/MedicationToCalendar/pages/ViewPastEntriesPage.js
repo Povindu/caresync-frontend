@@ -107,7 +107,7 @@ const ViewPastEntries = ({ navigation }) => {
         </View>
       ) : medidetail.length === 0 ? (
         <View style={styles.centered}>
-          <Text>No medications</Text>
+          <Text>No past medications</Text>
         </View>
       ) : (
         <FlatList

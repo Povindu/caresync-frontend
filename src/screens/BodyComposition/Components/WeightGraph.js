@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { baseUrl } from "../../../constants/constants";
 import axios from "axios";
+import api from "../../../Services/AuthService";
 
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { LineChart } from "react-native-chart-kit";
@@ -25,7 +26,7 @@ function WeightGraph() {
   }, [user]);
 
   const getWeights = (userId) => {
-    axios
+    api
       .get(`${baseUrl}/patients/${userId}`)
       .then((response) => {
         const weights = response.data.pastWeights || [];

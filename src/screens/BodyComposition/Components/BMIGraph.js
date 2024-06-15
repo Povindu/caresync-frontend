@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { baseUrl } from "../../../constants/constants";
 import axios from "axios";
+import api from "../../../Services/AuthService";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { LineChart } from "react-native-chart-kit";
 import BMIScale from "./BMIScale";
@@ -19,7 +20,7 @@ function BMIGraph() {
   }, [user]);
 
   const getWeights = (userId) => {
-    axios
+    api
       .get(`${baseUrl}/patients/${userId}`)
       .then((response) => {
         const weights = response.data.pastWeights || [];

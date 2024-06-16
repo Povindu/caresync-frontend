@@ -3,48 +3,35 @@ import Header2 from "../Components/Header2";
 import ContactPatientData from "../Components/ContactPatientData";
 import React, { useState, useEffect } from "react";
 import { baseUrl } from "../../../constants/constants";
-
-import { useAuthContext } from "../../../hooks/useAuthContext";
 import api from "../../../Services/AuthService";
 
 function ContactPatientScreen({ route }) {
-  const { user } = useAuthContext();
+  const PID = route.params.PID;
   const [details, setDetails] = useState([]);
-  const [id, setId] = useState();
-  const pId = route.params.pId; // Get pId from route parameters
+  const [_id, setId] = useState(PID);
 
   useEffect(() => {
-    setId(user._id);
-
+    setId(PID);
     getDetails();
   }, []);
 
   const getDetails = () => {
-
-    console.log("User in ContactPatientScreen:", pId);
     api
-      .get(`${baseUrl}/patients/${pId}`)
-
+      .get(`${baseUrl}/patients/${_id}`)
       .then((response) => {
         console.log("Response from backend:", response.data);
         setDetails(response.data);
-        console.log("Response from backend:", response.data);
       })
       .catch((error) => {
         console.error("Axios Error: ", error);
       });
   };
-  const refreshUserData = () => {
-    getDetails(); // Fetch updated user data
-  };
-
   return (
     <View style={styles.maincontainer}>
       <Header2 text="Contact Patient" />
 
       <View style={styles.container}>
         <Text style={styles.contactinfo}>Contacts</Text>
-
         <React.Fragment>
           <ContactPatientData
             name="user-alt"
@@ -52,10 +39,20 @@ function ContactPatientScreen({ route }) {
             textLineTwo={`${details.firstName} ${details.lastName}`}
             category="fullName"
             backgroundColor="#FEFFE0"
-
           />
           <ContactPatientData
             name="envelope"
+
+    
+          
+            
+    
+
+          
+          Expand Down
+    
+    
+  
             textLineOne="Email Address"
             textLineTwo={details.email}
             category="email"

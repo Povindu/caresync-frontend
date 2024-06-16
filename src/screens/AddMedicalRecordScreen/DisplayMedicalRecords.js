@@ -12,15 +12,15 @@ import Header from "../../components/Header";
 import MedicalRecordGrid from "../AddMedicalIncidentScreen/components/MedicalRecordGrid";
 import { baseUrl } from "../../constants/constants";
 import api from "../../Services/AuthService";
-import { ScrollView } from "react-native-gesture-handler";
+
 
 function DisplayMedicalRecords({ navigation }) {
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const fetchMedicalHistory = async () => {
+  const fetchMedicalRecords = async () => {
     try {
-      const response = await api.get(`${baseUrl}/medicalIncident`);
+      const response = await api.get(`${baseUrl}/medicalRecord`);
       // console.log("Response from backend:", response.data);
       setMedicalRecords(response.data);
     } catch (error) {
@@ -29,10 +29,10 @@ function DisplayMedicalRecords({ navigation }) {
   };
 
   useEffect(() => {
-    fetchMedicalHistory();
+    fetchMedicalRecords();
     const unsubscribe = navigation.addListener("focus", () => {
       // Refresh the data whenever the screen gains focus
-      fetchMedicalHistory();
+      fetchMedicalRecords();
     });
     return unsubscribe;
   }, [navigation]);
@@ -55,7 +55,7 @@ function DisplayMedicalRecords({ navigation }) {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    fetchMedicalHistory().then(() => {
+    fetchMedicalRecords().then(() => {
       setRefreshing(false);
     });
   }, []);

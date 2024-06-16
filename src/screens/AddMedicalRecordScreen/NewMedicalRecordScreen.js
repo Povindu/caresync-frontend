@@ -8,22 +8,24 @@ import {
   SafeAreaView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import api from "../../Services/AuthService";
+import { useAuthContext } from "../../hooks/useAuthContext";
 import Header from "../../components/Header";
 import { baseUrl } from "../../constants/constants";
 
 const NewMedicalRecordScreen = () => {
   const navigation = useNavigation();
+  const { user } = useAuthContext
 
   const handleAddNew = () => {
-    fetch(`${baseUrl}/medicalIncident`, {
+    fetch(`${baseUrl}/medicalRecord/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         recordName: recordName,
-        recordDescription: recordDescription,
+        description: recordDescription,
       }),
     })
       .then((response) => response.json())

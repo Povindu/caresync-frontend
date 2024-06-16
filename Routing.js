@@ -118,7 +118,7 @@ export default function Routing() {
           component={SelectDocForAccessScreen}
           options={{ headerShown: false }}
         />
-        
+
         <Stack.Screen
           name="ViewDoctorsWithAccess"
           component={ViewDoctorsWithAccess}

@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { baseUrl } from "../../constants/constants";
-import axios from "axios";
+// import axios from "axios";
 import Header from "../../components/Header";
 import DetailRow from "./components/DetailRow";
 import api from "../../Services/AuthService";

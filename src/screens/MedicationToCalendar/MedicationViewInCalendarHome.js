@@ -12,27 +12,56 @@ import { useEffect, useState } from "react";
 import api from "../../Services/AuthService";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
+import { useIsFocused } from "@react-navigation/native";
+
 //navigate to medication adding form
 const MedicationView = ({ navigation, route }) => {
-  
   const { user } = useAuthContext();
   const { refresh } = route.params ? route.params : { refresh: false };
+  const [currentUserID, setCurrentUserID] = useState(undefined);
+  const [medidetail, setmedidetail] = useState([]);
+  const [markedDates, setMarkedDates] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [docMode, setDocMode] = useState(false);
+
+  // console.log("Doc", docMode)
+
+  const updateUser = () => {
+    if (route.params?.PID === undefined) {
+      console.log("PID is undefined");
+      setCurrentUserID(user._id);
+    } else {
+      setCurrentUserID(route.params.PID);
+      setDocMode(true);
+      console.log("PID is defined", route.params.PID);
+    }
+  };
 
   useEffect(() => {
     getMarkdates();
-    if (refresh) {
-      getMarkdates();
+    updateUser();
+    if (currentUserID !== undefined) {
+      getmedication();
     }
-  }, [refresh]);
+  }, [useIsFocused()]);
+
 
   const [markedDates, setMarkedDates] = useState({});
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    if (currentUserID !== undefined) {
+      getmedication();
+    }
+  }, [currentUserID]);
+
+
   //get data and mark dates in calendar
   const getMarkdates = () => {
     setLoading(true);
+    console.log("Current User ID", currentUserID);
     api
-      .get(`${baseUrl}/medication/${user._id}`)
+      .get(`${baseUrl}/medication/${currentUserID}`)
       .then((response) => {
         markDates(response.data);
         setLoading(false);
@@ -41,22 +70,11 @@ const MedicationView = ({ navigation, route }) => {
         console.error("Axios Error : ", error);
         setLoading(false);
       });
+
   }
 
-    // const URL = `${baseUrl}/medication`;
-    // fetch(URL)
-    //   .then((res) => {
-    //     return res.json();
-    //   })
-    //   .then((data) => {
-    //     setmedidetail(data);
-    //     markDates(data);
-    //     setLoading(false);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Axios Error : ", error);
-    //     setLoading(false);
-    //   });
+  };
+
 
   //mark dates in calendar
   const markDates = (data) => {
@@ -79,12 +97,29 @@ const MedicationView = ({ navigation, route }) => {
   };
 
   const addMedication = () => {
-    navigation.navigate("AddMedication", { refreshMedicationView: true });
+    navigation.navigate("AddMedication", {
+      refreshMedicationView: true,
+      PID: docMode ? route.params.PID : null,
+    });
+  };
+
+
+  const updateMedication = (id) => {
+    const selectedItem = medidetail.find((item) => item._id === id);
+    navigation.navigate("AddMedication", {
+      refreshMedicationView: true,
+      selectedItem,
+      PID: docMode ? route.params.PID : null,
+    });
   };
 
   //navigate to medication view
   const viewMedication = (day) => {
-    navigation.navigate("ViewMedication", { selectedday: day });
+    console.log("Doc", docMode);
+    navigation.navigate("ViewMedication", {
+      selectedday: day,
+      PID: docMode ? route.params.PID : null,
+    });
   };
 
   return (
@@ -104,6 +139,7 @@ const MedicationView = ({ navigation, route }) => {
         }}
         markedDates={markedDates}
       />
+
       <TouchableOpacity
         style={styles.pastEntriesButton}
         onPress={() => {
@@ -112,6 +148,85 @@ const MedicationView = ({ navigation, route }) => {
       >
         <Text style={styles.pastEntriesText}>Past Entries</Text>
       </TouchableOpacity>
+
+//       {loading ? (
+//         <View style={styles.centered}>
+//           <ActivityIndicator size="large" color="#0000ff" />
+//           <Text>Loading...</Text>
+//         </View>
+//       ) : medidetail.length === 0 ? (
+//         <View style={styles.centered}>
+//           <Text>No medications</Text>
+//         </View>
+//       ) : (
+//         <FlatList
+//           data={medidetail}
+//           renderItem={({ item }) => (
+//             <View style={styles.listContainer}>
+//               <View style={styles.dateContainer}>
+//                 <Text style={styles.datetext}>{item.addedDate}</Text>
+//               </View>
+//               <Text style={styles.medicineNametext}>{item.medicine}</Text>
+//               <Text style={styles.daystext}>For {item.days} Day/s</Text>
+//               <View style={styles.detailContainer}>
+//                 <Text style={styles.pilltext}>{item.pills} pill/s</Text>
+//                 <Text style={styles.timestext}>
+//                   {item.times} time/s per day
+//                 </Text>
+//                 <Text style={styles.bawtext}>{item.baw} meal</Text>
+//               </View>
+//               {item.description !== null && item.description !== "" && (
+//                 <Text style={styles.descriptiontext}>{item.description}</Text>
+//               )}
+//               <View style={styles.listbottom}>
+//                 <View style={styles.byContainer}>
+//                   <Text style={styles.bytext}>By {item.addedBy}</Text>
+//                 </View>
+//                 <View style={styles.editdeleteContainer}>
+//                   <TouchableOpacity
+//                     disabled={
+//                       docMode
+//                         ? item.addedBy !== user.fName
+//                         : item.addedBy !== "patient"
+//                     }
+//                     onPress={() => {
+//                       updateMedication(item._id);
+//                     }}
+//                   >
+//                     <Text
+//                       style={[
+//                         styles.edittext,
+//                         (docMode
+//                           ? item.addedBy !== user.fName
+//                           : item.addedBy !== "patient") &&
+//                           styles.disabledButton,
+//                       ]}
+//                     >
+//                       Edit
+//                     </Text>
+//                   </TouchableOpacity>
+//                   <TouchableOpacity
+//                     onPress={() => {
+//                       if (
+//                         docMode
+//                           ? item.addedBy !== user.fName
+//                           : item.addedBy !== "patient"
+//                       ) {
+//                         confirmDelete(item._id);
+//                       } else {
+//                         deleteOneResult(item._id);
+//                       }
+//                     }}
+//                   >
+//                     <Text style={styles.deletetext}>Delete</Text>
+//                   </TouchableOpacity>
+//                 </View>
+//               </View>
+//             </View>
+//           )}
+//         />
+//       )}
+
       <TouchableOpacity
         style={styles.roundedPlusButton}
         onPress={() => {

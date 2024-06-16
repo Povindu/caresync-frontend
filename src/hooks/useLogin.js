@@ -27,7 +27,7 @@ export const useLogin = () => {
 
         // console.log("AT: " + (await AsyncStorage.getItem("access-token")));
         // console.log("RT: " + (await AsyncStorage.getItem("refresh-token")));
-       
+
         dispatch({ type: "LOGIN", payload: jwtDecode(data.accessToken) });
         return { status: "success", data };
       } else if (data.error === "User not verified") {

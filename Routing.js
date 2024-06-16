@@ -9,7 +9,7 @@ import DoctorRegister from "./src/screens/AuthenticationScreens/DoctorAuthentica
 import PatientRegister from "./src/screens/AuthenticationScreens/PatientAuthentication/PatientRegister";
 import PatientLogin from "./src/screens/AuthenticationScreens/PatientAuthentication/PatientLogin";
 import PatientDashboard from "./src/screens/DashboardScreens/PatientDashboard";
-import MedicalHistory from "./src/screens/MedicalHistory";
+// import MedicalHistory from "./src/screens/MedicalHistory";
 import TestSelection from "./src/screens/MedicalTestHomeScreen/TestSelectionScreen/TestSelectionHomeScreen";
 import StepCounterHome from "./src/screens/MedicalTestHomeScreen/TestSelectionScreen/StepCounterScreen/StepCounterHomeScreen";
 import BreathingHome from "./src/screens/MedicalTestHomeScreen/TestSelectionScreen/BreathingTestScreen/BreathingHomeScreen";
@@ -22,7 +22,7 @@ import PatientProfileScreen from "./src/screens/ViewPatientSummaryHome Screen/Pa
 import PatientHistoryScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/PatientsHistoryScreen";
 import DoctorDashboard from "./src/screens/DashboardScreens/DoctorDashboard";
 import SelectDocForAccessScreen from "./src/screens/GiveDocAccess/SelectDocForAccessScreen";
-import GiveDocAcessScreen from "./src/screens/GiveDocAccess/GiveDocAccessScreen";
+import GiveDocAccessScreen from "./src/screens/GiveDocAccess/GiveDocAccessScreen";
 import CustomHeader from "./src/screens/ViewPatientSummaryHome Screen/Components/CustomHeader";
 import MedicalIdFalseScreen from "./src/screens/AuthenticationScreens/DoctorAuthentication/MedicalIdFalseScreen";
 import Header from "./src/components/Header";
@@ -34,23 +34,18 @@ import ViewPastEntries from "./src/screens/MedicationToCalendar/pages/ViewPastEn
 import NewMedicalRecordScreen from "./src/screens/AddMedicalRecordScreen/NewMedicalRecordScreen";
 import MyprofileScreen from "./src/screens/PatientMyProfileScreen/MyprofileScreen";
 import DoctorProfileScreen from "./src/screens/DoctorMyProfileScreen/DoctorProfileScreen";
-
+import BodyCompositionScreen from "./src/screens/BodyComposition/BodyCompositionScreen";
 import TestResultScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/TestResultScreen";
-
 import AddExternalTestResults from "./src/screens/ExternalTestResults/AddExternalTestResults/AddExternalTestResults";
 import ViewExternalTestResults from "./src/screens/ExternalTestResults/ViewExternalTestResults/ViewExternalTestResult";
-
 import ForgotPassword from "./src/screens/AuthenticationScreens/FogotPassword";
 import ResetPasswordScreen from "./src/screens/AuthenticationScreens/ResetPassword";
 import OTPVerificationScreen from "./src/screens/AuthenticationScreens/OtpVerify";
-
 import DisplayMedicalRecords from "./src/screens/AddMedicalRecordScreen/DisplayMedicalRecords";
 import OtpVerifyScreen from "./src/screens/AuthenticationScreens/PatientAuthentication/OtpVerifyPatient";
 import ContactPatientScreen from "./src/screens/ViewPatientSummaryHome Screen/PatientSummaryScreen/ContactPatientScreen";
-
-import MedicationHome from "./src/screens/DocSideMedicationView/MedicationHome";
-import AddMedicationByDoctor from "./src/screens/DocSideMedicationView/AddMedication";
-import ViewMedicationByDoctor from "./src/screens/DocSideMedicationView/ViewMedication";
+import DocAccessHomeScreen from "./src/screens/GiveDocAccess/DocAccessHomeScreen";
+import ViewDoctorsWithAccess from "./src/screens/GiveDocAccess/ViewDoctorsWithAccess";
 
 import { useAuthContext } from "./src/hooks/useAuthContext";
 
@@ -61,19 +56,9 @@ export default function Routing() {
 
   return (
     <NavigationContainer>
-      {/* {user ? console.log("User: ", user) : console.log("User is not logged in")}
-      {user?.roles === "doctor" ? console.log("Doctor") : console.log("Patient")} */}
-
       <Stack.Navigator
-
-
-
-
-
         initialRouteName="WelcomeScreen"
         // initialRouteName="DoctorDashboard"
-
-
         // initialRouteName="PatientDashboard"
 
         screenOptions={{
@@ -105,7 +90,7 @@ export default function Routing() {
         {/* * Patient Screens * */}
 
         <Stack.Screen name="PatientDashboard" component={PatientDashboard} />
-        <Stack.Screen name="MedicalHistory" component={MedicalHistory} />
+        {/* <Stack.Screen name="MedicalHistory" component={MedicalHistory} /> */}
 
         <Stack.Screen name="TestSelection" component={TestSelection} />
         <Stack.Screen name="StepCounterHome" component={StepCounterHome} />
@@ -134,10 +119,22 @@ export default function Routing() {
           component={SelectDocForAccessScreen}
           options={{ headerShown: false }}
         />
+        
+        <Stack.Screen
+          name="ViewDoctorsWithAccess"
+          component={ViewDoctorsWithAccess}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="DocAccessHomeScreen"
+          component={DocAccessHomeScreen}
+          options={{ headerShown: false }}
+        />
 
         <Stack.Screen
           name="GiveDocAccessScreen"
-          component={GiveDocAcessScreen}
+          component={GiveDocAccessScreen}
           options={{ headerShown: false }}
         />
 
@@ -146,21 +143,23 @@ export default function Routing() {
         <Stack.Screen name="ViewMedication" component={ViewMedication} />
         <Stack.Screen name="ViewPastEntries" component={ViewPastEntries} />
 
-        <Stack.Screen name="MedicationHome" component={MedicationHome} />
-        <Stack.Screen name="AddMedicationByDoctor" component={AddMedicationByDoctor}/>
-        <Stack.Screen name="ViewMedicationByDoctor" component={ViewMedicationByDoctor}/>
-
         <Stack.Screen
           name="MyprofileScreen"
           component={MyprofileScreen}
           options={{ headerShown: false }}
         />
-          <Stack.Screen
+
+        <Stack.Screen
+          name="BodyCompositionScreen"
+          component={BodyCompositionScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
           name="DoctorProfileScreen"
           component={DoctorProfileScreen}
           options={{ headerShown: false }}
         />
-
 
         <Stack.Screen
           name="AddExternalTestResults"
@@ -176,6 +175,7 @@ export default function Routing() {
 
         {/* Doctor Screens */}
         <Stack.Screen name="DoctorDashboard" component={DoctorDashboard} />
+
         <Stack.Screen
           name="PatientsScreen"
           component={PatientsScreen}

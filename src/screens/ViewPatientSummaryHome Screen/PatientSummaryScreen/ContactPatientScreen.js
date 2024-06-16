@@ -3,21 +3,23 @@ import Header2 from "../Components/Header2";
 import ContactPatientData from "../Components/ContactPatientData";
 import React, { useState, useEffect } from "react";
 import { baseUrl } from "../../../constants/constants";
+import api from "../../../Services/AuthService";
 
-import axios from "axios";
-
-function ContactPatientScreen() {
+function ContactPatientScreen({ route }) {
+  const PID = route.params.PID;
   const [details, setDetails] = useState([]);
-  const [_id, setId] = useState("662e930c4c0bf9f41d0da56a");
+  const [_id, setId] = useState(PID);
 
   useEffect(() => {
+    setId(PID);
     getDetails();
   }, []);
 
   const getDetails = () => {
-    axios
-      .get(`${baseUrl}/patients`)
+    api
+      .get(`${baseUrl}/patients/${_id}`)
       .then((response) => {
+        console.log("Response from backend:", response.data);
         setDetails(response.data);
       })
       .catch((error) => {
@@ -30,45 +32,38 @@ function ContactPatientScreen() {
 
       <View style={styles.container}>
         <Text style={styles.contactinfo}>Contacts</Text>
-        {details.map((data, index) => {
-          if (data._id === _id) {
-            return (
-              <React.Fragment key={index}>
-                <ContactPatientData
-                  name="user-alt"
-                  textLineOne="Full Name"
-                  textLineTwo={`${data.firstName} ${data.lastName}`}
-                  category="fullName"
-                  backgroundColor="#FEFFE0"
-                />
-                <ContactPatientData
-                  name="envelope"
-                  textLineOne="Email Address"
-                  textLineTwo={data.email}
-                  category="email"
-                  backgroundColor="#FEFFE0"
-                  color="#00567D"
-                />
-                <ContactPatientData
-                  name="mobile"
-                  textLineOne="Mobile Number"
-                  textLineTwo={data.mobileNumber}
-                  category="mobile"
-                  backgroundColor="#FEFFE0"
-                  color="#00567D"
-                />
-                <ContactPatientData
-                  name="home"
-                  textLineOne="Address"
-                  textLineTwo={data.address}
-                  category="birthday"
-                  backgroundColor="#FEFFE0"
-                />
-              </React.Fragment>
-            );
-          }
-          return null;
-        })}
+        <React.Fragment>
+          <ContactPatientData
+            name="user-alt"
+            textLineOne="Full Name"
+            textLineTwo={`${details.firstName} ${details.lastName}`}
+            category="fullName"
+            backgroundColor="#FEFFE0"
+          />
+          <ContactPatientData
+            name="envelope"
+            textLineOne="Email Address"
+            textLineTwo={details.email}
+            category="email"
+            backgroundColor="#FEFFE0"
+            color="#00567D"
+          />
+          <ContactPatientData
+            name="mobile"
+            textLineOne="Mobile Number"
+            textLineTwo={details.mobileNumber}
+            category="mobile"
+            backgroundColor="#FEFFE0"
+            color="#00567D"
+          />
+          <ContactPatientData
+            name="home"
+            textLineOne="Address"
+            textLineTwo={details.address}
+            category="birthday"
+            backgroundColor="#FEFFE0"
+          />
+        </React.Fragment>
       </View>
     </View>
   );

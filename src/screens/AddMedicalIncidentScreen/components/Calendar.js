@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Modal, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import DatePicker from 'react-native-modern-datepicker';
-import { getFormatedDate } from 'react-native-modern-datepicker';
-
+import React, { useState } from "react";
+import { Text, View, TouchableOpacity, Modal, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import DatePicker from "react-native-modern-datepicker";
+import { getFormatedDate } from "react-native-modern-datepicker";
 
 function Calendar({ selectedStartDate, setSelectedStartDate, onDateChange }) {
-
   const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
   // const [selectedStartDate, setSelectedStartDate] = useState('');
-  const [startedDate, setStartedDate] = useState('');
+  const [startedDate, setStartedDate] = useState("");
 
   const today = new Date();
-  const startDate = getFormatedDate(today.setDate(), 'YYYY/MM/DD');
+  const startDate = getFormatedDate(today.setDate(), "YYYY/MM/DD");
 
   function handleChangeStartDate(propDate) {
     setStartedDate(propDate);
@@ -25,27 +23,37 @@ function Calendar({ selectedStartDate, setSelectedStartDate, onDateChange }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ width: '100%', height: '100%', backgroundColor: '#fff' }}>
-        <Text style={{ fontSize: 20, color: '#1e1e1e', marginLeft: 25, marginTop: -25 }}>Date</Text>
+      <View style={{ width: "100%", height: "100%", backgroundColor: "#fff" }}>
+        <Text
+          style={{
+            fontSize: 20,
+            color: "#1e1e1e",
+            marginLeft: 25,
+            marginTop: -25,
+          }}
+        >
+          Date
+        </Text>
 
         <TouchableOpacity
           style={styles.inputBtn}
           onPress={handleOnPressStartDate}
         >
-          <Text style={{ fontWeight: 'bold' }}>{selectedStartDate}</Text>
+          <Text style={{ fontWeight: "bold" }}>{selectedStartDate}</Text>
         </TouchableOpacity>
 
-        <Modal animationType="slide" transparent={true} visible={openStartDatePicker}>
-
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={openStartDatePicker}
+        >
           <View style={styles.modalView}>
-
             <DatePicker
               mode="calendar"
               minimumDate={startDate}
               selected={startedDate}
               onDateChanged={handleChangeStartDate}
               onSelectedChange={(date) => setSelectedStartDate(date)}
-
               options={{
                 backgroundColor: "white",
                 textHeaderColor: "#469ab6",
@@ -58,10 +66,18 @@ function Calendar({ selectedStartDate, setSelectedStartDate, onDateChange }) {
             />
 
             <TouchableOpacity onPress={handleOnPressStartDate}>
-              <Text style={{ color: '#00567D', backgroundColor: "#DEFFFB", fontWeight: 'bold', paddingVertical: 3, paddingHorizontal: 12 }}>OK</Text>
+              <Text
+                style={{
+                  color: "#00567D",
+                  backgroundColor: "#DEFFFB",
+                  fontWeight: "bold",
+                  paddingVertical: 3,
+                  paddingHorizontal: 12,
+                }}
+              >
+                OK
+              </Text>
             </TouchableOpacity>
-
-
           </View>
         </Modal>
       </View>
@@ -71,10 +87,10 @@ function Calendar({ selectedStartDate, setSelectedStartDate, onDateChange }) {
 
 const styles = StyleSheet.create({
   inputBtn: {
-    borderColor: '#8e8e8e',
+    borderColor: "#8e8e8e",
     borderWidth: 1,
     padding: 8,
-    width: '88%',
+    width: "88%",
     height: 38,
     marginTop: 10,
     marginLeft: 25,
@@ -85,15 +101,15 @@ const styles = StyleSheet.create({
   modalView: {
     marginTop: 200,
     margin: 20,
-    marginVertical: '%10',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginVertical: "%10",
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 20,
     padding: 35,
-    width: '90%',
-    position: 'absolute',
-    shadowColor: 'black',
+    width: "90%",
+    position: "absolute",
+    shadowColor: "black",
     shadowOffset: {
       width: 2,
       height: 2,

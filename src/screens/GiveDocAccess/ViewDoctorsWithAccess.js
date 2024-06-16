@@ -12,20 +12,22 @@ import { useEffect, useState } from "react";
 import api from "../../Services/AuthService";
 
 // Importing Components
-import DocCardComp from "./Components/DocCardComp";
+import ViewDocCardComp from "./Components/ViewDocCardComp";
 import Header from "../../components/Header";
-
+import { useAuthContext } from "../../hooks/useAuthContext";
 import { baseUrl } from "../../constants/constants";
 
 function SelectDocForAccess({ navigation }) {
+  const { user } = useAuthContext();
   const [DocList, setDocList] = useState([]);
 
   // Fetching Doctors from the backend
   const fetchDoctors = async () => {
     api
-      .get(`${baseUrl}/doctors`)
+      .get(`${baseUrl}/patients/accessDoctorList/${user?._id}`)
       .then((response) => {
-        setDocList(response.data);
+        console.log("response", response.data.accessDoctors);
+        setDocList(response.data.accessDoctors);
       })
       .catch((error) => {
         console.log("error " + error);
@@ -38,17 +40,17 @@ function SelectDocForAccess({ navigation }) {
 
   // Rendering the Doctor List Component
   const renderItem = ({ item }) => (
-    <DocCardComp
+    <ViewDocCardComp
       navigation={navigation}
       name={item.firstName + " " + item.lastName}
       DocID={item.medicalId}
-      id={item._id}
+      DocDocuID={item._id}
     />
   );
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header name={"Select Doctor"} />
+      <Header name={"Doctors With Access"} />
       <View style={{ flex: 1 }}>
         <View style={styles.container}>
           {DocList && (

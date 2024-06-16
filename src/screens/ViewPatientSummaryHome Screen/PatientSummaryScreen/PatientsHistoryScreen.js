@@ -1,7 +1,4 @@
 import { Text, StyleSheet, FlatList, View } from "react-native";
-import CustomHeader from "../Components/CustomHeader";
-import { LIST1 } from "../Data/dummy2";
-import PatientHistoryGrid from "../Components/PatientHistoryGrid";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { baseUrl } from "../../../constants/constants";

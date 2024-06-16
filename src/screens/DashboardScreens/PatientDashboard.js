@@ -20,8 +20,6 @@ const PatientDashboard = ({ navigation }) => {
     //TODO add a waiting modal if user is not found
   }, []);
 
-
-
   return (
     <ScrollView style={styles.outer}>
       <View style={styles.container}>
@@ -127,7 +125,7 @@ const PatientDashboard = ({ navigation }) => {
             <TouchableOpacity
               style={styles.dashboardButton}
               onPress={() => {
-                navigation.navigate("SelectDocForAccessScreen");
+                navigation.navigate("DocAccessHomeScreen");
               }}
             >
               <Image
@@ -154,6 +152,21 @@ const PatientDashboard = ({ navigation }) => {
               <Text style={styles.dashboardButtonText}>View Test Results</Text>
             </TouchableOpacity>
 
+            <TouchableOpacity
+              style={styles.dashboardButton}
+              onPress={() => {
+                navigation.navigate("BodyCompositionScreen");
+              }}
+            >
+              <Image
+                source={require("../../../assets/icons/result-icon.jpg")}
+                style={styles.dashboardImage}
+              />
+              <Text style={styles.dashboardButtonText}>Your Health</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.row}>
             <TouchableOpacity
               style={styles.dashboardButton}
               onPress={() => {

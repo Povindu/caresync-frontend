@@ -8,13 +8,13 @@ import {
   Text,
   Image,
 } from "react-native";
-import axios from "axios";
+import api from "../../../Services/AuthService";
 import { useState, useEffect } from "react";
-
 import { baseUrl } from "../../../constants/constants";
 
 function PatientProfileScreen({ route, navigation }) {
   const [patients, setPatients] = useState([]);
+  const PID = route.params.PID;
 
   useEffect(() => {
     fetchPatients();
@@ -22,16 +22,15 @@ function PatientProfileScreen({ route, navigation }) {
 
   const fetchPatients = async () => {
     try {
-      const response = await axios.get(`${baseUrl}/patients`);
+      const response = await api.get(`${baseUrl}/patients`);
       setPatients(response.data);
     } catch (error) {
       console.error("Error fetching patients:", error);
     }
   }; //fetching the patients details from the backend
 
-  const pId = route.params.ptid;
   const dispalyedpatient = patients.filter((patient) => {
-    return patient._id.indexOf(pId) >= 0;
+    return patient._id.indexOf(PID) >= 0;
   });
 
   function renderCategoryItem({ item }) {
@@ -51,7 +50,6 @@ function PatientProfileScreen({ route, navigation }) {
               weight={item.weight}
               height={item.height}
               gender={item.gender}
-              
             />
           </View>
         </View>
@@ -67,7 +65,9 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-              onPress={() => navigation.navigate("PatientHistoryScreen")}
+              // onPress={() =>
+              //   // navigation.navigate("PatientHistoryScreen", { PID: PID })
+              // }
             >
               <Image
                 style={styles.img}
@@ -87,7 +87,9 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-              onPress={() => navigation.navigate("MedicationHome")}
+              onPress={() =>
+                navigation.navigate("MedicationView", { PID: PID })
+              }
             >
               <Image
                 style={styles.img}
@@ -108,7 +110,9 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-              onPress={() => navigation.navigate("ContactPatientScreen")}
+              onPress={() =>
+                navigation.navigate("ContactPatientScreen", { PID: PID })
+              }
             >
               <Image
                 style={styles.img}
@@ -127,7 +131,9 @@ function PatientProfileScreen({ route, navigation }) {
                 marginLeft: 20,
                 marginTop: 20,
               }}
-              onPress={() => navigation.navigate("TestResultScreen")}
+              onPress={() =>
+                navigation.navigate("TestResultScreen", { PID: PID })
+              }
             >
               <Image
                 style={styles.img}

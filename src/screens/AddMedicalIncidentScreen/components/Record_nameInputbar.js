@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, SafeAreaView, TextInput } from "react-native";
 
-const Record_nameInputbar = ({text1, placeholder }) => {
+const Record_nameInputbar = ({ text1, placeholder }) => {
   // State to store the user input
-  
 
   // Function to handle text input change
   const handleInputChange = (text) => {
@@ -26,24 +25,24 @@ const Record_nameInputbar = ({text1, placeholder }) => {
 export default Record_nameInputbar;
 
 const styles = StyleSheet.create({
-  inputcontainer:{
-    paddingTop:'6%',
-    justifyContent: 'center',
+  inputcontainer: {
+    paddingTop: "6%",
+    justifyContent: "center",
   },
   text1: {
     marginLeft: 28,
-    fontWeight:'500',
+    fontWeight: "500",
     fontSize: 16,
-    color: '#1e1e1e',
+    color: "#1e1e1e",
   },
   input: {
-    borderColor: '#8e8e8e',
+    borderColor: "#8e8e8e",
     borderWidth: 1,
     padding: 10,
-    width: '88%',
+    width: "88%",
     height: 38,
     margin: 20,
-    marginLeft:25,
+    marginLeft: 25,
     borderRadius: 10,
     fontSize: 16,
   },

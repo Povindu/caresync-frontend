@@ -10,13 +10,12 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { baseUrl } from "../../constants/constants";
-import axios from "axios";
+
 import Header from "../../components/Header";
 import DetailRow from "./components/DetailRow";
 import api from "../../Services/AuthService";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import ImagePicker from "./components/ImagePicker";
-
 
 const MyprofileScreen = ({ navigation }) => {
   const { user } = useAuthContext();
@@ -28,9 +27,6 @@ const MyprofileScreen = ({ navigation }) => {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [passwordChangeStatus, setPasswordChangeStatus] = useState(null);
   const [loading, setLoading] = useState(false);
-  
-
-
 
   useEffect(() => {
     console.log("User in MyProfileScreen:", user);
@@ -39,7 +35,7 @@ const MyprofileScreen = ({ navigation }) => {
   }, []);
 
   const getDetails = () => {
-    axios
+    api
       .get(`${baseUrl}/patients/${user._id}`)
       .then((response) => {
         setDetails(response.data);
@@ -115,94 +111,91 @@ const MyprofileScreen = ({ navigation }) => {
     getDetails(); // Fetch updated user data
   };
 
-
-
-
   return (
     <View style={styles.maincontainer}>
       <Header name="My Profile" />
       <ScrollView>
         <View style={styles.container}>
-          <ImagePicker picture={details.profileImage}/>
+          <ImagePicker picture={details.profileImage} />
           <Text style={styles.yourinfo}>Your Info</Text>
-                <React.Fragment>
-                  <DetailRow
-                    name="user-alt"
-                    textLineOne="Full Name"
-                    textLineTwo={`${details.firstName} ${details.lastName}`}
-                    category="fullName"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRow
-                    name="envelope"
-                    textLineOne="Email Address"
-                    textLineTwo={details.email}
-                    category="email"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRow
-                    name="id-card"
-                    textLineOne="NIC Number"
-                    textLineTwo={details.nic}
-                    category="nic"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRow
-                    name="home"
-                    textLineOne="Address"
-                    textLineTwo={details.address}
-                    category="address"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRow
-                    name="mobile"
-                    textLineOne="Mobile Number"
-                    textLineTwo={details.mobileNumber}
-                    category="mobile"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRow
-                    name="birthday-cake"
-                    textLineOne="Birthday"
-                    textLineTwo={details.birthday}
-                    category="birthday"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRow
-                    name="venus-mars"
-                    textLineOne="Gender"
-                    textLineTwo={details.gender}
-                    category="gender"
-                    refreshUserData={refreshUserData}
-                  />
-                </React.Fragment>
+          <React.Fragment>
+            <DetailRow
+              name="user-alt"
+              textLineOne="Full Name"
+              textLineTwo={`${details.firstName} ${details.lastName}`}
+              category="fullName"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRow
+              name="envelope"
+              textLineOne="Email Address"
+              textLineTwo={details.email}
+              category="email"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRow
+              name="id-card"
+              textLineOne="NIC Number"
+              textLineTwo={details.nic}
+              category="nic"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRow
+              name="home"
+              textLineOne="Address"
+              textLineTwo={details.address}
+              category="address"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRow
+              name="mobile"
+              textLineOne="Mobile Number"
+              textLineTwo={details.mobileNumber}
+              category="mobile"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRow
+              name="birthday-cake"
+              textLineOne="Birthday"
+              textLineTwo={details.birthday}
+              category="birthday"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRow
+              name="venus-mars"
+              textLineOne="Gender"
+              textLineTwo={details.gender}
+              category="gender"
+              refreshUserData={refreshUserData}
+            />
+          </React.Fragment>
         </View>
 
         <View style={styles.container}>
           <Text style={styles.yourinfo}>Health Info</Text>
-                <React.Fragment>
-                  <DetailRow
-                    name="weight-hanging"
-                    textLineOne="Weight"
-                    textLineTwo={`${details.weight} kg`}
-                    category="weight"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRow
-                    name="arrows-alt-v"
-                    textLineOne="Height"
-                    textLineTwo={`${details.height} cm`}
-                    category="height"
-                    refreshUserData={refreshUserData}
-                  />
-                  <DetailRow
-                    name="tint"
-                    textLineOne="Blood Group"
-                    textLineTwo={details.blood}
-                    category="blood"
-                    refreshUserData={refreshUserData}
-                  />
-                </React.Fragment>
+          <React.Fragment>
+            <DetailRow
+              name="weight-hanging"
+              textLineOne="Weight"
+              textLineTwo={`${details.weight} kg`}
+              category="weight"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRow
+              name="arrows-alt-v"
+              textLineOne="Height"
+              textLineTwo={`${details.height} cm`}
+              category="height"
+              refreshUserData={refreshUserData}
+            />
+            <DetailRow
+              name="tint"
+              textLineOne="Blood Group"
+              textLineTwo={details.blood}
+              category="blood"
+              refreshUserData={refreshUserData}
+            />
+          </React.Fragment>
         </View>
 
         {/* Change Password Section */}

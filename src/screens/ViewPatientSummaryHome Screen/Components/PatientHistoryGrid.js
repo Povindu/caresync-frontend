@@ -12,13 +12,11 @@ import React, { useState, useRef } from "react";
 import SentenceBreaker from "../Components/SentenceBreaker";
 import ViewButton from "../Components/ViewButton";
 function PatientHistoryGrid({
-
   recordName,
   date,
   recordDescription,
   incidentType,
   testType,
-  
 }) {
   const [expanded, setExpanded] = useState(false);
   const heightAnim = useRef(new Animated.Value(100)).current;
@@ -60,12 +58,10 @@ function PatientHistoryGrid({
           <View style={styles.subtile1}>
             <View style={styles.subcom1}>
               <View style={styles.innertile1}>
-             
-              <Text style={styles.innertext1}>{incidentType}</Text>
+                <Text style={styles.innertext1}>{incidentType}</Text>
               </View>
               <Text style={styles.innertext1}>Test Type</Text>
-              <Text style={styles.subtext1}>
-              {testType}</Text>
+              <Text style={styles.subtext1}>{testType}</Text>
             </View>
             <Text style={styles.date1}>{date}</Text>
           </View>
@@ -89,9 +85,9 @@ function PatientHistoryGrid({
             <View style={styles.subcom1}>
               <Text style={styles.date1}>{date}</Text>
               {/* <Text style={styles.presId}>Id : {presId}</Text> */}
-              {/* <ViewButton text="View" />
+          {/* <ViewButton text="View" />
             </View>
-          </View> */} 
+          </View> */}
         </View>
       )}
     </Animated.View>

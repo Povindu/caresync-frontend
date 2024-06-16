@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import Search from "./Search";
-function CustomHeader({ title }) {
+function CustomHeader({ patients, onSearch }) {
   return (
     <View
       style={{
@@ -24,7 +24,7 @@ function CustomHeader({ title }) {
       >
         My Patients
       </Text>
-      <Search />
+      <Search patients={patients} onSearch={onSearch} />
     </View>
   );
 }

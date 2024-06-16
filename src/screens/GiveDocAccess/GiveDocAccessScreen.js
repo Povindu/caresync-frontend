@@ -7,7 +7,7 @@ import {
   Alert,
 } from "react-native";
 import Header from "../../components/Header";
-import axios from "axios";
+import api from "../../Services/AuthService";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { baseUrl } from "../../constants/constants";
@@ -17,28 +17,24 @@ function GiveDocAccess({ navigation, route }) {
   const [doc, setDoc] = useState("");
   const patientID = user?._id;
 
-  useEffect(() => {
-    const fetchDoctor = async () => {
-      try {
-        const configurationObject = {
-          method: "get",
-          url: `${baseUrl}/doctors/` + route.params.id,
-        };
-        // console.log(configurationObject.url);
-        const response = await axios(configurationObject);
-        // console.log(response.data);
+  const fetchDoctor = async () => {
+    api
+      .get(`${baseUrl}/doctors/` + route.params.id)
+      .then((response) => {
         setDoc(response.data);
-      } catch (error) {
+      })
+      .catch((error) => {
         console.log("error " + error);
-      }
-    };
+      });
+  };
 
+  useEffect(() => {
     fetchDoctor();
   }, []);
 
   const giveAccess = () => {
     console.log("Access Granted" + doc._id);
-    axios
+    api
       .patch(`${baseUrl}/doctors/addPatientAccess/${doc._id}`, {
         patientID: patientID,
       })
@@ -51,7 +47,7 @@ function GiveDocAccess({ navigation, route }) {
         return error.response;
       });
 
-    axios
+    api
       .patch(`${baseUrl}/patients/addDocAccess/${patientID}`, {
         docID: `${doc._id}`,
       })

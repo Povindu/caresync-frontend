@@ -1,5 +1,4 @@
-const base =
-  Platform.OS === "android" ? "http://192.168.1.6" : "http://localhost";
+const base = Platform.OS === "android" ? "http://10.0.2.2" : "http://localhost";
 
 const port = 5000;
 

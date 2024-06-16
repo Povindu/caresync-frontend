@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import { baseUrl } from "../../../constants/constants";
-import axios from "axios";
+// import axios from "axios";
 import api from "../../../Services/AuthService";
 
 import { useAuthContext } from "../../../hooks/useAuthContext";

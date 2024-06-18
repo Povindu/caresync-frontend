@@ -15,7 +15,7 @@ import api from "../../Services/AuthService";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { ScrollView } from "react-native-gesture-handler";
 
-function DisplayMedicalRecords({ navigation, recordName, recordDescription }) {
+function DisplayMedicalRecords({ navigation }) {
   const { user } = useAuthContext();
   user && console.log("User ID:", user._id);
   const [medicalRecords, setMedicalRecords] = useState([]);
@@ -23,7 +23,8 @@ function DisplayMedicalRecords({ navigation, recordName, recordDescription }) {
 
   const fetchMedicalHistory = async () => {
     try {
-      const response = await api.get(`${baseUrl}/medicalRecord/getRecordsPatient`,
+      const response = await api.get(
+        `${baseUrl}/medicalRecord/getRecordsPatient`,
         {
           params: {
             patientID: user._id,
@@ -47,6 +48,7 @@ function DisplayMedicalRecords({ navigation, recordName, recordDescription }) {
   }, [navigation]);
 
   function renderCategoryItem({ item }) {
+    // console.log("Item:", item);
     return (
       <View>
         <MedicalRecordGrid
@@ -54,7 +56,7 @@ function DisplayMedicalRecords({ navigation, recordName, recordDescription }) {
           recordDescription={item.description}
           recordID={item._id}
           date={item.recordDate}
-          incidents={item.incidents.testIncidents}
+          incidents={item.incidents}
         />
       </View>
     );

@@ -68,10 +68,6 @@ const IncidentTypeDropdown = ({ recordName, description, recordID }) => {
     setModalVisible(false);
   };
 
-  const handleNextPress = () => {
-    setModalVisible(true);
-  };
-
   const renderModalContent = () => {
     // Render modal content based on selected option
     switch (selectedOption) {
@@ -127,8 +123,16 @@ const IncidentTypeDropdown = ({ recordName, description, recordID }) => {
   // console.log(selectedStartDate);
 
   const handleCombinedPress = () => {
-    handleNextPress(); // Open the modal
-    // Save the incident
+    console.log("Selected Incident Type:", selectedOption);
+    if (selectedOption === "" || selectedOption === null) {
+      alert("Please select an incident type");
+      return;
+    }
+    if (selectedStartDate === "") {
+      alert("Please select an incident date");
+      return;
+    }
+    setModalVisible(true);
   };
 
   const handleDateChange = (date) => {

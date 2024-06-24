@@ -1,18 +1,29 @@
-import React, { useState } from "react";
-import { View, Text, Button, StyleSheet, TextInput, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Button, StyleSheet, TextInput, Alert, Pressable,Modal } from "react-native";
 import { baseUrl } from "../../../../constants/constants";
 import { useNavigation } from "@react-navigation/native";
 import api from "../../../../Services/AuthService";
 import Calendar from "../Calendar";
+import SelectDocModal from "./SelectDoctorModal";
 
 const AppointmentModal = ({ recordID, onClose }) => {
   const [docID, setDocID] = useState("");
+  const [selectedDoc, setSelectedDoc] = useState({});
   const [healthProName, setHealthProName] = useState("");
   const [appType, setAppType] = useState("");
   const [appointmentPurpose, setAppointmentPurpose] = useState("");
   const [selectedStartDate, setSelectedStartDate] = useState("");
-
+  const [docModalVisible, setDocModalVisible] = useState(false);
   const navigation = useNavigation(); // Get navigation object
+
+
+  const handleCloseModal = () => {
+    setDocModalVisible(false);
+  };
+
+  useEffect(() => {
+    console.log("Selected Doctor:", selectedDoc);
+  }, [selectedDoc]);
 
   const saveAppointmentIncident = () => {
     api
@@ -52,22 +63,23 @@ const AppointmentModal = ({ recordID, onClose }) => {
           />
         </View>
 
+        
+        
+
         <View style={styles.inputcontainer}>
-          <Text style={styles.label}>Doctor ID:</Text>
+          <Text style={styles.label}>Doctor Name:</Text>
           <TextInput
             style={styles.input}
-            placeholder="Type the Doctor's ID"
+            placeholder="Type the Doctor's Name"
             onChangeText={(text) => setDocID(text)}
           />
         </View>
 
         <View style={styles.inputcontainer}>
-          <Text style={styles.label}>Doctor's Name:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Type Doctor's name"
-            onChangeText={(text) => setHealthProName(text)}
-          />
+          <Text style={styles.label}>Select:</Text>
+          <Pressable onPress={() => setDocModalVisible(true)}>
+            <Text>Select a Doctor</Text>
+          </Pressable>
         </View>
 
         <View style={styles.inputcontainer}>
@@ -86,6 +98,10 @@ const AppointmentModal = ({ recordID, onClose }) => {
           />
         </View>
       </View>
+
+      <Modal visible={docModalVisible} animationType="slide" transparent={true}>
+          <SelectDocModal onClose={handleCloseModal} setSelectedDocOut={setSelectedDoc} />
+        </Modal>
 
       <View style={styles.buttonContainer}>
         <View style={styles.buttonWrapper}>
